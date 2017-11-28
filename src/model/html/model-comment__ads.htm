@@ -1,0 +1,44 @@
+<HEAD><TITLE>model-comment.ads</TITLE></HEAD>
+<BODY>
+<HR><DIV ALIGN="center"><H1> File : model-comment.ads </H1></DIV><HR>
+<PRE>
+<b>with</b> Ada.Containers.Vectors;
+
+<b>with</b> Model.Element;
+
+<b>package</b> Model.Comment <b>is</b>
+
+  <b>type</b> Object_T <b>is</b> <b>new</b> Model.Element.Object_T <b>with</b> <b>private</b>;
+
+  <b>type</b> Reference_T <b>is</b> <b>access</b> <b>all</b> Object_T;
+
+  <b>type</b> Class_T <b>is</b> <b>access</b> <b>all</b> Object_T'Class;
+
+  <b>package</b> Vectors <b>is</b> <b>new</b> Ada.Containers.Vectors
+    (Element_Type =&gt; Class_T,
+     Index_Type   =&gt; Positive);
+
+  <b>subtype</b> Vector_T <b>is</b> Vectors.Vector;
+
+  <b>function</b> Create
+    (Text : <b>in</b> String)
+    <b>return</b> Class_T;
+
+  <b>function</b> Get_Body
+    (Self : <b>in</b> Object_T)
+    <b>return</b> String;
+
+<b>private</b>
+
+  <b>type</b> Object_T <b>is</b> <b>new</b> Element.Object_T
+    <b>with</b> <b>record</b>
+      Comment_Body : <b>access</b> String := <b>null</b>;
+    <b>end</b> <b>record</b>;
+
+  <b>function</b> Get_Body
+    (Self : <b>in</b> Object_T)
+    <b>return</b> String
+    <b>is</b> (Self.Comment_Body.<b>all</b>);
+
+<b>end</b> Model.Comment;
+</PRE></BODY></HTML>

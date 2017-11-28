@@ -1,0 +1,15 @@
+BUILD = /usr/gnat/bin/gprbuild
+CLEAN = /usr/gnat/bin/gprclean
+
+# export GPR_PROJECT_PATH_FILE=/home/jeremy/workspace/ada/test_hello_world/project_list.txt
+
+# path
+default-harness-dir = obj/gnattest/harness
+tests-dir = tests
+harness-dir = $(tests-dir)/harness
+
+# cmd
+TEST = gnattest --tests-dir=../$(tests-dir) --harness-dir=../$(harness-dir)
+
+build-tests = gprbuild -P $(harness-dir)/test_driver.gpr
+run-tests = $(harness-dir)/test_runner

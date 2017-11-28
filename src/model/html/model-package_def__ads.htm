@@ -1,0 +1,85 @@
+<HEAD><TITLE>model-package_def.ads</TITLE></HEAD>
+<BODY>
+<HR><DIV ALIGN="center"><H1> File : model-package_def.ads </H1></DIV><HR>
+<PRE>
+<b>with</b> Ada.Containers.Vectors;
+
+<b>with</b> Model.Named_Element;
+<b>with</b> Model.Comment;
+<b>with</b> Model.Subprogram;
+
+<b>package</b> Model.Package_Def <b>is</b>
+
+  <b>type</b> Object_T <b>is</b> <b>new</b> Named_Element.Object_T <b>with</b> <b>private</b>;
+
+  <b>type</b> Reference_T <b>is</b> <b>access</b> <b>all</b> Object_T;
+
+  <b>type</b> Class_T <b>is</b> <b>access</b> <b>all</b> Object_T'Class;
+
+  <b>package</b> Vectors <b>is</b> <b>new</b> Ada.Containers.Vectors
+    (Element_Type =&gt; Class_T,
+     Index_Type   =&gt; Positive);
+
+  <b>subtype</b> Vector_T <b>is</b> Vectors.Vector;
+
+  <b>function</b> Create
+    (Name           : <b>in</b>     String;
+     Parent         : <b>access</b> Object_T'Class   := <b>null</b>;
+     Owned_Comments : <b>in</b>     Comment.Vector_T :=
+       Comment.Vectors.Empty_Vector)
+    <b>return</b> <b>not</b> <b>null</b> <b>access</b> Object_T'Class;
+
+  <b>not</b> overriding
+  <b>procedure</b> Set_Qualified_Name
+    (Self  : <b>in</b> <b>out</b> Object_T;
+     Value : <b>in</b> String);
+
+  <b>not</b> overriding
+  <b>function</b> Get_Qualified_Name
+    (Self : <b>in</b> Object_T)
+    <b>return</b> String;
+
+  <b>not</b> overriding
+  <b>procedure</b> Add_Public_Subprogram
+    (Self   : <b>in</b> <b>out</b>          Object_T;
+     Object : <b>not</b> <b>null</b> <b>access</b> Subprogram.Object_T'Class);
+
+<b>private</b>
+
+  <b>type</b> Object_T <b>is</b>
+    <b>new</b> Named_Element.Object_T
+    <b>with</b> <b>record</b>
+      Qualified_Name : <b>access</b> String := <b>null</b>;
+
+      Parent : <b>access</b> Package_Def.Object_T'Class := <b>null</b>;
+
+      Children : Package_Def.Vector_T :=
+        Package_Def.Vectors.Empty_Vector;
+
+      Public_Elements : Named_Element.Vector_T :=
+        Named_Element.Vectors.Empty_Vector;
+
+      Private_Elements : Named_Element.Vector_T :=
+        Named_Element.Vectors.Empty_Vector;
+
+      Body_Local_Decl : Named_Element.Vector_T :=
+        Named_Element.Vectors.Empty_Vector;
+
+      Body_Public_Def : Named_Element.Vector_T :=
+        Named_Element.Vectors.Empty_Vector;
+
+      Body_Private_Def : Named_Element.Vector_T :=
+        Named_Element.Vectors.Empty_Vector;
+
+      Body_Local_Def : Named_Element.Vector_T :=
+        Named_Element.Vectors.Empty_Vector;
+    <b>end</b> <b>record</b>;
+
+  <b>function</b> Get_Qualified_Name
+    (Self : <b>in</b> Object_T)
+    <b>return</b> String
+    <b>is</b>
+    (Self.Qualified_Name.<b>all</b>);
+
+<b>end</b> Model.Package_Def;
+</PRE></BODY></HTML>

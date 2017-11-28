@@ -1,0 +1,41 @@
+with OpenToken.Production.List;
+
+package Lexical is
+
+  type Token_T is (
+                   -- punctuation
+                   Comma_ID, Semi_Colon_ID, Colon_ID, Whitespace_ID, Colon_Equal_ID,
+                   -- keywords
+                   Get_ID, Set_ID, Set_I_ID,
+                   -- terminals
+                   Name_ID, Type_ID, Value_ID,
+                   -- non terminals
+                   Fields_ID, Params_ID
+                  );
+
+  Class_Grammar : constant Production_List.Instance :=
+    Class_Start <= Class_Def and
+      Class_Def <= Name & Colon & Parents and
+      Class_Def <= Name and
+      Parents   <= Name & Comma & Parents and
+      Parents   <= Name;
+
+  --
+  --  f_prime -> f
+  --  f       -> data, opts
+  --  f       -> data
+  --  data    -> name : type := value
+  --  data    -> name : type
+  --  opts    ->
+
+  Field_Grammar : constant Production_List.Instance :=
+    Field_Start <= Field_Def & Options + Build_Field'Access    and
+      Field_Def <= Name & Colon & A_Type & Comma_Equal & Value and
+      Field_Def <= Name & Colon & A_Type                       and
+      Options   <= Option & Comma & Options                    and
+      Option    <= Get_ID                                      and
+      Option    <= Set_ID                                      and
+      Option    <= Set_I_ID                                    and
+      Option    <= Name;
+
+end Lexical;

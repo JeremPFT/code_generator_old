@@ -1,0 +1,59 @@
+<HEAD><TITLE>model-class_def.adb</TITLE></HEAD>
+<BODY>
+<HR><DIV ALIGN="center"><H1> File : model-class_def.adb </H1></DIV><HR>
+<PRE>
+<b>with</b> Ada.Strings.Unbounded;
+
+<b>package</b> <b>body</b> Model.Class_Def <b>is</b>
+
+  <b>function</b> Create
+    (Owner_Package : <b>access</b> Package_Def.Object_T;
+     Name          : <b>in</b>     String)
+    <b>return</b> <b>not</b> <b>null</b> <b>access</b> Object_T'Class
+  <b>is</b>
+    Obj_Class : <b>constant</b> <b>access</b> Object_T :=
+      <b>new</b> Object_T'(Interface_Def.Object_T
+                    <b>with</b>
+                    Owner_Package =&gt; Owner_Package,
+                    <b>others</b>        =&gt; &lt;&gt;);
+  <b>begin</b>
+    Obj_Class.Set_Name (Name);
+
+    <b>return</b> Obj_Class;
+  <b>end</b> Create;
+
+  <b>procedure</b> Add_Protected_Subprogram
+    (Self   : <b>in</b> <b>out</b> Object_T;
+     Object : <b>access</b> Subprogram.Object_T)
+  <b>is</b>
+  <b>begin</b>
+    Self.Protected_Subprograms.Append (Object);
+  <b>end</b> Add_Protected_Subprogram;
+
+  <b>procedure</b> Add_Private_Subprogram
+    (Self   : <b>in</b> <b>out</b> Object_T;
+     Object : <b>access</b> Subprogram.Object_T)
+  <b>is</b>
+  <b>begin</b>
+    Self.Private_Subprograms.Append (Object);
+  <b>end</b> Add_Private_Subprogram;
+
+  overriding
+  <b>function</b> To_String
+    (Self : <b>in</b> Object_T)
+    <b>return</b> String
+  <b>is</b>
+    <b>package</b> U_Str <b>renames</b> Ada.Strings.Unbounded;
+    <b>use</b> <b>type</b> U_Str.Unbounded_String;
+
+    U_Result : U_Str.Unbounded_String := U_Str.Null_Unbounded_String;
+  <b>begin</b>
+    U_Result := U_Result &amp; U_Str.To_Unbounded_String
+      ("Class_Def.Object_T, " &amp;
+         "name: """ &amp; Self.Get_Name &amp; """");
+
+    <b>return</b> U_Str.To_String (U_Result);
+  <b>end</b> To_String;
+
+<b>end</b> Model.Class_Def;
+</PRE></BODY></HTML>

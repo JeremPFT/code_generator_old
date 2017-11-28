@@ -1,0 +1,61 @@
+<HEAD><TITLE>model-class_def-tests.adb</TITLE></HEAD>
+<BODY>
+<HR><DIV ALIGN="center"><H1> File : model-class_def-tests.adb </H1></DIV><HR>
+<PRE>
+<b>with</b> Ada.Text_IO;
+
+<b>with</b> Test_Utils;
+
+<b>with</b> Reflection;
+
+<b>package</b> <b>body</b> Model.Class_Def.Tests <b>is</b>
+
+  <b>package</b> Unit <b>is</b> <b>new</b> Reflection;
+
+  <b>package</b> T_IO <b>renames</b> Ada.Text_IO;
+
+  <b>procedure</b> Empty <b>is</b>
+  <b>begin</b>
+    <b>null</b>;
+  <b>end</b> Empty;
+
+  Obj_Package_1 : <b>access</b> Package_Def.Object_T := <b>null</b>;
+  Obj_Class_1   : <b>access</b> Object_T             := <b>null</b>;
+
+  <b>procedure</b> Set_Up;
+
+  <b>procedure</b> Run;
+
+  <b>procedure</b> Set_Up
+  <b>is</b>
+  <b>begin</b>
+    Obj_Package_1 := Package_Def.Create ("package_a");
+
+    Obj_Class_1 := Create (Owner_Package =&gt; Obj_Package_1,
+                           Name          =&gt; "class_a");
+  <b>end</b> Set_Up;
+
+  <b>procedure</b> Run
+  <b>is</b>
+    Number : Integer <b>renames</b> Obj_Class_1.Number_Of_Comments;
+  <b>begin</b>
+    Test_Utils.Section (Unit_Name =&gt; Unit.Name);
+
+    T_IO.Put_Line ("class : " &amp; Obj_Class_1.Get_Name);
+    T_IO.Put_Line ("nbr comments : " &amp; Number'Img);
+
+    <b>for</b> I <b>in</b> 1 .. Number <b>loop</b>
+      T_IO.Put_Line ("commentaire : " &amp; I'Img &amp; " : " &amp;
+                       Obj_Class_1.Get_Comment (I));
+    <b>end</b> <b>loop</b>;
+
+  <b>end</b> Run;
+
+<b>begin</b>
+
+  Set_Up;
+
+  Run;
+
+<b>end</b> Model.Class_Def.Tests;
+</PRE></BODY></HTML>

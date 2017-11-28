@@ -1,0 +1,37 @@
+<HEAD><TITLE>model-type_def.ads</TITLE></HEAD>
+<BODY>
+<HR><DIV ALIGN="center"><H1> File : model-type_def.ads </H1></DIV><HR>
+<PRE>
+<b>with</b> Ada.Containers.Vectors;
+
+<b>limited</b> <b>with</b> Model.Package_Def;
+<b>with</b> Model.Named_Element;
+<b>with</b> Model.Comment;
+
+<b>package</b> Model.Type_Def <b>is</b>
+
+  <b>type</b> Object_T
+    (Owner_Package : <b>access</b> Package_Def.Object_T'Class)
+    <b>is</b>
+    <b>abstract</b> <b>new</b> Named_Element.Object_T <b>with</b> <b>private</b>;
+
+  <b>type</b> Reference_T <b>is</b> <b>access</b> <b>all</b> Object_T;
+
+  <b>type</b> Class_T <b>is</b> <b>access</b> <b>all</b> Object_T'Class;
+
+  <b>package</b> Vectors <b>is</b> <b>new</b> Ada.Containers.Vectors
+    (Element_Type =&gt; Class_T,
+     Index_Type   =&gt; Positive);
+
+  <b>subtype</b> Vector_T <b>is</b> Vectors.Vector;
+
+<b>private</b>
+
+  <b>type</b> Object_T
+    (Owner_Package : <b>access</b> Package_Def.Object_T'Class)
+    <b>is</b>
+    <b>abstract</b> <b>new</b> Named_Element.Object_T
+    <b>with</b> <b>null</b> <b>record</b>;
+
+<b>end</b> Model.Type_Def;
+</PRE></BODY></HTML>

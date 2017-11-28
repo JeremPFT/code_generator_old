@@ -1,0 +1,32 @@
+with "share";
+with "test_utils";
+with "string_utils";
+with "model";
+with "template";
+with "file_io";
+with "ada_utils";
+with "project_loader";
+
+project Exec is
+
+  Src_Dirs := ();
+  Src_Dirs := Src_Dirs & "..";
+  for Source_Dirs use Src_Dirs;
+
+  Excl_Src_Lst := ();
+  for Excluded_Source_Files use Excl_Src_Lst;
+
+  for Object_Dir use Share.Obj_Directory;
+  for Exec_Dir use Share.Exe_Directory;
+
+  for Main use ("exec.adb");
+
+  package Compiler renames Share.Compiler;
+
+  package Binder renames Share.Binder;
+
+  package Builder is
+    for Executable ("exec.adb") use external ("exec_name");
+  end Builder;
+
+end Exec;

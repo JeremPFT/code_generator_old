@@ -1,0 +1,59 @@
+abstract project Share is
+
+  Project_Dir :=  external ("project_root") & "/" &
+    external ("project_name");
+
+  Obj_Directory := Project_Dir & "/obj";
+
+  Lib_Directory := Project_Dir & "/lib";
+
+  Doc_Directory := Project_Dir & "/doc";
+
+  Exe_Directory := Project_Dir & "/bin";
+
+  type Build_Type is ("Debug", "Release");
+  Build : Build_Type := external ("BUILD", "Debug");
+
+  package Compiler is
+    -- Common_Options := ("-gnaty3abcdefhiklmnOprsStu","-gnat2012");
+    -- -gnatl bugs ... don't recognize some declare layouts
+
+    Common_Options := ();
+    Common_Options := Common_Options & "-gnat2012";
+    Common_Options := Common_Options & "-gnaty2abcdefhikmnOprsStu";
+    Common_Options := Common_Options & "-gnatW8";
+    Common_Options := Common_Options & "-gnatwe"; -- Treat all warnings as errors
+
+    Debug_Options := ();
+    Debug_Options := Debug_Options & "-g";
+    Debug_Options := Debug_Options & "-gnata";  -- assertions enabled
+    -- Debug_Options := Debug_Options & "-gnatq";  -- don't quit if syntax error
+    Debug_Options := Debug_Options & "-gnatQ";  -- force ALI file even if error. Implies -gnatq
+    Debug_Options := Debug_Options & "-O0";
+    Debug_Options := Debug_Options & "-gnatf";
+    Debug_Options := Debug_Options & "-gnateE"; -- extra information in exception messages
+
+    Debug_Options := Debug_Options & "-gnatwa"; -- turn on all info/warnings
+
+    -- Debug_Options := Debug_Options & "-gnatwm"; -- variables that could be constants
+    -- Debug_Options := Debug_Options & "-gnatwk"; -- modified but unreferenced variables
+
+    Release_Options := ();
+    Release_Options := Release_Options & "-O2";
+
+    case Build is
+      when "Debug" =>
+        for Default_Switches ("Ada") use Common_Options & Debug_Options;
+
+      when "Release" =>
+        for Default_Switches ("Ada") use Common_Options & Release_Options;
+    end case;
+  end Compiler;
+
+  package Binder is
+    Common_Option := ();
+    Common_Option := Common_Option & "-E";
+    for Default_Switches ("Ada") use Common_Option;
+  end Binder;
+
+end Share;

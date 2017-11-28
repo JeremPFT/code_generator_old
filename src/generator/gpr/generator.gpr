@@ -1,0 +1,29 @@
+with "share";
+with "model";
+with "file_io";
+with "string_utils";
+with "test_utils";
+
+library project Generator is
+
+  Src_Lst := ();
+  Src_Lst := Src_Lst & "..";
+  for Source_Dirs use Src_Lst;
+
+  Exc_Src_Lst := ();
+  for Excluded_Source_Files use Exc_Src_Lst;
+
+  for Object_Dir use Share.Obj_Directory;
+  for Library_Dir use Share.Lib_Directory;
+
+  for Library_Name use "code_gen_generator";
+  for Library_Kind use "static";
+
+  package Compiler renames Share.Compiler;
+  package Binder renames Share.Binder;
+
+  -- package Gnattest is
+  --   for Gnattest_Switches use ("test-duration");
+  -- end Gnattest;
+
+end Generator;

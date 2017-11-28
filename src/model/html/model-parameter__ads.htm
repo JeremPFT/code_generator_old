@@ -1,0 +1,103 @@
+<HEAD><TITLE>model-parameter.ads</TITLE></HEAD>
+<BODY>
+<HR><DIV ALIGN="center"><H1> File : model-parameter.ads </H1></DIV><HR>
+<PRE>
+<b>with</b> Ada.Containers.Vectors;
+
+<b>with</b> Model.Named_Element;
+<b>with</b> Model.Comment;
+
+<b>package</b> Model.Parameter <b>is</b>
+
+  <b>type</b> Object_T <b>is</b> <b>abstract</b> <b>new</b> Named_Element.Object_T <b>with</b> <b>private</b>;
+
+  <b>type</b> Reference_T <b>is</b> <b>access</b> <b>all</b> Object_T;
+
+  <b>type</b> Class_T <b>is</b> <b>access</b> <b>all</b> Object_T'Class;
+
+  <b>package</b> Vectors <b>is</b> <b>new</b> Ada.Containers.Vectors
+    (Element_Type =&gt; Class_T,
+     Index_Type   =&gt; Positive);
+
+  <b>subtype</b> Vector_T <b>is</b> Vectors.Vector;
+
+  <b>type</b> Param_Mode_T <b>is</b>
+    (P_Mode_In,
+     P_Mode_Out,
+     P_Mode_In_Out,
+     P_Mode_Access,
+     P_Mode_Access_Constant,
+     P_Mode_Not_Null_Access,
+     P_Mode_Not_Null_Access_Constant);
+
+  <b>type</b> Mode_Str_T <b>is</b>
+    <b>array</b> (Param_Mode_T) <b>of</b> <b>access</b> String;
+
+  <b>function</b> "+"(Text : <b>in</b> String)
+              <b>return</b> <b>access</b> String
+    <b>is</b>
+    (<b>new</b> String'(Text));
+
+  Mode_Str : <b>constant</b> Mode_Str_T :=
+    (
+     P_Mode_In                       =&gt; +"in",
+     P_Mode_Out                      =&gt; +"out",
+     P_Mode_In_Out                   =&gt; +"in out",
+     P_Mode_Access                   =&gt; +"access",
+     P_Mode_Access_Constant          =&gt; +"access constant",
+     P_Mode_Not_Null_Access          =&gt; +"not null access",
+     P_Mode_Not_Null_Access_Constant =&gt; +"not null access constant"
+    );
+
+  <b>function</b> Create
+    (Name           : <b>in</b> String;
+     Of_Type        : <b>in</b> String;
+     Default_Value  : <b>in</b> String           := "";
+     Mode           : <b>in</b> Param_Mode_T     := P_Mode_In;
+     Owned_Comments : <b>in</b> Comment.Vector_T := Comment.Vectors.Empty_Vector)
+    <b>return</b> <b>not</b> <b>null</b> <b>access</b> Object_T'Class;
+
+  <FONT COLOR=green><EM>--  not overriding</EM></FONT>
+  <FONT COLOR=green><EM>--  procedure Set_Type</EM></FONT>
+  <FONT COLOR=green><EM>--    (Self  : in out Object_T;</EM></FONT>
+  <FONT COLOR=green><EM>--     Value : in     String);</EM></FONT>
+
+  <b>not</b> overriding
+  <b>function</b> Get_Type
+    (Self : <b>in</b> Object_T)
+    <b>return</b> String;
+
+  <FONT COLOR=green><EM>--  not overriding</EM></FONT>
+  <FONT COLOR=green><EM>--  procedure Set_Default_Value</EM></FONT>
+  <FONT COLOR=green><EM>--    (Self  : in out Object_T;</EM></FONT>
+  <FONT COLOR=green><EM>--     Value : in     String);</EM></FONT>
+
+  <b>not</b> overriding
+  <b>function</b> Get_Default_Value
+    (Self : <b>in</b> Object_T)
+    <b>return</b> String;
+
+<b>private</b>
+
+  <b>type</b> Object_T <b>is</b>
+    <b>new</b> Named_Element.Object_T
+    <b>with</b> <b>record</b>
+      Of_Type       : <b>access</b> String := <b>null</b>;
+      Default_Value : <b>access</b> String := <b>null</b>;
+      Mode          : Param_Mode_T  := P_Mode_In;
+    <b>end</b> <b>record</b>;
+
+  <b>function</b> Get_Type
+    (Self : <b>in</b> Object_T)
+    <b>return</b> String
+    <b>is</b>
+    (Self.Of_Type.<b>all</b>);
+
+  <b>function</b> Get_Default_Value
+    (Self : <b>in</b> Object_T)
+    <b>return</b> String
+    <b>is</b>
+    (Self.Default_Value.<b>all</b>);
+
+<b>end</b> Model.Parameter;
+</PRE></BODY></HTML>

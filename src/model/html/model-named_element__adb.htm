@@ -1,0 +1,34 @@
+<HEAD><TITLE>model-named_element.adb</TITLE></HEAD>
+<BODY>
+<HR><DIV ALIGN="center"><H1> File : model-named_element.adb </H1></DIV><HR>
+<PRE>
+<b>with</b> Ada.Strings.Unbounded;
+
+<b>package</b> <b>body</b> Model.Named_Element <b>is</b>
+
+  <b>procedure</b> Set_Name
+    (Self  : <b>in</b> <b>out</b> Object_T;
+     Value : <b>in</b> String)
+  <b>is</b>
+  <b>begin</b>
+    Self.Name := <b>new</b> String'(Value);
+  <b>end</b> Set_Name;
+
+  <b>function</b> To_String
+    (Self : <b>in</b> Object_T)
+    <b>return</b> String
+  <b>is</b>
+    <b>package</b> U_Str <b>renames</b> Ada.Strings.Unbounded;
+    <b>use</b> <b>type</b> U_Str.Unbounded_String;
+
+    U_Result : U_Str.Unbounded_String := U_Str.Null_Unbounded_String;
+  <b>begin</b>
+    U_Result := U_Result &amp; U_Str.To_Unbounded_String
+      ("Named_Element, " &amp;
+         "name: """ &amp; Self.Get_Name &amp; """");
+
+    <b>return</b> U_Str.To_String (U_Result);
+  <b>end</b> To_String;
+
+<b>end</b> Model.Named_Element;
+</PRE></BODY></HTML>

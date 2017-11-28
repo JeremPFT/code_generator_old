@@ -1,0 +1,57 @@
+aggregate project Code_Generator_Build is
+
+  Project_Path_List := (".");
+  Project_Files_List := ();
+
+  Module := "exec";
+  Added := "../src/" & Module & "/gpr";
+  Project_Path_List := Project_Path_List & Added;
+  Added := "../src/" & Module & "/gpr/" & Module & ".gpr";
+  Project_Files_List := Project_Files_List & Added;
+
+  Module := "model";
+  Added := "../src/" & Module & "/gpr";
+  Project_Path_List := Project_Path_List & Added;
+  Added := "../src/" & Module & "/gpr/" & Module & ".gpr";
+  Project_Files_List := Project_Files_List & Added;
+
+  Module := "template";
+  Added := "../src/" & Module & "/gpr";
+  Project_Path_List := Project_Path_List & Added;
+  Added := "../src/" & Module & "/gpr/" & Module & ".gpr";
+  Project_Files_List := Project_Files_List & Added;
+
+  Module := "file_io";
+  Added := "../src/" & Module & "/gpr";
+  Project_Path_List := Project_Path_List & Added;
+  Added := "../src/" & Module & "/gpr/" & Module & ".gpr";
+  Project_Files_List := Project_Files_List & Added;
+
+  Module := "test_utils";
+  Added := "../src/" & Module & "/gpr";
+  Project_Path_List := Project_Path_List & Added;
+  Added := "../src/" & Module & "/gpr/" & Module & ".gpr";
+  Project_Files_List := Project_Files_List & Added;
+
+  Module := "string_utils";
+  Added := "../src/" & Module & "/gpr";
+  Project_Path_List := Project_Path_List & Added;
+  Added := "../src/" & Module & "/gpr/" & Module & ".gpr";
+  Project_Files_List := Project_Files_List & Added;
+
+  Module := "ada_utils";
+  Added := "../src/" & Module & "/gpr";
+  Project_Path_List := Project_Path_List & Added;
+  Added := "../src/" & Module & "/gpr/" & Module & ".gpr";
+  Project_Files_List := Project_Files_List & Added;
+
+  Module := "project_loader";
+  Added := "../src/" & Module & "/gpr";
+  Project_Path_List := Project_Path_List & Added;
+  Added := "../src/" & Module & "/gpr/" & Module & ".gpr";
+  Project_Files_List := Project_Files_List & Added;
+
+  for Project_Path use Project_Path_List;
+  for Project_Files use Project_Files_List;
+
+end Code_Generator_Build;

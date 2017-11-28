@@ -1,0 +1,1 @@
+../src/model/model-array_def.ads

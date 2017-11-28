@@ -1,0 +1,44 @@
+<HEAD><TITLE>model-field.adb</TITLE></HEAD>
+<BODY>
+<HR><DIV ALIGN="center"><H1> File : model-field.adb </H1></DIV><HR>
+<PRE>
+<b>package</b> <b>body</b> Model.Field <b>is</b>
+
+  <b>function</b> Create
+    (Owner_Class    : <b>not</b> <b>null</b> <b>access</b> Class_Def.Object_T'Class;
+     Name           : <b>in</b>              String;
+     Of_Type        : <b>in</b>              String;
+     Default_Value  : <b>in</b>              String           := "";
+     Owned_Comments : <b>in</b>              Comment.Vector_T :=
+       Comment.Vectors.Empty_Vector)
+    <b>return</b> <b>not</b> <b>null</b> <b>access</b> Object_T'Class
+  <b>is</b>
+    Of_Type_Val       : <b>constant</b> <b>access</b> String :=
+      <b>new</b> String'(Of_Type);
+    Default_Value_Val : <b>constant</b> <b>access</b> String :=
+      (<b>if</b> Default_Value = ""
+       <b>then</b> <b>null</b>
+       <b>else</b> <b>new</b> String'(Default_Value));
+
+    Obj_Field : <b>constant</b> <b>access</b> Object_T :=
+      <b>new</b> Object_T'(Named_Element.Object_T <b>with</b>
+                    Owner_Class   =&gt; Owner_Class,
+                    Of_Type       =&gt; Of_Type_Val,
+                    Default_Value =&gt; Default_Value_Val,
+                    <b>others</b>        =&gt; &lt;&gt;);
+  <b>begin</b>
+    Obj_Field.Set_Name (Name);
+    <b>return</b> Obj_Field;
+  <b>end</b> Create;
+
+  <FONT COLOR=green><EM>--  type Object_T</EM></FONT>
+  <FONT COLOR=green><EM>--    (Owner_Class : not null access Class_Def.Object_T'Class)</EM></FONT>
+  <FONT COLOR=green><EM>--    is</EM></FONT>
+  <FONT COLOR=green><EM>--    new Named_Element.Object_T</EM></FONT>
+  <FONT COLOR=green><EM>--    with record</EM></FONT>
+  <FONT COLOR=green><EM>--      Of_Type       : access String := null;</EM></FONT>
+  <FONT COLOR=green><EM>--      Default_Value : access String := null;</EM></FONT>
+  <FONT COLOR=green><EM>--    end record;</EM></FONT>
+
+<b>end</b> Model.Field;
+</PRE></BODY></HTML>
