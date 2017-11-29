@@ -30,10 +30,7 @@ begin
   Class
     ("named_element : element and test and chose; abstract, init, create");
   Field
-    ("name : access string := null; get, create, " &
-       "add(text : string), number");
-
-  --  Pkg_Elm_Discr := ;
+    ("name : access string := null; treat_as_string, get, create");
 
   Class
     ("packageable_element " &

@@ -9,7 +9,7 @@ package body Options is
   is
     pragma Unreferenced (Self);
   begin
-    Parsed_Data.Is_Abstract := True;
+    Parsed_Data.Opt_Abstract := True;
   end Process;
 
   -----------------------------------------------------------------------------
