@@ -1,4 +1,5 @@
 with Ada.Characters.Latin_1;
+with Ada.Strings.Fixed;
 
 with Model.Element;
 with Model.Comment;
@@ -12,6 +13,12 @@ with Model.Subprogram;
 
 package body Model.Visitor.Printer is
 
+  -----------------------------------------------------------------------------
+  --
+  --  local declarations
+  --
+  -----------------------------------------------------------------------------
+
   package U_Str renames Ada.Strings.Unbounded;
 
   subtype U_String is U_Str.Unbounded_String;
@@ -20,12 +27,11 @@ package body Model.Visitor.Printer is
   package Latin_1 renames Ada.Characters.Latin_1;
   EOL : constant String := Latin_1.CR & Latin_1.LF;
 
-  --  package Prj renames Model.Project;
-  --  package Pkg renames Model.Package_Def;
-  --  package Cls renames Model.Class_Def;
-  --  package Fld renames Model.Field;
-  --  package Prm renames Model.Parameter;
-  --  package Spg renames Model.Subprogram;
+  -----------------------------------------------------------------------------
+  --
+  --  public subprograms definitions
+  --
+  -----------------------------------------------------------------------------
 
   overriding
   procedure Visit_Element
@@ -33,13 +39,11 @@ package body Model.Visitor.Printer is
      Object : in Model.Element.Object_T'Class)
   is
     pragma Unreferenced (Object);
-
-    Result : U_String := U_Str.Null_Unbounded_String;
   begin
-    Result := Result & "unknown element" & EOL;
-
-    Self.Content := Self.Content & Result;
+    Self.Add ("unknown element" & EOL);
   end Visit_Element;
+
+  -----------------------------------------------------------------------------
 
   overriding
   procedure Visit_Comment
@@ -47,9 +51,10 @@ package body Model.Visitor.Printer is
      Object : in     Model.Comment.Object_T'Class)
   is
   begin
-    Self.Content := Self.Content & "--  " &
-      Object.Get_Body & EOL;
+    Self.Add ("-- " & Object.Get_Body & EOL);
   end Visit_Comment;
+
+  -----------------------------------------------------------------------------
 
   overriding
   procedure Visit_Project
@@ -57,11 +62,17 @@ package body Model.Visitor.Printer is
      Object : in     Model.Project.Object_T'Class)
   is
   begin
-    Self.Content := Self.Content &
-      "project " & Object.Get_Name & EOL;
+    if not Object.Has_Parent then
+      Self.Add
+        ("------------------- VISITOR PRINTER BEG ------------------" &
+           EOL);
+    end if;
 
-    Self.Content := Self.Content &
-      "  in " & Object.Get_Root_Directory & EOL;
+    Self.Add
+      ("project " & Object.Get_Name & EOL);
+
+    Self.Add
+      ("  in " & Object.Get_Root_Directory & EOL);
 
     for Obj of Object.Get_Elements loop
       Obj.Visit (Self);
@@ -70,27 +81,38 @@ package body Model.Visitor.Printer is
     for Obj of Object.Get_Subprojects loop
       Obj.Visit (Self);
     end loop;
+
+    if not Object.Has_Parent then
+      Self.Add
+        ("------------------- VISITOR PRINTER END ------------------" &
+           EOL);
+    end if;
   end Visit_Project;
+
+  -----------------------------------------------------------------------------
 
   overriding
   procedure Visit_Package
     (Self   : in out Object_T;
      Object : in     Model.Package_Def.Object_T'Class)
   is
-    Result : U_String := U_Str.Null_Unbounded_String;
   begin
-    Result := Result & "package " & Object.Get_Name & EOL;
+    Self.Incr_Indent;
+
+    Self.Add ("package " & Object.Get_Name & EOL);
 
     for Elm of Object.Get_Public_Elements loop
       Elm.Visit (Self);
     end loop;
 
+    Self.Decr_Indent;
+
     for Child of Object.Get_Children loop
       Child.Visit (Self);
     end loop;
-
-    Self.Content := Self.Content & Result;
   end Visit_Package;
+
+  -----------------------------------------------------------------------------
 
   overriding
   procedure Visit_Class
@@ -98,19 +120,25 @@ package body Model.Visitor.Printer is
      Object : in Model.Class_Def.Object_T'Class)
   is
   begin
-    Self.Content := Self.Content &
-      "class " & Object.Get_Name;
+    Self.Indent;
+    Self.Add ("class " & Object.Get_Name);
 
     if Object.Is_Abstract then
-      Self.Content := Self.Content & " (abstract)";
+      Self.Add (" (abstract)");
     end if;
 
-    Self.Content := Self.Content & EOL;
+    Self.Add (EOL);
+
+    Self.Incr_Indent;
 
     for Obj of Object.Get_Fields loop
       Obj.Visit (Self);
     end loop;
+
+    Self.Decr_Indent;
   end Visit_Class;
+
+  -----------------------------------------------------------------------------
 
   overriding
   procedure Visit_Interface
@@ -118,9 +146,11 @@ package body Model.Visitor.Printer is
      Object : in     Model.Interface_Def.Object_T'Class)
   is
   begin
-    Self.Content := Self.Content &
-      "interface " & Object.Get_Name;
+    Self.Add
+      ("interface " & Object.Get_Name);
   end Visit_Interface;
+
+  -----------------------------------------------------------------------------
 
   overriding
   procedure Visit_Field
@@ -128,25 +158,36 @@ package body Model.Visitor.Printer is
      Object : in     Model.Field.Object_T'Class)
   is
   begin
-    Self.Content := Self.Content &
-      "field " & Object.Get_Name & " : " & Object.Get_Type &
-      (if Object.Has_Default_Value then
-         " := " & Object.Get_Default_Value
-       else "") &
-      EOL;
+    Self.Indent;
+    Self.Add
+      ("field " & Object.Get_Name & " : " & Object.Get_Type &
+         (if Object.Has_Default_Value then
+            " := " & Object.Get_Default_Value
+          else "") &
+         EOL);
   end Visit_Field;
+
+  -----------------------------------------------------------------------------
 
   overriding
   procedure Visit_Subprogram
     (Self   : in out Object_T;
      Object : in     Model.Subprogram.Object_T'Class)
   is
-    Result : U_String := U_Str.Null_Unbounded_String;
   begin
-    Result := Result & "subprogram " & Object.Get_Name & EOL;
+    Self.Indent;
+    Self.Add ("subprogram " & Object.Get_Name & EOL);
 
-    Self.Content := Self.Content & Result;
+    Self.Incr_Indent;
+
+    for I in 1 .. Object.Get_Number_Of_Parameters loop
+      Self.Visit_Parameter (Object.Get_Parameter (I).all);
+    end loop;
+
+    Self.Decr_Indent;
   end Visit_Subprogram;
+
+  -----------------------------------------------------------------------------
 
   overriding
   procedure Visit_Parameter
@@ -154,12 +195,15 @@ package body Model.Visitor.Printer is
      Object : in     Model.Parameter.Object_T'Class)
   is
   begin
-    Self.Content := Self.Content &
-      "parameter " & Object.Get_Name & " : " & Object.Get_Type &
-      (if Object.Has_Default_Value then
-         " := " & Object.Get_Default_Value
-       else "") &
-      EOL;
+    Self.Indent;
+    Self.Add
+      ("parameter " & Object.Get_Name & " : " &
+         Parameter.Mode_Str (Object.Get_Mode).all & " " &
+         Object.Get_Type &
+         (if Object.Has_Default_Value then
+            " := " & Object.Get_Default_Value
+          else "") &
+         EOL);
   end Visit_Parameter;
 
   function To_String
@@ -169,5 +213,53 @@ package body Model.Visitor.Printer is
   begin
     return U_Str.To_String (Self.Content);
   end To_String;
+
+  -----------------------------------------------------------------------------
+  --
+  --  private subprograms definitions
+  --
+  -----------------------------------------------------------------------------
+
+  not overriding
+  procedure Add
+    (Self : in out Object_T;
+     Text : in     String)
+  is
+  begin
+    Self.Content := Self.Content & Text;
+  end Add;
+
+  -----------------------------------------------------------------------------
+
+  not overriding
+  procedure Indent
+    (Self : in out Object_T)
+  is
+  begin
+    Self.Add
+      (Ada.Strings.Fixed."*" (Self.Current_Indent, ' '));
+  end Indent;
+
+  -----------------------------------------------------------------------------
+
+  not overriding
+  procedure Incr_Indent
+    (Self : in out Object_T)
+  is
+  begin
+    Self.Current_Indent := Self.Current_Indent + Self.Incr;
+  end Incr_Indent;
+
+  -----------------------------------------------------------------------------
+
+  not overriding
+  procedure Decr_Indent
+    (Self : in out Object_T)
+  is
+  begin
+    Self.Current_Indent := Self.Current_Indent - Self.Incr;
+  end Decr_Indent;
+
+  -----------------------------------------------------------------------------
 
 end Model.Visitor.Printer;

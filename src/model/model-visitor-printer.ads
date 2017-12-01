@@ -5,8 +5,10 @@ package Model.Visitor.Printer is
   -----------------------------------------------------------------------------
 
   type Object_T is new Visitor.Object_T with record
-    Content : Ada.Strings.Unbounded.Unbounded_String :=
+    Content        : Ada.Strings.Unbounded.Unbounded_String :=
       Ada.Strings.Unbounded.Null_Unbounded_String;
+    Current_Indent : Natural                                := 0;
+    Incr           : Natural                                := 2;
   end record;
 
   type Reference_T is access all Object_T;
@@ -25,7 +27,7 @@ package Model.Visitor.Printer is
 
   overriding
   procedure Visit_Element
-    (Self   : in out Object_T;
+    (Self : in out Object_T;
      Object : in     Model.Element.Object_T'Class);
 
   overriding
@@ -72,5 +74,24 @@ package Model.Visitor.Printer is
   function To_String
     (Self : in Object_T)
     return String;
+
+private
+
+  not overriding
+  procedure Add
+    (Self : in out Object_T;
+     Text : in     String);
+
+  not overriding
+  procedure Indent
+    (Self : in out Object_T);
+
+  not overriding
+  procedure Incr_Indent
+    (Self : in out Object_T);
+
+  not overriding
+  procedure Decr_Indent
+    (Self : in out Object_T);
 
 end Model.Visitor.Printer;
