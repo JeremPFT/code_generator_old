@@ -32,9 +32,6 @@ is
 
   Parsed_Data : Parsed_Data_T;
 
-  Built_Pkg : access Model.Package_Def.Object_T := null;
-  Built_Cls : access Model.Class_Def.Object_T   := null;
-
   -----------------------------------------------------------------------------
 
   procedure Main;
@@ -195,19 +192,19 @@ is
 
   procedure Build_Objects
   is
+    Pkg : access Model.Package_Def.Object_T := null;
   begin
-    Built_Pkg :=
+    Pkg :=
       Model.Package_Def.Create (Name   => Parsed_Data.Class_Name.all,
                                 Parent => Model.Package_Def.Class_T
-                                  (Last_Module.Get_Elements.First_Element));
+                                  (Current_Module.Get_Elements.First_Element));
 
-    Built_Cls := Model.Class_Def.Create
-      (Owner_Package => Built_Pkg,
+    Current_Class := Model.Class_Def.Create
+      (Owner_Package => Pkg,
        Name          => "object_t",
        Is_Abstract   => Parsed_Data.Opt_Abstract);
 
-    Built_Pkg.Add_Public_Class (Built_Cls);
-    Last_Class := Built_Cls;
+    Pkg.Add_Public_Class (Current_Class);
 
     --  if Parsed_Data.Has_Create then
     --    declare

@@ -1,3 +1,4 @@
+with Ada.Strings.Fixed;
 with Ada.Text_IO;
 
 separate (Project_Loader.Field)
@@ -9,11 +10,12 @@ package body Options is
   -----------------------------------------------------------------------------
 
   overriding
-  procedure Process (Self : in Treat_As_String_Option_T)
+  procedure Process (Self : in Treat_As_Type_Option_T)
   is
-    pragma Unreferenced (Self);
   begin
-    T_IO.Put_Line ("field option treat_as_string");
+    T_IO.Put_Line ("field option treat_as : """ & Self.The_Type.all & """");
+    Parsed_Data.Opt_Treat_As := True;
+    Parsed_Data.Treat_As     := Self.The_Type;
   end Process;
 
   -----------------------------------------------------------------------------
@@ -33,6 +35,7 @@ package body Options is
   is
     pragma Unreferenced (Self);
   begin
+    Parsed_Data.Opt_Get := True;
     T_IO.Put_Line ("field option get");
   end Process;
 
@@ -74,34 +77,51 @@ package body Options is
     pragma Unreferenced (Self);
   begin
     T_IO.Put_Line ("field option add");
+    Parsed_Data.Opt_Add := True;
   end Process;
 
   -----------------------------------------------------------------------------
+
+  Treat_As_Sufix : constant String := "treat_as_";
 
   function Option_Factory
     (Key : in String)
     return access Option_T'Class
   is
+    package F_Str renames Ada.Strings.Fixed;
+    Result : access Option_T'Class := null;
   begin
-    if Key = "treat_as_string" then
-      return new Treat_As_String_Option_T;
+    if Key'Length >= Treat_As_Sufix'Length and then
+      F_Str.Head (Source => Key,
+                  Count  => Treat_As_Sufix'Length) =
+      Treat_As_Sufix
+    then
+      Result := new Treat_As_Type_Option_T;
+
+      Treat_As_Type_Option_T (Result.all).The_Type :=
+        new String'(F_Str.Tail
+                      (Source => Key,
+                       Count  => Key'Length - Treat_As_Sufix'Length));
+
     elsif Key = "create" then
-      return new Create_Option_T;
+      Result := new Create_Option_T;
     elsif Key = "get" then
-      return new Get_Option_T;
+      Result := new Get_Option_T;
     elsif Key = "get_i" then
-      return new Get_I_Option_T;
+      Result := new Get_I_Option_T;
     elsif Key = "has" then
-      return new Has_Option_T;
+      Result := new Has_Option_T;
     elsif Key = "number" then
-      return new Number_Option_T;
+      Result := new Number_Option_T;
     elsif Key = "add" then
-      return new Add_Option_T;
+      Result := new Add_Option_T;
     else
       raise Constraint_Error with "option """ & Key &
-        """ inconnue (class """ & Last_Class.Owner_Package.Get_Name & """" &
+        """ inconnue (class """ & Current_Class.Owner_Package.Get_Name & """" &
         ", field """ & Parsed_Data.Field_Name.all & """)";
     end if;
+
+    return Result;
   end Option_Factory;
 
   -----------------------------------------------------------------------------

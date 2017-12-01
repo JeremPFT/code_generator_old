@@ -4,6 +4,8 @@ use type Ada.Containers.Count_Type;
 
 with Ada.Strings.Fixed;
 with Model.Field;
+with Model.Subprogram;
+with Model.Parameter;
 
 separate (Project_Loader)
 procedure Field
@@ -21,9 +23,13 @@ is
         Field_Type,
         Field_Default : access String := null;
 
-      Opt_Create,
-        Opt_Add
+      Opt_Treat_As,
+        Opt_Create,
+        Opt_Add,
+        Opt_Get
         : Boolean := False;
+
+      Treat_As : access String := null;
 
       Options_Coll : String_Vectors.Vector := String_Vectors.Empty_Vector;
     end record;
@@ -38,7 +44,7 @@ is
   procedure Set_Field_Data;
   procedure Fill_Options_Coll;
   procedure Process_Options;
-  procedure Build_Object;
+  procedure Build_Objects;
   procedure Debug (Fld : in Model.Field.Object_T);
 
   -----------------------------------------------------------------------------
@@ -51,7 +57,7 @@ is
     Set_Field_Data;
     Fill_Options_Coll;
     Process_Options;
-    Build_Object;
+    Build_Objects;
   end Main;
 
   -----------------------------------------------------------------------------
@@ -134,10 +140,12 @@ is
 
     ---------------------------------------------------------------------------
 
-    type Treat_As_String_Option_T is new Option_T with null record;
+    type Treat_As_Type_Option_T is new Option_T with record
+      The_Type : access String := null;
+    end record;
 
     overriding
-    procedure Process (Self : in Treat_As_String_Option_T);
+    procedure Process (Self : in Treat_As_Type_Option_T);
 
     ---------------------------------------------------------------------------
 
@@ -209,7 +217,7 @@ is
 
   -----------------------------------------------------------------------------
 
-  procedure Build_Object
+  procedure Build_Objects
   is
     package Mdl_Fld renames Model.Field;
 
@@ -218,18 +226,54 @@ is
          Parsed_Data.Field_Default.all
        else "");
 
-    Fld : constant access Mdl_Fld.Object_T := Mdl_Fld.Create
+    Field : constant access Mdl_Fld.Object_T := Mdl_Fld.Create
       (Name          => Parsed_Data.Field_Name.all,
-       Owner_Class   => Last_Class,
+       Owner_Class   => Current_Class,
        Of_Type       => Parsed_Data.Field_Type.all,
        Default_Value => Default);
-  begin
-    Last_Class.Add_Field (Fld);
 
-    if False then
-      Debug (Fld.all);
+    --  Get_Function : constant access Model.Subprogram.Object_T :=
+    --    Model.Subprogram.Create
+    --      (Owner_Package => Current_Class.Owner_Package,
+    --       Name          => "get_" & Fld.Get_Name,
+    --       Of_Type       => Fld.Get_Type);
+
+  begin
+    Current_Class.Add_Field (Field);
+    --  Current_Class.Owner_Package.Add_Public_Subprogram (Get_Function);
+
+    if Parsed_Data.Opt_Add then
+      declare
+        Parameter_Self : constant access Model.Parameter.Object_T :=
+          Model.Parameter.Create
+            (Name    => "self",
+             Of_Type => "object_t");
+
+        Parameter_Object : constant access Model.Parameter.Object_T :=
+          Model.Parameter.Create
+            (Name    => "obj_parameter",
+             Of_Type => "parameter.object_t'class",
+             Mode    => Model.Parameter.P_Mode_Not_Null_Access_Constant);
+
+        Subprogram_Add : constant access Model.Subprogram.Object_T :=
+          Model.Subprogram.Create
+            (Name          => "add_" & Field.Get_Name,
+             Owner_Package => Current_Class.Owner_Package,
+             Of_Type       => Field.Get_Type);
+      begin
+        Subprogram_Add.Add_Parameter (Parameter_Self);
+        Subprogram_Add.Add_Parameter (Parameter_Object);
+
+        Ada.Text_IO.
+          Put_Line ("AJOUT DU SOUS PROGRAMME " & Subprogram_Add.Get_Name);
+        Current_Class.Owner_Package.Add_Public_Subprogram (Subprogram_Add);
+      end;
     end if;
-  end Build_Object;
+
+    if True then
+      Debug (Field.all);
+    end if;
+  end Build_Objects;
 
   -----------------------------------------------------------------------------
 
@@ -255,7 +299,13 @@ is
                        ", "
                      else ""));
       end loop;
+
       T_IO.New_Line;
+
+      if Parsed_Data.Opt_Treat_As then
+        T_IO.Put_Line ("considered as a " & Parsed_Data.Treat_As.all);
+      end if;
+
     end if;
   end Debug;
 

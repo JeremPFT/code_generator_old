@@ -12,9 +12,9 @@ package body Project_Loader is
   package Mdl_Prj renames Model.Project;
   package Mdl_Cls renames Model.Class_Def;
 
-  Project     : access Mdl_Prj.Object_T := null;
-  Last_Module : access Mdl_Prj.Object_T := null;
-  Last_Class  : access Mdl_Cls.Object_T := null;
+  Project        : access Mdl_Prj.Object_T := null;
+  Current_Module : access Mdl_Prj.Object_T := null;
+  Current_Class  : access Mdl_Cls.Object_T := null;
 
   -----------------------------------------------------------------------------
 

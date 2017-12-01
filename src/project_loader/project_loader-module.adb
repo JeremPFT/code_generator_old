@@ -28,13 +28,13 @@ is
   Pkg : constant access Mdl_Pkg.Object_T := Mdl_Pkg.Create (Name => Name);
 
 begin
-  Last_Module := Mdl_Prj.Create
+  Current_Module := Mdl_Prj.Create
     (Name           => Name,
      Kind           => "",
      Root_Directory => Root_Directory,
      Parent         => Project);
 
-  Last_Module.Add_Package (Pkg);
+  Current_Module.Add_Package (Pkg);
 
-  Project.Add_Subproject (Last_Module);
+  Project.Add_Subproject (Current_Module);
 end Module;
