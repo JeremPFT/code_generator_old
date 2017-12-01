@@ -77,6 +77,11 @@ package Model.Parameter is
     (Self : in Object_T)
     return String;
 
+  not overriding
+  function Get_Mode
+    (Self : in Object_T)
+    return Param_Mode_T;
+
   overriding
   procedure Visit
     (Self   : in     Object_T;
@@ -110,5 +115,11 @@ private
     is
     (Self.Default_Value /= null and then
        Self.Default_Value.all /= "");
+
+  function Get_Mode
+    (Self : in Object_T)
+    return Param_Mode_T
+    is
+    (Self.Mode);
 
 end Model.Parameter;

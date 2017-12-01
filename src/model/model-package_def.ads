@@ -43,14 +43,14 @@ package Model.Package_Def is
     return access Object_T'Class;
 
   not overriding
-  procedure Add_Public_Subprogram
-    (Self   : in out          Object_T;
-     Object : not null access Subprogram.Object_T'Class);
-
-  not overriding
   procedure Add_Public_Class
     (Self   : in out          Object_T;
      Object : not null access Class_Def.Object_T'Class);
+
+  not overriding
+  procedure Add_Public_Subprogram
+    (Self   : in out          Object_T;
+     Object : not null access Subprogram.Object_T'Class);
 
   not overriding
   procedure Add_Child

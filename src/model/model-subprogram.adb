@@ -27,13 +27,14 @@ package body Model.Subprogram is
     return Obj_Subprogram;
   end Create;
 
-  procedure Set_Type
-    (Self  : in out Object_T;
-     Value : in     String)
+  not overriding
+  procedure Add_Parameter
+    (Self          : in out          Object_T;
+     Obj_Parameter : not null access Parameter.Object_T'Class)
   is
   begin
-    Self.Of_Type := new String'(Value);
-  end Set_Type;
+    Self.Parameters.Append (Obj_Parameter);
+  end Add_Parameter;
 
   overriding
   procedure Visit

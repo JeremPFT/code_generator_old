@@ -33,11 +33,6 @@ package Model.Subprogram is
     return not null access Object_T'Class;
 
   not overriding
-  procedure Set_Type
-    (Self  : in out Object_T;
-     Value : in     String);
-
-  not overriding
   function Get_Type
     (Self : in Object_T)
     return String;
@@ -46,6 +41,22 @@ package Model.Subprogram is
   function Has_Return
     (Self : in Object_T)
     return Boolean;
+
+  not overriding
+  function Get_Number_Of_Parameters
+    (Self : in Object_T)
+    return Natural;
+
+  not overriding
+  procedure Add_Parameter
+    (Self          : in out          Object_T;
+     Obj_Parameter : not null access Parameter.Object_T'Class);
+
+  not overriding
+  function Get_Parameter
+    (Self : in Object_T;
+     Index : in Positive)
+    return not null access Parameter.Object_T'Class;
 
   overriding
   procedure Visit
@@ -78,5 +89,18 @@ private
     return Boolean
     is
     (Self.Of_Type.all /= "");
+
+  function Get_Number_Of_Parameters
+    (Self : in Object_T)
+    return Natural
+    is
+    (Natural (Self.Parameters.Length));
+
+  function Get_Parameter
+    (Self : in Object_T;
+     Index : in Positive)
+    return not null access Parameter.Object_T'Class
+    is
+    (Self.Parameters (Index));
 
 end Model.Subprogram;
