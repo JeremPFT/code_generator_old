@@ -3,8 +3,6 @@ with Model.Class_Def;
 with String_Vectors;
 with Split;
 
-with File_IO;
-
 package body Project_Loader is
 
   -----------------------------------------------------------------------------

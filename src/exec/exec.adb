@@ -63,6 +63,15 @@ begin
       +("Subprograms : subprogram.vector := empty, " &
           "has, number, get_i, get, add")));
 
+  Module
+    ("exec");
+
+  Module
+    ("ada_utils");
+
+  Module
+    ("file_io");
+
   Process_Project;
 
 end Exec;

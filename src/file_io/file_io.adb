@@ -12,7 +12,7 @@ package body File_IO is
 
   package Unit is new Reflection;
 
-  Debug : constant Boolean := True;
+  Debug : constant Boolean := False;
 
   -----------------------------------------------------------------------------
 

@@ -1,4 +1,3 @@
-with Ada.Characters.Latin_1;
 with Ada.Text_IO;
 with File_IO;
 
@@ -17,8 +16,6 @@ package body Model.Visitor.Template is
   package T_IO renames Ada.Text_IO;
   package F_IO renames File_IO;
 
-  package Latin_1 renames Ada.Characters.Latin_1;
-  EOL : constant String := Latin_1.CR & Latin_1.LF;
   use type Ada.Strings.Unbounded.Unbounded_String;
 
   package Tmpl renames Standard.Template;
@@ -42,8 +39,8 @@ package body Model.Visitor.Template is
       (Visitor_Object : in out Object_T;
        Project_Object : in     Model.Project.Object_T'Class);
 
-    procedure Generate_Main_Project;
-    procedure Generate_Subproject;
+    procedure Generate_Project;
+    procedure Generate_Module;
   end Visit_Project_Impl;
 
   package body Visit_Project_Impl is separate;
@@ -59,9 +56,9 @@ package body Model.Visitor.Template is
     Initialize (Self, Object);
 
     if not Object.Has_Parent then
-      Generate_Main_Project;
+      Generate_Project;
     else
-      Generate_Subproject;
+      Generate_Module;
     end if;
   end Visit_Project;
 
