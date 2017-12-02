@@ -1,22 +1,19 @@
 with Model.Package_Def;
+with Model.Module;
 
 separate (Project_Loader)
 
 procedure Module
   (Name : in String)
 is
-  Root_Directory : constant String := Name;
-
-  package Mdl_Pkg renames Model.Package_Def;
-
-  Pkg : constant access Mdl_Pkg.Object_T := Mdl_Pkg.Create (Name => Name);
+  Pkg : constant access Model.Package_Def.Object_T :=
+    Model.Package_Def.Create (Name => Name);
 
 begin
-  Current_Module := Mdl_Prj.Create
-    (Name           => Name,
-     Kind           => "",
-     Root_Directory => Root_Directory,
-     Parent         => Project);
+  Current_Module := Model.Module.Create
+    (Name   => Name,
+     Kind   => "",
+     Parent => Project);
 
   Current_Module.Add_Package (Pkg);
 

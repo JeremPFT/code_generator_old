@@ -27,13 +27,18 @@ package Model.Visitor.Printer is
 
   overriding
   procedure Visit_Element
-    (Self : in out Object_T;
+    (Self   : in out Object_T;
      Object : in     Model.Element.Object_T'Class);
 
   overriding
   procedure Visit_Project
     (Self   : in out Object_T;
      Object : in     Model.Project.Object_T'Class);
+
+  overriding
+  procedure Visit_Module
+    (Self   : in out Object_T;
+     Object : in     Model.Module.Object_T'Class);
 
   overriding
   procedure Visit_Package

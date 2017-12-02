@@ -5,6 +5,7 @@ with Model.Element;
 with Model.Project;
 with Model.Package_Def;
 with Model.Class_Def;
+with Model.Module;
 with Model.Field;
 with Model.Parameter;
 with Model.Subprogram;
@@ -22,6 +23,16 @@ package body Model.Visitor.Template is
 
   -----------------------------------------------------------------------------
 
+  procedure Set_Root_Directory
+    (Self           : in out Object_T;
+     Root_Directory : in     String)
+  is
+  begin
+    Self.Root_Directory := new String'(Root_Directory);
+  end Set_Root_Directory;
+
+  -----------------------------------------------------------------------------
+
   overriding
   procedure Visit_Element
     (Self   : in out Object_T;
@@ -34,33 +45,25 @@ package body Model.Visitor.Template is
 
   -----------------------------------------------------------------------------
 
-  package Visit_Project_Impl is
-    procedure Initialize
-      (Visitor_Object : in out Object_T;
-       Project_Object : in     Model.Project.Object_T'Class);
-
-    procedure Generate_Project;
-    procedure Generate_Module;
-  end Visit_Project_Impl;
-
-  package body Visit_Project_Impl is separate;
-
   overriding
   procedure Visit_Project
     (Self   : in out Object_T;
      Object : in     Model.Project.Object_T'Class)
+    is separate;
+
+  -----------------------------------------------------------------------------
+
+  overriding
+  procedure Visit_Module
+    (Self   : in out Object_T;
+     Object : in     Model.Module.Object_T'Class)
   is
-    use Visit_Project_Impl;
-
   begin
-    Initialize (Self, Object);
-
-    if not Object.Has_Parent then
-      Generate_Project;
-    else
-      Generate_Module;
-    end if;
-  end Visit_Project;
+    F_IO.Set_Working_Directory (F_IO.Compose (Self.Get_Root_Directory, "src"));
+    F_IO.Mkdir (Object.Get_Name);
+    F_IO.Set_Working_Directory (Object.Get_Name);
+    F_IO.Mkdir ("gpr");
+  end Visit_Module;
 
   -----------------------------------------------------------------------------
 
@@ -71,7 +74,7 @@ package body Model.Visitor.Template is
   is
     pragma Unreferenced (Self, Object);
   begin
-    T_IO.Put_Line ("visit_package");
+    T_IO.Put_Line ("visit_package TODO");
   end Visit_Package;
 
   overriding

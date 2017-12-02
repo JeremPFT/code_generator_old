@@ -1,19 +1,26 @@
 package body Model.Enum_Value is
 
+  procedure Initialize
+    (Self  : in out Object_T'Class;
+     Name  : in     String;
+     Value : in     Integer)
+  is
+  begin
+    Parent_Pkg.Initialize (Self, Name);
+    Self.Value := Value;
+  end Initialize;
+
   function Create
     (Owner_Enum : not null access Enum_Def.Object_T'Class;
      Name       : in String;
      Value      : in Integer)
     return not null access Object_T'Class
   is
-    Obj_Value : constant access Object_T :=
-      new Object_T'(Named_Element.Object_T
-                    with
-                    Owner_Enum => Owner_Enum,
-                    Value      => Value);
+    Object : constant access Object_T :=
+      new Object_T (Owner_Enum => Owner_Enum);
   begin
-    Obj_Value.Set_Name (Name);
-    return Obj_Value;
+    Object.Initialize (Name, Value);
+    return Object;
   end Create;
 
 end Model.Enum_Value;

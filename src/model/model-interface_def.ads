@@ -19,6 +19,12 @@ package Model.Interface_Def is
 
   subtype Vector_T is Vectors.Vector;
 
+  procedure Initialize
+    (Self              : in out Object_T'Class;
+     Name              : in     String;
+     Parent_Interfaces : in     Model.Interface_Def.Vector_T :=
+       Model.Interface_Def.Vectors.Empty_Vector);
+
   function Create
     (Owner_Package     : not null access Package_Def.Object_T'Class;
      Name              : in              String;

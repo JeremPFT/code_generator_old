@@ -5,6 +5,7 @@ with Model.Element;
 with Model.Comment;
 with Model.Named_Element;
 with Model.Project;
+with Model.Module;
 with Model.Package_Def;
 with Model.Class_Def;
 with Model.Field;
@@ -62,17 +63,12 @@ package body Model.Visitor.Printer is
      Object : in     Model.Project.Object_T'Class)
   is
   begin
-    if not Object.Has_Parent then
-      Self.Add
-        ("------------------- VISITOR PRINTER BEG ------------------" &
-           EOL);
-    end if;
+    Self.Add
+      ("------------------- VISITOR PRINTER BEG ------------------" &
+         EOL);
 
     Self.Add
       ("project " & Object.Get_Name & EOL);
-
-    Self.Add
-      ("  in " & Object.Get_Root_Directory & EOL);
 
     for Obj of Object.Get_Elements loop
       Obj.Visit (Self);
@@ -82,12 +78,30 @@ package body Model.Visitor.Printer is
       Obj.Visit (Self);
     end loop;
 
-    if not Object.Has_Parent then
-      Self.Add
-        ("------------------- VISITOR PRINTER END ------------------" &
-           EOL);
-    end if;
+    Self.Add
+      ("------------------- VISITOR PRINTER END ------------------" &
+         EOL);
   end Visit_Project;
+
+  -----------------------------------------------------------------------------
+
+  overriding
+  procedure Visit_Module
+    (Self   : in out Object_T;
+     Object : in     Model.Module.Object_T'Class)
+  is
+  begin
+    Self.Add
+      ("module " & Object.Get_Name & EOL);
+
+    for Obj of Object.Get_Elements loop
+      Obj.Visit (Self);
+    end loop;
+
+    for Obj of Object.Get_Subprojects loop
+      Obj.Visit (Self);
+    end loop;
+  end Visit_Module;
 
   -----------------------------------------------------------------------------
 

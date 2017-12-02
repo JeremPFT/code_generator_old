@@ -1,3 +1,4 @@
+with Model.Module;
 with Model.Project;
 with Model.Class_Def;
 with String_Vectors;
@@ -7,12 +8,10 @@ package body Project_Loader is
 
   -----------------------------------------------------------------------------
 
-  package Mdl_Prj renames Model.Project;
-  package Mdl_Cls renames Model.Class_Def;
-
-  Project        : access Mdl_Prj.Object_T := null;
-  Current_Module : access Mdl_Prj.Object_T := null;
-  Current_Class  : access Mdl_Cls.Object_T := null;
+  Root_Directory : access String                   := null;
+  Project        : access Model.Project.Object_T   := null;
+  Current_Module : access Model.Module.Object_T    := null;
+  Current_Class  : access Model.Class_Def.Object_T := null;
 
   -----------------------------------------------------------------------------
 
@@ -30,10 +29,11 @@ package body Project_Loader is
     end Get_Prj_Name;
 
   begin
-    Project := Mdl_Prj.Create
-      (Name           => Get_Prj_Name (Path),
-       Kind           => "console",
-       Root_Directory => Path);
+    Root_Directory := new String'(Path);
+
+    Project := Model.Project.Create
+      (Name => Get_Prj_Name (Path),
+       Kind => "console");
   end Console_Project;
 
   -----------------------------------------------------------------------------

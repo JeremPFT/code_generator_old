@@ -7,6 +7,7 @@ limited with Model.Element;
 limited with Model.Field;
 limited with Model.Package_Def;
 limited with Model.Project;
+limited with Model.Module;
 limited with Model.Parameter;
 limited with Model.Subprogram;
 
@@ -38,6 +39,11 @@ package Model.Visitor is
   procedure Visit_Project
     (Self   : in out Object_T;
      Object : in     Model.Project.Object_T'Class)
+    is abstract;
+
+  procedure Visit_Module
+    (Self   : in out Object_T;
+     Object : in     Model.Module.Object_T'Class)
     is abstract;
 
   procedure Visit_Package

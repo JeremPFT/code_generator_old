@@ -3,6 +3,20 @@ with Ada.Strings.Unbounded;
 
 package body Model.Class_Def is
 
+  procedure Initialize
+    (Self              : in out Object_T'Class;
+     Name              : in     String;
+     Parent_Class      : access Object_T'Class               := null;
+     Parent_Interfaces : in     Model.Interface_Def.Vector_T :=
+       Model.Interface_Def.Vectors.Empty_Vector;
+     Is_Abstract       : in     Boolean                      := False)
+  is
+  begin
+    Interface_Def.Initialize (Self, Name, Parent_Interfaces);
+    Self.Parent_Class := Parent_Class;
+    Self.Is_Abstract  := Is_Abstract;
+  end Initialize;
+
   function Create
     (Owner_Package     : access Package_Def.Object_T;
      Name              : in     String;
@@ -12,22 +26,11 @@ package body Model.Class_Def is
      Is_Abstract       : in     Boolean                      := False)
     return not null access Object_T'Class
   is
-    Obj_Class : constant access Object_T :=
-      new Object_T'(Interface_Def.Object_T
-                    with
-                    Owner_Package => Owner_Package,
-                    Is_Abstract   => Is_Abstract,
-                    Parent_Class  => Parent_Class,
-                    others        => <>);
+    Object : constant access Object_T :=
+      new Object_T (Owner_Package => Owner_Package);
   begin
-
-    Obj_Class.Set_Name (Name);
-
-    for Itf of Parent_Interfaces loop
-      Obj_Class.Add_Parent_Interface (Itf);
-    end loop;
-
-    return Obj_Class;
+    Object.Initialize (Name, Parent_Class, Parent_Interfaces, Is_Abstract);
+    return Object;
   end Create;
 
   procedure Add_Protected_Subprogram

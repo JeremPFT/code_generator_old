@@ -6,10 +6,12 @@ limited with Model.Class_Def;
 
 package Model.Field is
 
+  package Parent_Pkg renames Model.Named_Element;
+
   type Object_T
     (Owner_Class : not null access Class_Def.Object_T'Class)
     is
-    new Named_Element.Object_T
+    new Parent_Pkg.Object_T
     with private;
 
   type Reference_T is access all Object_T;
@@ -21,6 +23,12 @@ package Model.Field is
      Index_Type   => Positive);
 
   subtype Vector_T is Vectors.Vector;
+
+  procedure Initialize
+    (Self          : in out Object_T'Class;
+     Name          : in     String;
+     Of_Type       : in     String;
+     Default_Value : in     String := "");
 
   function Create
     (Owner_Class   : not null access Class_Def.Object_T'Class;

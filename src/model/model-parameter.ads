@@ -5,7 +5,9 @@ with Model.Named_Element;
 
 package Model.Parameter is
 
-  type Object_T is abstract new Named_Element.Object_T with private;
+  package Parent_Pkg renames Model.Named_Element;
+
+  type Object_T is abstract new Parent_Pkg.Object_T with private;
 
   type Reference_T is access all Object_T;
 
@@ -44,6 +46,13 @@ package Model.Parameter is
      P_Mode_Not_Null_Access          => +"not null access",
      P_Mode_Not_Null_Access_Constant => +"not null access constant"
     );
+
+  procedure Initialize
+    (Self          : in out Object_T'Class;
+     Name          : in     String;
+     Of_Type       : in     String;
+     Default_Value : in     String       := "";
+     Mode          : in     Param_Mode_T := P_Mode_In);
 
   function Create
     (Name          : in String;

@@ -1,10 +1,8 @@
 --  with ada files
 with Ada.Text_IO;
 with Ada.Strings.Unbounded;
-with Ada.Characters.Latin_1;
 
 --  with others libraries
-with Templates_Parser;
 
 --  with project files
 with File_IO;
@@ -34,8 +32,7 @@ package body Template is
 
     Tag_Number : constant Integer := Tag_Names'Length;
 
-    Tags            : Tag_Array_T (1 .. Tag_Number);
-    Translate_Table : TP.Translate_Table (1 .. Tag_Number);
+    Tags : Tag_Array_T (1 .. Tag_Number);
   begin
     Result.Tags            := new Tag_Array_T'(Tags);
     Result.Translate_Table := new TP.Translate_Table
@@ -96,9 +93,6 @@ package body Template is
     return String
   is
     package U_Str renames Ada.Strings.Unbounded;
-    package Latin_1 renames Ada.Characters.Latin_1;
-
-    Eol : constant String := Latin_1.CR & Latin_1.LF;
 
     Result : U_Str.Unbounded_String := U_Str.Null_Unbounded_String;
 

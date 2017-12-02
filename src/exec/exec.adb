@@ -13,8 +13,11 @@ procedure Exec is
 begin
 
   Console_Project
-    ("/home/jeremy/workspace/ada/" &
-       "test_gen_code_generator");
+    ("/tmp/test_gen_code_generator");
+
+  --  Console_Project
+  --    ("/home/jeremy/workspace/ada/" &
+  --       "test_gen_code_generator");
 
   Module
     ("model");

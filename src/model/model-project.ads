@@ -9,10 +9,10 @@ with Reflection;
 
 package Model.Project is
 
-  subtype Parent_T is Named_Element.Object_T;
+  package Parent_Pkg renames Named_Element;
 
   type Object_T
-    is new Parent_T with private;
+    is new Parent_Pkg.Object_T with private;
 
   type Access_T is access all Object_T;
 
@@ -25,38 +25,19 @@ package Model.Project is
   subtype Vector_T is Vectors.Vector;
 
   procedure Initialize
-    (Self           : in out Object_T'Class;
-     Name           : in     String;
-     Kind           : in     String;
-     Root_Directory : in     String;
-     Parent         : access Object_T'Class := null);
+    (Self : in out Object_T'Class;
+     Name : in     String;
+     Kind : in     String);
 
   function Create
-    (Name           : in String;
-     Kind           : in String;
-     Root_Directory : in String;
-     Parent         : access Object_T'Class := null)
+    (Name : in String;
+     Kind : in String)
     return not null access Object_T'Class;
 
   not overriding
   function Get_Kind
     (Self : in Object_T)
     return String;
-
-  not overriding
-  function Get_Root_Directory
-    (Self : in Object_T)
-    return String;
-
-  not overriding
-  function Has_Parent
-    (Self : in Object_T)
-    return Boolean;
-
-  not overriding
-  function Get_Parent
-    (Self : in Object_T)
-    return not null access Object_T'Class;
 
   not overriding
   function Get_Subprojects
@@ -67,7 +48,7 @@ package Model.Project is
   function Get_Subproject
     (Self : in Object_T;
      Name : in String)
-    return not null access Object_T;
+    return not null access Object_T'Class;
 
   not overriding
   procedure Add_Subproject
@@ -107,12 +88,10 @@ package Model.Project is
 private
 
   type Object_T
-    is new Parent_T
+    is new Parent_Pkg.Object_T
     with record
-      Kind           : access String := null;
-      Root_Directory : access String := null;
-      Parent         : Class_T       := null;
-      Subprojects    : Vector_T      := Vectors.Empty_Vector;
+      Kind        : access String := null;
+      Subprojects : Vector_T      := Vectors.Empty_Vector;
 
       Elements : Named_Element.Vector_T :=
         Named_Element.Vectors.Empty_Vector;
@@ -123,35 +102,20 @@ private
     (Self   : in out          Object_T;
      Object : not null access Named_Element.Object_T);
 
+  not overriding
   function Get_Kind
     (Self : in Object_T)
     return String
     is
     (Self.Kind.all);
 
-  function Get_Root_Directory
-    (Self : in Object_T)
-    return String
-    is
-    (Self.Root_Directory.all);
-
-  function Has_Parent
-    (Self : in Object_T)
-    return Boolean
-    is
-    (Self.Parent /= null);
-
-  function Get_Parent
-    (Self : in Object_T)
-    return not null access Object_T'Class
-    is
-    (Self.Parent);
-
+  not overriding
   function Get_Subprojects
     (Self : in Object_T)
     return Vector_T
     is (Self.Subprojects);
 
+  not overriding
   function Get_Elements
     (Self : in Object_T)
     return Named_Element.Vector_T
@@ -159,6 +123,7 @@ private
 
   package Unit is new Reflection;
 
+  not overriding
   function To_Dbg_String
     (Self : in Object_T)
     return String

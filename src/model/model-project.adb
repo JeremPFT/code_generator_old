@@ -3,37 +3,25 @@ with Model.Visitor;
 package body Model.Project is
 
   procedure Initialize
-    (Self           : in out Object_T'Class;
-     Name           : in     String;
-     Kind           : in     String;
-     Root_Directory : in     String;
-     Parent         : access Object_T'Class := null)
+    (Self : in out Object_T'Class;
+     Name : in     String;
+     Kind : in     String)
   is
   begin
-    Named_Element.Initialize (Self, Name);
+    Parent_Pkg.Initialize (Self, Name);
 
-    Self.Kind           := new String'(Kind);
-    Self.Root_Directory := new String'(Root_Directory);
-    Self.Parent         := Class_T (Parent);
+    Self.Kind := new String'(Kind);
   end Initialize;
 
   function Create
-    (Name           : in     String;
-     Kind           : in     String;
-     Root_Directory : in     String;
-     Parent         : access Object_T'Class := null)
+    (Name : in     String;
+     Kind : in     String)
     return not null access Object_T'Class
   is
     Object : constant access Object_T :=
-      new Object_T'(Parent_T with
-                    Kind           => new String'(Kind),
-                    Root_Directory => new String'(Root_Directory),
-                    Parent         => Class_T (Parent),
-                    Subprojects    => <>,
-                    Elements       => <>);
+      new Object_T;
   begin
-    Object.Set_Name (Name);
-
+    Object.Initialize (Name, Kind);
     return Object;
   end Create;
 
@@ -80,7 +68,7 @@ package body Model.Project is
   function Get_Subproject
     (Self : in Object_T;
      Name : in String)
-    return not null access Object_T
+    return not null access Object_T'Class
   is
     Result : access Object_T := null;
   begin

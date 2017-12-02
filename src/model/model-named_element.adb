@@ -11,13 +11,13 @@ package body Model.Named_Element is
     Self.Name := new String'(Name);
   end Initialize;
 
-  procedure Set_Name
-    (Self  : in out Object_T;
-     Value : in String)
-  is
-  begin
-    Self.Name := new String'(Value);
-  end Set_Name;
+  --  procedure Set_Name
+  --    (Self  : in out Object_T;
+  --     Value : in String)
+  --  is
+  --  begin
+  --    Self.Name := new String'(Value);
+  --  end Set_Name;
 
   function To_String
     (Self : in Object_T)

@@ -5,10 +5,12 @@ limited with Model.Enum_Def;
 
 package Model.Enum_Value is
 
+  package Parent_Pkg renames Model.Named_Element;
+
   type Object_T
     (Owner_Enum : access Enum_Def.Object_T'Class)
     is
-    new Named_Element.Object_T with private;
+    new Parent_Pkg.Object_T with private;
 
   type Reference_T is access all Object_T;
 
@@ -19,6 +21,11 @@ package Model.Enum_Value is
      Index_Type   => Positive);
 
   subtype Vector_T is Vectors.Vector;
+
+  procedure Initialize
+    (Self  : in out Object_T'Class;
+     Name  : in     String;
+     Value : in     Integer);
 
   function Create
     (Owner_Enum : not null access Enum_Def.Object_T'Class;

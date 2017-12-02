@@ -1,9 +1,7 @@
 --  with ada files
-with Ada.Exceptions;
 
 --  with others libraries
 with Templates_Parser;
-with Templates_Parser.Utils;
 
 --  with project files
 --  with Model.Element;

@@ -29,15 +29,9 @@ package body Model.Array_Def is
      Defined_Range  : in     String)
     return not null access Object_T'Class
   is
-    Obj_Array : constant access Object_T :=
-      new Object_T'(Type_Def.Object_T with
-                    Owner_Package => Owner_Package,
-                    others        => <>);
+    Obj_Array : constant access Object_T := new Object_T (Owner_Package);
   begin
-    Obj_Array.Set_Name (Name);
-    Obj_Array.Contained_Type := new String'(Contained_Type);
-    Obj_Array.Index_Type     := new String'(Index_Type);
-    Obj_Array.Defined_Range  := new String'(Defined_Range);
+    Obj_Array.Initialize (Name, Contained_Type, Index_Type, Defined_Range);
 
     return Obj_Array;
   end Create;

@@ -32,6 +32,13 @@ package Model.Subprogram is
      Is_Separate    : in     Boolean                    := False)
     return not null access Object_T'Class;
 
+  procedure Initialize
+    (Self        : in out Object_T'Class;
+     Name        : in     String;
+     Of_Type     : in     String  := "";
+     Is_Abstract : in     Boolean := False;
+     Is_Separate : in     Boolean := False);
+
   not overriding
   function Get_Type
     (Self : in Object_T)
@@ -54,7 +61,7 @@ package Model.Subprogram is
 
   not overriding
   function Get_Parameter
-    (Self : in Object_T;
+    (Self  : in Object_T;
      Index : in Positive)
     return not null access Parameter.Object_T'Class;
 
@@ -97,7 +104,7 @@ private
     (Natural (Self.Parameters.Length));
 
   function Get_Parameter
-    (Self : in Object_T;
+    (Self  : in Object_T;
      Index : in Positive)
     return not null access Parameter.Object_T'Class
     is

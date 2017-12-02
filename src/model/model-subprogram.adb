@@ -1,5 +1,23 @@
 package body Model.Subprogram is
 
+  procedure Initialize
+    (Self        : in out Object_T'Class;
+     Name        : in     String;
+     Of_Type     : in     String  := "";
+     Is_Abstract : in     Boolean := False;
+     Is_Separate : in     Boolean := False)
+  is
+  begin
+    Named_Element.Initialize (Self, Name);
+
+    if Name /= "" then
+      Self.Of_Type := new String'(Of_Type);
+    end if;
+
+    Self.Is_Abstract := Is_Abstract;
+    Self.Is_Separate := Is_Separate;
+  end Initialize;
+
   function Create
     (Owner_Package  : access Package_Def.Object_T'Class := null;
      Parent_Package : access Package_Def.Object_T'Class := null;
@@ -9,22 +27,12 @@ package body Model.Subprogram is
      Is_Separate    : in     Boolean                    := False)
     return not null access Object_T'Class
   is
-    Of_Type_Val : constant access String :=
-      (if Of_Type /= "" then
-         new String'(Of_Type)
-       else null);
-
-    Obj_Subprogram : constant access Object_T :=
-      new Object_T'(Named_Element.Object_T with
-                    Owner_Package  => Owner_Package,
-                    Parent_Package => Parent_Package,
-                    Of_Type        => Of_Type_Val,
-                    Is_Abstract    => Is_Abstract,
-                    Is_Separate    => Is_Separate,
-                    others         => <>);
+    Object : constant access Object_T :=
+      new Object_T (Owner_Package  => Owner_Package,
+                    Parent_Package => Parent_Package);
   begin
-    Obj_Subprogram.Set_Name (Name);
-    return Obj_Subprogram;
+    Object.Initialize (Name, Of_Type, Is_Abstract, Is_Separate);
+    return Object;
   end Create;
 
   not overriding

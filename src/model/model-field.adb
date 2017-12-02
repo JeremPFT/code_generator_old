@@ -4,6 +4,26 @@ with Model.Class_Def;
 
 package body Model.Field is
 
+  procedure Initialize
+    (Self          : in out Object_T'Class;
+     Name          : in     String;
+     Of_Type       : in     String;
+     Default_Value : in     String := "")
+  is
+  begin
+    Parent_Pkg.Initialize (Self, Name);
+
+    if Of_Type /= "" then
+      Self.Of_Type := new String'(Of_Type);
+    else
+      raise Constraint_Error with "the field """ & Name & """ has no type";
+    end if;
+
+    if Default_Value /= "" then
+      Self.Default_Value := new String'(Default_Value);
+    end if;
+  end Initialize;
+
   function Create
     (Owner_Class   : not null access Class_Def.Object_T'Class;
      Name          : in              String;
@@ -11,21 +31,11 @@ package body Model.Field is
      Default_Value : in              String := "")
     return not null access Object_T'Class
   is
-    Of_Type_Val       : constant access String :=
-      new String'(Of_Type);
-    Default_Value_Val : constant access String :=
-      (if Default_Value = ""
-       then null
-       else new String'(Default_Value));
-
-    Obj_Field : constant access Object_T :=
-      new Object_T'(Named_Element.Object_T with
-                    Owner_Class   => Owner_Class,
-                    Of_Type       => Of_Type_Val,
-                    Default_Value => Default_Value_Val);
+    Object : constant access Object_T :=
+      new Object_T (Owner_Class => Owner_Class);
   begin
-    Obj_Field.Set_Name (Name);
-    return Obj_Field;
+    Object.Initialize (Name, Of_Type, Default_Value);
+    return Object;
   end Create;
 
   overriding

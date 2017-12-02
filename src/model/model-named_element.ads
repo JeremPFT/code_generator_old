@@ -22,10 +22,10 @@ package Model.Named_Element is
     (Self : in out Object_T'Class;
      Name : in     String);
 
-  not overriding
-  procedure Set_Name
-    (Self  : in out Object_T;
-     Value : in String);
+  --  not overriding
+  --  procedure Set_Name
+  --    (Self  : in out Object_T;
+  --     Value : in String);
 
   not overriding
   function Get_Name

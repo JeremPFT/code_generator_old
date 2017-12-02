@@ -13,6 +13,8 @@ is
 
 begin
 
+  With_Templates.Set_Root_Directory (Root_Directory.all);
+
   T_IO.Put_Line ("created project : " & Project.Get_Name);
 
   Project.Visit (Printer);

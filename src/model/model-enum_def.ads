@@ -6,10 +6,12 @@ with Model.Enum_Value;
 
 package Model.Enum_Def is
 
+  package Parent_Pkg renames Type_Def;
+
   type Object_T
     (Owner_Package : access Package_Def.Object_T'Class)
     is
-    new Type_Def.Object_T with private;
+    new Parent_Pkg.Object_T with private;
 
   type Reference_T is access all Object_T;
 
@@ -20,6 +22,12 @@ package Model.Enum_Def is
      Index_Type   => Positive);
 
   subtype Vector_T is Vectors.Vector;
+
+  procedure Initialize
+    (Self   : in out Object_T'Class;
+     Name   : in     String;
+     Values : in     Enum_Value.Vector_T :=
+       Enum_Value.Vectors.Empty_Vector);
 
   function Create
     (Owner_Package : access Package_Def.Object_T'Class;

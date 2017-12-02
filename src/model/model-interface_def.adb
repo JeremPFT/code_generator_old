@@ -2,6 +2,21 @@ with Model.Package_Def;
 
 package body Model.Interface_Def is
 
+  procedure Initialize
+    (Self              : in out Object_T'Class;
+     Name              : in     String;
+     Parent_Interfaces : in     Model.Interface_Def.Vector_T :=
+       Model.Interface_Def.Vectors.Empty_Vector)
+  is
+  begin
+    Type_Def.Initialize (Self, Name);
+
+    for Itf of Parent_Interfaces loop
+      Self.Add_Parent_Interface (Itf);
+    end loop;
+
+  end Initialize;
+
   function Create
     (Owner_Package     : not null access Package_Def.Object_T'Class;
      Name              : in              String;
@@ -9,19 +24,11 @@ package body Model.Interface_Def is
        Vectors.Empty_Vector)
     return not null access Object_T'Class
   is
-    Obj_Interface : constant access Object_T :=
-      new Object_T'(Type_Def.Object_T
-                    with
-                    Owner_Package => Owner_Package,
-                    others        => <>);
+    Object : constant access Object_T :=
+      new Object_T (Owner_Package => Owner_Package);
   begin
-    Obj_Interface.Set_Name (Name);
-
-    for Itf of Parent_Interfaces loop
-      Obj_Interface.Add_Parent_Interface (Itf);
-    end loop;
-
-    return Obj_Interface;
+    Object.Initialize (Name, Parent_Interfaces);
+    return Object;
   end Create;
 
   procedure Add_Parent_Interface
