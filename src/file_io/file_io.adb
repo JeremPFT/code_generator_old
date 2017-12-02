@@ -12,6 +12,8 @@ package body File_IO is
 
   package Unit is new Reflection;
 
+  Debug : constant Boolean := True;
+
   -----------------------------------------------------------------------------
 
   procedure Mkdir
@@ -20,7 +22,9 @@ package body File_IO is
   begin
     T_IO.Put_Line (Unit.Name & ": " & "Mkdir " & Path);
 
-    A_Dir.Create_Path (New_Directory => Path);
+    if not Debug then
+      A_Dir.Create_Path (New_Directory => Path);
+    end if;
   end Mkdir;
 
   -----------------------------------------------------------------------------
@@ -29,8 +33,8 @@ package body File_IO is
     (Path    : in String;
      Content : in String)
   is
-    Dir      : constant String := A_Dir.Containing_Directory (Path);
-    Filename : constant String := A_Dir.Simple_Name (Path);
+    Dir : constant String := A_Dir.Containing_Directory (Path);
+    --  Filename : constant String := A_Dir.Simple_Name (Path);
 
     File : T_IO.File_Type;
 
@@ -41,13 +45,15 @@ package body File_IO is
       Mkdir (Path => Dir);
     end if;
 
-    T_IO.Create (File => File,
-                 Name => Path);
+    if not Debug then
+      T_IO.Create (File => File,
+                   Name => Path);
 
-    T_IO.Put_Line (File => File,
-                   Item => Content);
+      T_IO.Put_Line (File => File,
+                     Item => Content);
 
-    T_IO.Close (File => File);
+      T_IO.Close (File => File);
+    end if;
   end Touch;
 
   -----------------------------------------------------------------------------
@@ -70,7 +76,9 @@ package body File_IO is
     T_IO.Put_Line (Unit.Name & ": " &
                      "Set_Working_Directory " & Path);
 
-    A_Dir.Set_Directory (Directory => Path);
+    if not Debug then
+      A_Dir.Set_Directory (Directory => Path);
+    end if;
   end Set_Working_Directory;
 
   -----------------------------------------------------------------------------

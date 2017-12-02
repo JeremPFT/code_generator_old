@@ -25,28 +25,6 @@ package body Model.Visitor.Template is
 
   -----------------------------------------------------------------------------
 
-  procedure Generate_Main_Project
-    (Self   : in out Object_T;
-     Object : in     Model.Project.Object_T'Class);
-
-  procedure Generate_Main_Makefile
-    (Self   : in out Object_T;
-     Object : in     Model.Project.Object_T'Class);
-
-  procedure Generate_Main_Makefile_Config
-    (Self   : in out Object_T;
-     Object : in     Model.Project.Object_T'Class);
-
-  procedure Generate_Main_Makefile_Common
-    (Self   : in out Object_T;
-     Object : in     Model.Project.Object_T'Class);
-
-  procedure Generate_Subproject
-    (Self   : in out Object_T;
-     Object : in     Model.Project.Object_T'Class);
-
-  -----------------------------------------------------------------------------
-
   overriding
   procedure Visit_Element
     (Self   : in out Object_T;
@@ -57,42 +35,37 @@ package body Model.Visitor.Template is
     T_IO.Put_Line ("visit_element");
   end Visit_Element;
 
+  -----------------------------------------------------------------------------
+
+  package Visit_Project_Impl is
+    procedure Initialize
+      (Visitor_Object : in out Object_T;
+       Project_Object : in     Model.Project.Object_T'Class);
+
+    procedure Generate_Main_Project;
+    procedure Generate_Subproject;
+  end Visit_Project_Impl;
+
+  package body Visit_Project_Impl is separate;
+
   overriding
   procedure Visit_Project
     (Self   : in out Object_T;
      Object : in     Model.Project.Object_T'Class)
   is
+    use Visit_Project_Impl;
+
   begin
+    Initialize (Self, Object);
+
     if not Object.Has_Parent then
-      Self.Content := Self.Content &
-        "------------------- VISITOR TEMPLATE BEG ------------------" &
-        EOL;
-    end if;
-
-    if Object.Has_Parent then
-      T_IO.Put_Line ("  subproject");
-
-      F_IO.Set_Working_Directory
-        (F_IO.Compose
-           (Left  => Object.Get_Parent.Get_Root_Directory,
-            Right => "src"));
-      Generate_Subproject (Self, Object);
+      Generate_Main_Project;
     else
-      T_IO.Put_Line ("  main project");
-
-      Generate_Main_Project (Self, Object);
-
-      for Subproj of Object.Get_Subprojects loop
-        Subproj.Visit (Self);
-      end loop;
-    end if;
-
-    if not Object.Has_Parent then
-      Self.Content := Self.Content &
-        "------------------- VISITOR TEMPLATE END ------------------" &
-        EOL;
+      Generate_Subproject;
     end if;
   end Visit_Project;
+
+  -----------------------------------------------------------------------------
 
   overriding
   procedure Visit_Package
@@ -168,125 +141,5 @@ package body Model.Visitor.Template is
     (Self : in Object_T)
     return String
     is ("");
-
-  procedure Generate_Main_Project
-    (Self   : in out Object_T;
-     Object : in     Model.Project.Object_T'Class)
-  is
-    Working_Directory : constant String :=
-      F_IO.Current_Directory;
-  begin
-    F_IO.Set_Working_Directory (Working_Directory);
-    F_IO.Mkdir (Object.Get_Root_Directory);
-    F_IO.Set_Working_Directory (Object.Get_Root_Directory);
-    F_IO.Mkdir ("bin");
-    F_IO.Mkdir ("src");
-    F_IO.Mkdir ("gpr");
-
-    Generate_Main_Makefile (Self, Object);
-    Generate_Main_Makefile_Config (Self, Object);
-    Generate_Main_Makefile_Common (Self, Object);
-  end Generate_Main_Project;
-
-  procedure Generate_Subproject
-    (Self   : in out Object_T;
-     Object : in     Model.Project.Object_T'Class)
-  is
-    pragma Unreferenced (Self);
-  begin
-    F_IO.Mkdir (Object.Get_Root_Directory);
-    F_IO.Set_Working_Directory
-      (F_IO.Compose (F_IO.Current_Directory,
-                     Object.Get_Root_Directory));
-    F_IO.Mkdir ("gpr");
-  end Generate_Subproject;
-
-  procedure Generate_Main_Makefile
-    (Self   : in out Object_T;
-     Object : in     Model.Project.Object_T'Class)
-  is
-    pragma Unreferenced (Self, Object);
-
-    Template_Name : constant String := "makefile";
-    File_Name     : constant String := "makefile";
-
-    Image : constant access Tmpl.Object_T :=
-      Tmpl.Create (Group         => "",
-                   Template_File => Template_Name);
-  begin
-    F_IO.Touch (Path    => File_Name,
-                Content => Image.To_String);
-  end Generate_Main_Makefile;
-
-  procedure Generate_Main_Makefile_Config
-    (Self   : in out Object_T;
-     Object : in     Model.Project.Object_T'Class)
-  is
-    pragma Unreferenced (Self);
-
-    Template_Name : constant String := "makefile.config";
-    File_Name     : constant String := "makefile.config";
-
-    subtype Tag_Names_Array_T is Tmpl.Tag_Names_Array_T
-      (1 .. 2);
-    Module_Tag       : constant String := "MODULE";
-    Project_Name_Tag : constant String := "PROJECT_NAME";
-
-    Tags : constant Tag_Names_Array_T :=
-      (new String'(Module_Tag),
-       new String'(Project_Name_Tag));
-
-    Image : access Tmpl.Object_T := null;
-
-    ---------------------------
-    procedure Set_Module_Names;
-    procedure Set_Project_Name;
-    ---------------------------
-    procedure Set_Module_Names
-    is
-    begin
-      for Module of Object.Get_Subprojects loop
-        Image.Add_Value (Tag_Name => Module_Tag,
-                         Value    => Module.Get_Name);
-      end loop;
-    end Set_Module_Names;
-    ---------------------------
-    procedure Set_Project_Name
-    is
-    begin
-      Image.Add_Value (Tag_Name => Project_Name_Tag,
-                       Value    => Object.Get_Name);
-
-    end Set_Project_Name;
-    ---------------------------
-  begin
-    Image := Tmpl.Create
-      (Group         => "",
-       Template_File => Template_Name,
-       Tag_Names     => Tags);
-
-    Set_Module_Names;
-    Set_Project_Name;
-
-    F_IO.Touch (Path    => File_Name,
-                Content => Image.To_String);
-  end Generate_Main_Makefile_Config;
-
-  procedure Generate_Main_Makefile_Common
-    (Self   : in out Object_T;
-     Object : in     Model.Project.Object_T'Class)
-  is
-    pragma Unreferenced (Self, Object);
-
-    Template_Name : constant String := "makefile.common";
-    File_Name     : constant String := "makefile.common";
-
-    Image : constant access Tmpl.Object_T :=
-      Tmpl.Create (Group         => "",
-                   Template_File => Template_Name);
-  begin
-    F_IO.Touch (Path    => File_Name,
-                Content => Image.To_String);
-  end Generate_Main_Makefile_Common;
 
 end Model.Visitor.Template;
