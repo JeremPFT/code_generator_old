@@ -17,11 +17,11 @@ clean_all::
 
 tests_init::
 	gnattest -P gpr/$(module) \
-	--harness-dir=../src/$(module)/tests/harness project_loader.ads \
+	--harness-dir=$(module)_harness project_loader.ads \
 	--tests-dir=../src/$(module)/tests
 
-tests_run: tests_build
-	./tests/harness/test_runner
-
 tests_build:
-	gprbuild -P tests/harness/test_driver.gpr
+	gprbuild -P ../../obj/$(module)_harness/test_driver.gpr
+
+tests_run: tests_build
+	../../obj/$(module)_harness/test_runner

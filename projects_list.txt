@@ -1,0 +1,11 @@
+/home/jeremy/workspace/ada/code_generator/gpr
+/home/jeremy/workspace/ada/code_generator/src/ada_utils/gpr
+/home/jeremy/workspace/ada/code_generator/src/exec/gpr
+/home/jeremy/workspace/ada/code_generator/src/file_io/gpr
+/home/jeremy/workspace/ada/code_generator/src/generator/gpr
+/home/jeremy/workspace/ada/code_generator/src/model/gpr
+/home/jeremy/workspace/ada/code_generator/src/project_loader/gpr
+/home/jeremy/workspace/ada/code_generator/src/scripts_export/gpr
+/home/jeremy/workspace/ada/code_generator/src/string_utils/gpr
+/home/jeremy/workspace/ada/code_generator/src/template/gpr
+/home/jeremy/workspace/ada/code_generator/src/test_utils/gpr

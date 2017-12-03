@@ -1,8 +1,6 @@
 BUILD = /usr/gnat/bin/gprbuild
 CLEAN = /usr/gnat/bin/gprclean
 
-# export GPR_PROJECT_PATH_FILE=/home/jeremy/workspace/ada/test_hello_world/project_list.txt
-
 # path
 default-harness-dir = obj/gnattest/harness
 tests-dir = prj_tests
