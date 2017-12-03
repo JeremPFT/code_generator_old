@@ -1,8 +1,7 @@
 with "share";
-with "model";
+with "project_loader";
 with "file_io";
-with "string_utils";
-with "test_utils";
+with "model";
 
 library project Generator is
 
@@ -16,7 +15,7 @@ library project Generator is
   for Object_Dir use Share.Obj_Directory;
   for Library_Dir use Share.Lib_Directory;
 
-  for Library_Name use "code_gen_generator";
+  for Library_Name use "generator";
   for Library_Kind use "static";
 
   package Compiler renames Share.Compiler;

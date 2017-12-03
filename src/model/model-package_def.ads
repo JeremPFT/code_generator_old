@@ -53,6 +53,11 @@ package Model.Package_Def is
      Object : not null access Subprogram.Object_T'Class);
 
   not overriding
+  procedure Add_Private_Subprogram
+    (Self   : in out          Object_T;
+     Object : not null access Subprogram.Object_T'Class);
+
+  not overriding
   procedure Add_Child
     (Self   : in out          Object_T;
      Object : not null access Object_T'Class);
@@ -64,6 +69,11 @@ package Model.Package_Def is
 
   not overriding
   function Get_Public_Elements
+    (Self : in Object_T)
+    return Named_Element.Vector_T;
+
+  not overriding
+  function Get_Private_Elements
     (Self : in Object_T)
     return Named_Element.Vector_T;
 
@@ -120,6 +130,11 @@ private
     (Self : in Object_T)
     return Named_Element.Vector_T
     is (Self.Public_Elements);
+
+  function Get_Private_Elements
+    (Self : in Object_T)
+    return Named_Element.Vector_T
+    is (Self.Private_Elements);
 
   function Get_Children
     (Self : in Object_T)

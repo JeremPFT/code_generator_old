@@ -1,40 +1,39 @@
 with Model.Module;
-with Model.Project;
 with Model.Class_Def;
+with Model.Package_Def;
 with String_Vectors;
-with Split;
 
 package body Project_Loader is
 
   -----------------------------------------------------------------------------
 
-  Root_Directory : access String                   := null;
-  Project        : access Model.Project.Object_T   := null;
-  Current_Module : access Model.Module.Object_T    := null;
-  Current_Class  : access Model.Class_Def.Object_T := null;
+  Current_Project : access Model.Project.Object_T     := null;
+  Current_Package : access Model.Package_Def.Object_T := null;
+  Current_Module  : access Model.Module.Object_T      := null;
+  Current_Class   : access Model.Class_Def.Object_T   := null;
 
   -----------------------------------------------------------------------------
 
-  procedure Console_Project
-    (Path : in String)
+  Data : Data_T;
+
+  procedure Project
+    (Path         : in String;
+     Project_Name : in String)
   is
-    function Get_Prj_Name (Path : in String) return String;
-
-    function Get_Prj_Name (Path : in String) return String
-    is
-      Strings : constant String_Vectors.Vector :=
-        Split (Source => Path, Separator => "/");
-    begin
-      return Strings.Last_Element;
-    end Get_Prj_Name;
-
   begin
-    Root_Directory := new String'(Path);
-
-    Project := Model.Project.Create
-      (Name => Get_Prj_Name (Path),
+    Current_Project := Model.Project.Create
+      (Name => Project_Name,
        Kind => "console");
-  end Console_Project;
+
+    Data.Path    := new String'(Path);
+    Data.Project := Current_Project;
+  end Project;
+
+  -----------------------------------------------------------------------------
+
+  procedure Close_Current_Module;
+  procedure Close_Current_Package;
+  procedure Close_Current_Class;
 
   -----------------------------------------------------------------------------
 
@@ -85,8 +84,59 @@ package body Project_Loader is
 
   -----------------------------------------------------------------------------
 
-  procedure Process_Project
-    is separate;
+  procedure Close
+  is
+  begin
+    Close_Current_Class;
+    Close_Current_Package;
+    Close_Current_Module;
+  end Close;
+
+  -----------------------------------------------------------------------------
+
+  function Get_Data
+    return Data_T
+  is
+  begin
+    return Data;
+  end Get_Data;
+
+  -----------------------------------------------------------------------------
+
+  procedure Close_Current_Module
+  is
+  begin
+    if Current_Module /= null then
+      null;
+    end if;
+  end Close_Current_Module;
+
+  procedure Close_Current_Package
+  is
+  begin
+    if Current_Package /= null then
+      null;
+    end if;
+  end Close_Current_Package;
+
+  procedure Close_Current_Class
+  is
+  begin
+    if Current_Class /= null then
+      Current_Package.Add_Public_Class (Current_Class);
+
+      for I in 1 .. Current_Class.Number_Of_Public_Subprograms loop
+        Current_Package.Add_Public_Subprogram
+          (Current_Class.Get_Public_Subprogram (I));
+      end loop;
+
+      for I in 1 .. Current_Class.Number_Of_Private_Subprograms loop
+        Current_Package.Add_Private_Subprogram
+          (Current_Class.Get_Private_Subprogram (I));
+      end loop;
+
+    end if;
+  end Close_Current_Class;
 
   -----------------------------------------------------------------------------
 

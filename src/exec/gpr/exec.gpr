@@ -2,7 +2,7 @@ with "share";
 with "test_utils";
 with "string_utils";
 with "model";
-with "template";
+with "generator";
 with "file_io";
 with "ada_utils";
 with "project_loader";

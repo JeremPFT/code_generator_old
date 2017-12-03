@@ -2,6 +2,8 @@ with Ada.Text_IO;
 with Ada.Containers;
 use type Ada.Containers.Count_Type;
 
+with Split;
+
 with Ada.Strings.Fixed;
 with Model.Field;
 with Model.Subprogram;
@@ -264,8 +266,8 @@ is
         Subprogram_Add.Add_Parameter (Parameter_Self);
         Subprogram_Add.Add_Parameter (Parameter_Object);
 
-        Ada.Text_IO.
-          Put_Line ("AJOUT DU SOUS PROGRAMME " & Subprogram_Add.Get_Name);
+        --  Ada.Text_IO.
+        --    Put_Line ("AJOUT DU SOUS PROGRAMME " & Subprogram_Add.Get_Name);
         Current_Class.Owner_Package.Add_Public_Subprogram (Subprogram_Add);
       end;
     end if;

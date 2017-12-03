@@ -1,3 +1,5 @@
+--  with Ada.Exceptions;
+--  with Ada.Text_IO;
 with Model.Visitor;
 
 package body Model.Project is
@@ -79,6 +81,9 @@ package body Model.Project is
     end loop;
 
     return Result;
+  exception
+    when Constraint_Error =>
+      raise Constraint_Error with "no subproject with name """ & Name & """";
   end Get_Subproject;
 
   overriding

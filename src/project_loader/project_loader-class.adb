@@ -1,7 +1,6 @@
 with Ada.Strings.Fixed;
 with Ada.Containers;
 use type Ada.Containers.Count_Type;
-with Ada.Text_IO;
 
 with Split;
 
@@ -47,6 +46,9 @@ is
   procedure Main
   is
   begin
+    Close_Current_Class;
+    Close_Current_Package;
+
     Check_Global_Input;
     Separate_Data_From_Options;
     Set_Class_Name_And_Heritage;
@@ -192,19 +194,19 @@ is
 
   procedure Build_Objects
   is
-    Pkg : access Model.Package_Def.Object_T := null;
   begin
-    Pkg :=
-      Model.Package_Def.Create (Name   => Parsed_Data.Class_Name.all,
-                                Parent => Model.Package_Def.Class_T
-                                  (Current_Module.Get_Elements.First_Element));
+    Current_Package :=
+      Model.Package_Def.Create
+        (Name   => Parsed_Data.Class_Name.all,
+         Parent => Model.Package_Def.Class_T
+           (Current_Module.Get_Elements.First_Element));
 
     Current_Class := Model.Class_Def.Create
-      (Owner_Package => Pkg,
+      (Owner_Package => Current_Package,
        Name          => "object_t",
        Is_Abstract   => Parsed_Data.Opt_Abstract);
 
-    Pkg.Add_Public_Class (Current_Class);
+    Current_Package.Add_Public_Class (Current_Class);
 
     --  if Parsed_Data.Has_Create then
     --    declare

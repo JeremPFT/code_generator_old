@@ -13,7 +13,7 @@ include makefile.common
 # # @echo project_path_list : $(project_path_list)
 # # @echo project_files_list : $(project_files_list)
 
-all: exec
+all: compil
 
 compil::
 	@echo

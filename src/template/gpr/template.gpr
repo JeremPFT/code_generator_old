@@ -1,9 +1,8 @@
-with "share";
--- with "model";
-with "file_io";
 with "aws";
-with "string_utils";
-with "test_utils";
+
+with "../../../gpr/share.gpr";
+with "../../string_utils/gpr/string_utils.gpr";
+with "../../file_io/gpr/file_io.gpr";
 
 library project Template is
 

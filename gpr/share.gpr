@@ -1,7 +1,9 @@
 abstract project Share is
 
-  Project_Dir :=  external ("project_root") & "/" &
-    external ("project_name");
+  Project_Dir := "/home/jeremy/workspace/ada/code_generator";
+
+  -- Project_Dir :=  external ("project_root") & "/" &
+  --   external ("project_name");
 
   Obj_Directory := Project_Dir & "/obj";
 

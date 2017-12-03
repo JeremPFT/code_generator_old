@@ -63,6 +63,10 @@ package body Model.Visitor.Template is
     F_IO.Mkdir (Object.Get_Name);
     F_IO.Set_Working_Directory (Object.Get_Name);
     F_IO.Mkdir ("gpr");
+
+    for Element of Object.Get_Elements loop
+      Element.Visit (Self);
+    end loop;
   end Visit_Module;
 
   -----------------------------------------------------------------------------

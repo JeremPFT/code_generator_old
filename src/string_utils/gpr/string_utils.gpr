@@ -1,4 +1,4 @@
-with "share";
+with "../../../gpr/share.gpr";
 
 project String_Utils is
 

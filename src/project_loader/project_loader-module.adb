@@ -10,12 +10,16 @@ is
     Model.Package_Def.Create (Name => Name);
 
 begin
+  Close_Current_Class;
+  Close_Current_Package;
+  Close_Current_Module;
+
   Current_Module := Model.Module.Create
     (Name   => Name,
      Kind   => "",
-     Parent => Project);
+     Parent => Current_Project);
 
   Current_Module.Add_Package (Pkg);
 
-  Project.Add_Subproject (Current_Module);
+  Current_Project.Add_Subproject (Current_Module);
 end Module;

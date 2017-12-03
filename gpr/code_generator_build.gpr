@@ -51,6 +51,12 @@ aggregate project Code_Generator_Build is
   Added := "../src/" & Module & "/gpr/" & Module & ".gpr";
   Project_Files_List := Project_Files_List & Added;
 
+  Module := "generator";
+  Added := "../src/" & Module & "/gpr";
+  Project_Path_List := Project_Path_List & Added;
+  Added := "../src/" & Module & "/gpr/" & Module & ".gpr";
+  Project_Files_List := Project_Files_List & Added;
+
   for Project_Path use Project_Path_List;
   for Project_Files use Project_Files_List;
 

@@ -138,10 +138,7 @@ is
   is
   begin
     for Module of Object.Get_Subprojects loop
-      T_IO.Put_Line ("visiting module " & Module.Get_Name);
-
       Module.Visit (Self);
-      --  Model.Module.Class_T (Module).Visit (Self);
     end loop;
   end Process_Modules;
 

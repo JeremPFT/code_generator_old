@@ -1,5 +1,5 @@
-with "share";
-with "string_utils";
+with "../../../gpr/share.gpr";
+with "../../string_utils/gpr/string_utils.gpr";
 
 library project File_IO is
 

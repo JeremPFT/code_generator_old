@@ -73,6 +73,14 @@ package body Model.Package_Def is
     Self.Public_Elements.Append (Object);
   end Add_Public_Subprogram;
 
+  procedure Add_Private_Subprogram
+    (Self   : in out          Object_T;
+     Object : not null access Subprogram.Object_T'Class)
+  is
+  begin
+    Self.Private_Elements.Append (Object);
+  end Add_Private_Subprogram;
+
   procedure Add_Public_Class
     (Self   : in out          Object_T;
      Object : not null access Class_Def.Object_T'Class)

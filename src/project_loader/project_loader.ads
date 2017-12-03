@@ -1,3 +1,4 @@
+with Model.Project;
 with String_Utils;
 
 package Project_Loader is
@@ -7,13 +8,20 @@ package Project_Loader is
 
   subtype String_Array is String_Utils.String_Array;
 
-  procedure Console_Project
-    (Path : in String);
+  type Data_T is
+    record
+      Path    : access String                       := null;
+      Project : access Model.Project.Object_T'Class := null;
+    end record;
+
+  procedure Project
+    (Path         : in String;
+     Project_Name : in String);
   --  initialize a new project given it's path.
   --  the project name is the last element of path.
   --
   --  usage:
-  --  Console_Project ("/full/path/to/workspace/" & project_name)
+  --  Project ("/full/path/to/workspace/" & project_name)
 
   procedure Module
     (Name : in String);
@@ -66,6 +74,9 @@ package Project_Loader is
   procedure Methods
     (Input : in String_Array);
 
-  procedure Process_Project;
+  procedure Close;
+
+  function Get_Data
+    return Data_T;
 
 end Project_Loader;
