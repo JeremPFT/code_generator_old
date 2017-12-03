@@ -6,6 +6,8 @@ limited with Model.Class_Def;
 
 package Model.Field is
 
+  No_Default_Value : exception;
+
   package Parent_Pkg renames Model.Named_Element;
 
   type Object_T
@@ -78,12 +80,6 @@ private
     return String
     is
     (Self.Of_Type.all);
-
-  function Get_Default_Value
-    (Self : in Object_T)
-    return String
-    is
-    (Self.Default_Value.all);
 
   function Has_Default_Value
     (Self : in Object_T)

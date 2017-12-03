@@ -47,7 +47,7 @@ package body Options is
     elsif Key = "init" then
       return new Init_Option_T;
     else
-      raise Constraint_Error with "option """ & Key &
+      raise Unknown_Class_Option with "option """ & Key &
         """ inconnue (class """ & Parsed_Data.Class_Name.all & """)";
     end if;
   end Option_Factory;

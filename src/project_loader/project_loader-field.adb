@@ -28,7 +28,8 @@ is
       Opt_Treat_As,
         Opt_Create,
         Opt_Add,
-        Opt_Get
+        Opt_Get,
+        Opt_Set
         : Boolean := False;
 
       Treat_As : access String := null;
@@ -162,6 +163,13 @@ is
 
     overriding
     procedure Process (Self : in Get_Option_T);
+
+    ---------------------------------------------------------------------------
+
+    type Set_Option_T is new Option_T with null record;
+
+    overriding
+    procedure Process (Self : in Set_Option_T);
 
     ---------------------------------------------------------------------------
 

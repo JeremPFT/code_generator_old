@@ -7,21 +7,23 @@ package body Project_Loader.Test_Data is
 
   procedure Set_Up (Gnattest_T : in out Test) is
   begin
-    Project (Path => "path", Project_Name => "project");
+    null;
 
-    Module ("module_1");
+    --  Project (Path => "path", Project_Name => "project");
 
-    Class ("class_1");
+    --  Module ("module_1");
 
-    Class ("class_2; abstract");
+    --  Class ("class_1");
 
-    Class ("class_3");
+    --  Class ("class_2; abstract");
 
-    Module ("module_2");
+    --  Class ("class_3");
 
-    Close;
+    --  Module ("module_2");
 
-    Tests_Impl.Initialize (Get_Data);
+    --  Close;
+
+    --  Tests_Impl.Initialize (Get_Data);
   end Set_Up;
 
   procedure Tear_Down (Gnattest_T : in out Test) is

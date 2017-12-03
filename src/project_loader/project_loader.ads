@@ -6,6 +6,9 @@ package Project_Loader is
   Bad_Class_Input_Format : exception;
   Bad_Field_Input_Format : exception;
 
+  Unknown_Class_Option : exception;
+  Unknown_Field_Option : exception;
+
   subtype String_Array is String_Utils.String_Array;
 
   type Data_T is
@@ -25,7 +28,7 @@ package Project_Loader is
 
   procedure Module
     (Name : in String);
-  --  add a module to the project
+  --  add a module to the project. Add a root package of the same name.
 
   procedure Class
     (Input : in String);
@@ -78,5 +81,7 @@ package Project_Loader is
 
   function Get_Data
     return Data_T;
+
+  function Constante return String is ("une constante");
 
 end Project_Loader;

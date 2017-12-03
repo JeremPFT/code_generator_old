@@ -51,6 +51,12 @@ package Model.Project is
     return not null access Object_T'Class;
 
   not overriding
+  function Get_Subproject
+    (Self  : in Object_T;
+     Index : in Positive)
+    return not null access Object_T'Class;
+
+  not overriding
   procedure Add_Subproject
     (Self       : in out          Object_T;
      Subproject : not null access Object_T'Class);
@@ -59,6 +65,17 @@ package Model.Project is
   function Get_Elements
     (Self : in Object_T)
     return Named_Element.Vector_T;
+
+  not overriding
+  function Number_Of_Elements
+    (Self : in Object_T)
+    return Natural;
+
+  not overriding
+  function Get_Element
+    (Self  : in Object_T;
+     Index : in Natural)
+    return not null access Named_Element.Object_T'Class;
 
   not overriding
   procedure Add_Package
@@ -129,5 +146,20 @@ private
     return String
     is (Unit.Name & " """ & Self.Get_Name & """" &
           " (" & Self.Get_Kind & ")");
+
+  not overriding
+  function Number_Of_Elements
+    (Self : in Object_T)
+    return Natural
+    is
+    (Natural (Self.Elements.Length));
+
+  not overriding
+  function Get_Element
+    (Self  : in Object_T;
+     Index : in Natural)
+    return not null access Named_Element.Object_T'Class
+    is
+    (Self.Elements (Index));
 
 end Model.Project;

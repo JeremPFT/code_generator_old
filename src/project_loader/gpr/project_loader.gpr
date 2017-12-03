@@ -1,7 +1,7 @@
 with "opentoken";
-with "../../model/gpr/model.gpr";
-with "../../string_utils/gpr/string_utils.gpr";
-with "../../../gpr/share.gpr";
+with "model";
+with "string_utils";
+with "share";
 
 library project Project_Loader is
 

@@ -208,6 +208,8 @@ is
 
     Current_Package.Add_Public_Class (Current_Class);
 
+    Current_Module.Add_Package (Current_Package);
+
     --  if Parsed_Data.Has_Create then
     --    declare
     --      Create_Function : access Model.Subprogram.Object_T := null;

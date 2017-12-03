@@ -30,21 +30,21 @@ package body Project_Loader.Test_Data.Tests is
   --  end read only
 
   --  begin read only
-  procedure Test_Console_Project (Gnattest_T : in out Test);
-  procedure Test_Console_Project_66170c (Gnattest_T : in out Test) renames Test_Console_Project;
-  --  id:2.2/66170c5b48cfc2bf/Console_Project/1/0/
-  procedure Test_Console_Project (Gnattest_T : in out Test) is
-    --  project_loader.ads:17:3:Console_Project
+  procedure Test_Project (Gnattest_T : in out Test);
+  procedure Test_Project_24c5a2 (Gnattest_T : in out Test) renames Test_Project;
+  --  id:2.2/24c5a2331ed9df43/Project/1/0/
+  procedure Test_Project (Gnattest_T : in out Test) is
+    --  project_loader.ads:17:3:Project
     --  end read only
-
     pragma Unreferenced (Gnattest_T);
     use Tests_Impl;
-
   begin
-    Check_Project_Has_Valid_Name;
+    Init_Check_Project;
+
     Check_Project_Has_Valid_Path;
+    Check_Project_Has_Valid_Name;
     --  begin read only
-  end Test_Console_Project;
+  end Test_Project;
   --  end read only
 
 
@@ -60,6 +60,9 @@ package body Project_Loader.Test_Data.Tests is
     use Tests_Impl;
 
   begin
+    Init_Check_Module;
+
+    Check_Module_Only_Its_Root_Package;
     Check_Module_Has_Valid_Module_Number;
     Check_Module_Has_Valid_Module_Name;
     Check_Module_Error_If_Unknown_Module_Name;
@@ -75,16 +78,14 @@ package body Project_Loader.Test_Data.Tests is
   procedure Test_Class (Gnattest_T : in out Test) is
     --  project_loader.ads:30:3:Class
     --  end read only
-
     pragma Unreferenced (Gnattest_T);
     use Tests_Impl;
-
   begin
+    Init_Check_Class;
 
-    AUnit.Assertions.Assert
-      (Gnattest_Generated.Default_Assert_Value,
-       "Test not implemented.");
-
+    Check_Class_Is_Added;
+    Check_Class_Package_Is_Created;
+    Check_Class_Has_Valid_Name;
     --  begin read only
   end Test_Class;
   --  end read only
@@ -97,15 +98,19 @@ package body Project_Loader.Test_Data.Tests is
   procedure Test_Field (Gnattest_T : in out Test) is
     --  project_loader.ads:50:3:Field
     --  end read only
-
     pragma Unreferenced (Gnattest_T);
-
+    use Tests_Impl;
   begin
+    Init_Check_Field;
 
-    AUnit.Assertions.Assert
-      (Gnattest_Generated.Default_Assert_Value,
-       "Test not implemented.");
-
+    Check_Field_Number;
+    Check_Field_Add_2_Basic_Fields;
+    Check_Field_With_Get;
+    Check_Field_With_Set;
+    Check_Field_With_Get_Set;
+    Check_Field_Unkown_Option;
+    Check_Vector_Field_Same_Class;
+    Check_Vector_Field_Other_Class;
     --  begin read only
   end Test_Field;
   --  end read only
@@ -213,6 +218,45 @@ package body Project_Loader.Test_Data.Tests is
 
     --  begin read only
   end Test_Get_Data;
+  --  end read only
+
+
+  --  begin read only
+  procedure Test_Constante (Gnattest_T : in out Test);
+  procedure Test_Constante_8b89d0 (Gnattest_T : in out Test) renames Test_Constante;
+  --  id:2.2/8b89d0c17510f364/Constante/1/0/
+  procedure Test_Constante (Gnattest_T : in out Test) is
+    --  project_loader.ads:82:3:Constante
+    --  end read only
+
+    pragma Unreferenced (Gnattest_T);
+
+  begin
+
+    AUnit.Assertions.Assert
+      (Gnattest_Generated.Default_Assert_Value,
+       "Test not implemented.");
+
+    --  begin read only
+  end Test_Constante;
+  --  end read only
+
+
+  --  begin read only
+  --  procedure Test_Console_Project (Gnattest_T : in out Test);
+  --  procedure Test_Console_Project_66170c (Gnattest_T : in out Test) renames Test_Console_Project;
+  --  id:2.2/66170c5b48cfc2bf/Console_Project/1/1/
+  --  procedure Test_Console_Project (Gnattest_T : in out Test) is
+  --  end read only
+  --
+  --      pragma Unreferenced (Gnattest_T);
+  --      use Tests_Impl;
+  --
+  --    begin
+  --      Check_Project_Has_Valid_Name;
+  --      Check_Project_Has_Valid_Path;
+  --  begin read only
+  --  end Test_Console_Project;
   --  end read only
 
 

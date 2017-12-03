@@ -38,6 +38,19 @@ package body Model.Field is
     return Object;
   end Create;
 
+  function Get_Default_Value
+    (Self : in Object_T)
+    return String
+  is
+  begin
+    if not Self.Has_Default_Value then
+      raise No_Default_Value with "field " & Self.Get_Name &
+        " has no default value";
+    else
+      return Self.Default_Value.all;
+    end if;
+  end Get_Default_Value;
+
   overriding
   function To_String
     (Self : in Object_T)

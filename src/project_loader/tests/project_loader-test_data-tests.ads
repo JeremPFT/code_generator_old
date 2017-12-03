@@ -9,8 +9,8 @@ package Project_Loader.Test_Data.Tests is
    type Test is new GNATtest_Generated.GNATtest_Standard.Project_Loader.Test_Data.Test
    with null record;
 
-   procedure Test_Console_Project_66170c (Gnattest_T : in out Test);
-   --  project_loader.ads:17:3:Console_Project
+   procedure Test_Project_24c5a2 (Gnattest_T : in out Test);
+   --  project_loader.ads:17:3:Project
 
    procedure Test_Module_7826d3 (Gnattest_T : in out Test);
    --  project_loader.ads:26:3:Module
@@ -35,6 +35,9 @@ package Project_Loader.Test_Data.Tests is
 
    procedure Test_Get_Data_4439c4 (Gnattest_T : in out Test);
    --  project_loader.ads:79:3:Get_Data
+
+   procedure Test_Constante_8b89d0 (Gnattest_T : in out Test);
+   --  project_loader.ads:82:3:Constante
 
 end Project_Loader.Test_Data.Tests;
 --  end read only

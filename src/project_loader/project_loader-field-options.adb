@@ -42,6 +42,17 @@ package body Options is
   -----------------------------------------------------------------------------
 
   overriding
+  procedure Process (Self : in Set_Option_T)
+  is
+    pragma Unreferenced (Self);
+  begin
+    Parsed_Data.Opt_Set := True;
+    T_IO.Put_Line ("field option set");
+  end Process;
+
+  -----------------------------------------------------------------------------
+
+  overriding
   procedure Process (Self : in Get_I_Option_T)
   is
     pragma Unreferenced (Self);
@@ -107,6 +118,8 @@ package body Options is
       Result := new Create_Option_T;
     elsif Key = "get" then
       Result := new Get_Option_T;
+    elsif Key = "set" then
+      Result := new Set_Option_T;
     elsif Key = "get_i" then
       Result := new Get_I_Option_T;
     elsif Key = "has" then
@@ -116,7 +129,7 @@ package body Options is
     elsif Key = "add" then
       Result := new Add_Option_T;
     else
-      raise Constraint_Error with "option """ & Key &
+      raise Unknown_Field_Option with "option """ & Key &
         """ inconnue (class """ & Current_Class.Owner_Package.Get_Name & """" &
         ", field """ & Parsed_Data.Field_Name.all & """)";
     end if;

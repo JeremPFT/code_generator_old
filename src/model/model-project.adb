@@ -86,6 +86,16 @@ package body Model.Project is
       raise Constraint_Error with "no subproject with name """ & Name & """";
   end Get_Subproject;
 
+  not overriding
+  function Get_Subproject
+    (Self  : in Object_T;
+     Index : in Positive)
+    return not null access Object_T'Class
+  is
+  begin
+    return Self.Subprojects (Index);
+  end Get_Subproject;
+
   overriding
   procedure Visit
     (Self   : in     Object_T;

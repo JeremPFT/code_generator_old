@@ -95,6 +95,17 @@ package Model.Class_Def is
     return Field.Vector_T;
 
   not overriding
+  function Number_Of_Fields
+    (Self : in Object_T)
+    return Natural;
+
+  not overriding
+  function Get_Field
+    (Self  : in Object_T;
+     Index : in Positive)
+    return not null access Model.Field.Object_T'Class;
+
+  not overriding
   procedure Add_Field
     (Self   : in out          Object_T;
      Object : not null access Field.Object_T);
@@ -198,6 +209,21 @@ private
     return Field.Vector_T
     is
     (Self.Fields);
+
+  not overriding
+  function Number_Of_Fields
+    (Self : in Object_T)
+    return Natural
+    is
+    (Integer (Self.Fields.Length));
+
+  not overriding
+  function Get_Field
+    (Self  : in Object_T;
+     Index : in Positive)
+    return not null access Model.Field.Object_T'Class
+    is
+    (Self.Fields (Index));
 
   function Has_Discriminants
     (Self : in Object_T)
