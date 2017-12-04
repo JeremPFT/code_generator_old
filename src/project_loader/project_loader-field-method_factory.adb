@@ -131,11 +131,13 @@ package body Method_Factory is
     (Name    : in String;
      Of_Type : in String := "")
     return not null access Model.Subprogram.Object_T'Class
-    is
-    (Model.Subprogram.Create
-       (Name          => Name,
-        Owner_Package => Current_Class.Owner_Package,
-        Of_Type       => Of_Type));
+  is
+  begin
+    return Model.Subprogram.Create
+      (Name          => Name,
+       Owner_Package => Current_Class.Owner_Package,
+       Of_Type       => Of_Type);
+  end Create_Subprogram;
 
   procedure Create_Subprogram
     (Name      : in String;
@@ -160,6 +162,7 @@ package body Method_Factory is
     for Parameter of Parameters loop
       Subprogram.Add_Parameter (Parameter);
     end loop;
+
     Current_Class.Owner_Package.Add_Public_Subprogram (Subprogram);
   end Create_Subprogram;
 
