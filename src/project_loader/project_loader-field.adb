@@ -29,7 +29,10 @@ is
         Opt_Create,
         Opt_Add,
         Opt_Get,
-        Opt_Set
+        Opt_Set,
+        Opt_Get_I,
+        Opt_Has,
+        Opt_Number_Of
         : Boolean := False;
 
       Treat_As : access String := null;
@@ -227,6 +230,17 @@ is
 
   -----------------------------------------------------------------------------
 
+  package Method_Factory is
+    procedure Add;
+    procedure Get;
+    procedure Set;
+    procedure Number_Of;
+    procedure Get_I;
+    procedure Has;
+  end Method_Factory;
+
+  package body Method_Factory is separate;
+
   procedure Build_Objects
   is
     package Mdl_Fld renames Model.Field;
@@ -241,46 +255,34 @@ is
        Owner_Class   => Current_Class,
        Of_Type       => Parsed_Data.Field_Type.all,
        Default_Value => Default);
-
-    --  Get_Function : constant access Model.Subprogram.Object_T :=
-    --    Model.Subprogram.Create
-    --      (Owner_Package => Current_Class.Owner_Package,
-    --       Name          => "get_" & Fld.Get_Name,
-    --       Of_Type       => Fld.Get_Type);
-
   begin
     Current_Class.Add_Field (Field);
-    --  Current_Class.Owner_Package.Add_Public_Subprogram (Get_Function);
 
     if Parsed_Data.Opt_Add then
-      declare
-        Parameter_Self : constant access Model.Parameter.Object_T :=
-          Model.Parameter.Create
-            (Name    => "self",
-             Of_Type => "object_t");
-
-        Parameter_Object : constant access Model.Parameter.Object_T :=
-          Model.Parameter.Create
-            (Name    => "obj_parameter",
-             Of_Type => "parameter.object_t'class",
-             Mode    => Model.Parameter.P_Mode_Not_Null_Access_Constant);
-
-        Subprogram_Add : constant access Model.Subprogram.Object_T :=
-          Model.Subprogram.Create
-            (Name          => "add_" & Field.Get_Name,
-             Owner_Package => Current_Class.Owner_Package,
-             Of_Type       => Field.Get_Type);
-      begin
-        Subprogram_Add.Add_Parameter (Parameter_Self);
-        Subprogram_Add.Add_Parameter (Parameter_Object);
-
-        --  Ada.Text_IO.
-        --    Put_Line ("AJOUT DU SOUS PROGRAMME " & Subprogram_Add.Get_Name);
-        Current_Class.Owner_Package.Add_Public_Subprogram (Subprogram_Add);
-      end;
+      Method_Factory.Add;
     end if;
 
-    if True then
+    if Parsed_Data.Opt_Get then
+      Method_Factory.Get;
+    end if;
+
+    if Parsed_Data.Opt_Set then
+      Method_Factory.Set;
+    end if;
+
+    if Parsed_Data.Opt_Number_Of then
+      Method_Factory.Number_Of;
+    end if;
+
+    if Parsed_Data.Opt_Get_I then
+      Method_Factory.Get_I;
+    end if;
+
+    if Parsed_Data.Opt_Has then
+      Method_Factory.Has;
+    end if;
+
+    if False then
       Debug (Field.all);
     end if;
   end Build_Objects;

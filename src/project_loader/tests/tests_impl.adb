@@ -1,18 +1,18 @@
+with Ada.Text_IO;
+with Ada.Tags;
+
+with AUnit.Assertions;
+use AUnit.Assertions;
+
 with Model.Named_Element;
 with Model.Field;
 with Model.Module;
 with Model.Class_Def;
 with Model.Package_Def;
-with Ada.Tags;
-with Expected;
-with AUnit.Assertions;
-use AUnit.Assertions;
-
 with Model.Project;
+with Expected;
 
 package body Tests_Impl is
-
-
 
   -----------------------------------------------------------------------------
 
@@ -269,11 +269,29 @@ package body Tests_Impl is
 
   procedure Check_Field_With_Set
   is
+    Pkg : access Model.Package_Def.Object_T renames
+      Get_Class_1_Package;
   begin
     Assert (Get_Class_1_Field (4).Get_Name = "cls_1_fld_4",
             "bad field name 4");
     Assert (Get_Class_1_Field (4).Get_Type = "cls_1_fld_4_type",
             "bad field type 4");
+
+    declare
+      Set_Method_Found : Boolean := False;
+    begin
+      Ada.Text_IO.Put_Line ("in package " & Pkg.Get_Name);
+
+      for I in 1 .. Pkg.Get_Number_Of_Public_Elements loop
+        Ada.Text_IO.Put_Line ("  element " & Pkg.Get_Public_Element (I).Get_Name);
+
+        if Pkg.Get_Public_Element (I).Get_Name = "set_cls_1_fld_4" then
+          Set_Method_Found := True;
+        end if;
+      end loop;
+      Assert (Set_Method_Found,
+              "method set for field " & Get_Class_1_Field (4).Get_Name & " not found");
+    end;
   exception
     when Assertion_Error => null;
   end Check_Field_With_Set;

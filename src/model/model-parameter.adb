@@ -5,7 +5,7 @@ package body Model.Parameter is
      Name          : in     String;
      Of_Type       : in     String;
      Default_Value : in     String       := "";
-     Mode          : in     Param_Mode_T := P_Mode_In)
+     Mode          : in     Param_Mode_T := Mode_In)
   is
   begin
     Parent_Pkg.Initialize (Self, Name);
@@ -27,7 +27,7 @@ package body Model.Parameter is
     (Name          : in String;
      Of_Type       : in String;
      Default_Value : in String       := "";
-     Mode          : in Param_Mode_T := P_Mode_In)
+     Mode          : in Param_Mode_T := Mode_In)
     return not null access Object_T'Class
   is
     Object : constant access Object_T := new Object_T;

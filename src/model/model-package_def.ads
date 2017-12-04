@@ -73,6 +73,17 @@ package Model.Package_Def is
     return Named_Element.Vector_T;
 
   not overriding
+  function Get_Number_Of_Public_Elements
+    (Self : in Object_T)
+    return Natural;
+
+  not overriding
+  function Get_Public_Element
+    (Self  : in Object_T;
+     Index : in Positive)
+    return not null access Named_Element.Object_T'Class;
+
+  not overriding
   function Get_Private_Elements
     (Self : in Object_T)
     return Named_Element.Vector_T;
@@ -130,6 +141,19 @@ private
     (Self : in Object_T)
     return Named_Element.Vector_T
     is (Self.Public_Elements);
+
+  not overriding
+  function Get_Number_Of_Public_Elements
+    (Self : in Object_T)
+    return Natural
+    is (Integer (Self.Public_Elements.Length));
+
+  not overriding
+  function Get_Public_Element
+    (Self  : in Object_T;
+     Index : in Positive)
+    return not null access Named_Element.Object_T'Class
+    is (Self.Public_Elements (Index));
 
   function Get_Private_Elements
     (Self : in Object_T)

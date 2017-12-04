@@ -1,11 +1,11 @@
 with Ada.Strings.Fixed;
-with Ada.Text_IO;
+--  with Ada.Text_IO;
 
 separate (Project_Loader.Field)
 
 package body Options is
 
-  package T_IO renames Ada.Text_IO;
+  --  package T_IO renames Ada.Text_IO;
 
   -----------------------------------------------------------------------------
 
@@ -13,7 +13,8 @@ package body Options is
   procedure Process (Self : in Treat_As_Type_Option_T)
   is
   begin
-    T_IO.Put_Line ("field option treat_as : """ & Self.The_Type.all & """");
+    --  T_IO.Put_Line ("field option treat_as : """ &
+    --                   Self.The_Type.all & """");
     Parsed_Data.Opt_Treat_As := True;
     Parsed_Data.Treat_As     := Self.The_Type;
   end Process;
@@ -25,7 +26,8 @@ package body Options is
   is
     pragma Unreferenced (Self);
   begin
-    T_IO.Put_Line ("field option create");
+    --  T_IO.Put_Line ("field option create");
+    null;
   end Process;
 
   -----------------------------------------------------------------------------
@@ -36,7 +38,7 @@ package body Options is
     pragma Unreferenced (Self);
   begin
     Parsed_Data.Opt_Get := True;
-    T_IO.Put_Line ("field option get");
+    --  T_IO.Put_Line ("field option get");
   end Process;
 
   -----------------------------------------------------------------------------
@@ -47,7 +49,7 @@ package body Options is
     pragma Unreferenced (Self);
   begin
     Parsed_Data.Opt_Set := True;
-    T_IO.Put_Line ("field option set");
+    --  T_IO.Put_Line ("field option set");
   end Process;
 
   -----------------------------------------------------------------------------
@@ -57,7 +59,8 @@ package body Options is
   is
     pragma Unreferenced (Self);
   begin
-    T_IO.Put_Line ("field option get_i");
+    null;
+    --  T_IO.Put_Line ("field option get_i");
   end Process;
 
   -----------------------------------------------------------------------------
@@ -67,7 +70,8 @@ package body Options is
   is
     pragma Unreferenced (Self);
   begin
-    T_IO.Put_Line ("field option has");
+    null;
+    --  T_IO.Put_Line ("field option has");
   end Process;
 
   -----------------------------------------------------------------------------
@@ -77,7 +81,8 @@ package body Options is
   is
     pragma Unreferenced (Self);
   begin
-    T_IO.Put_Line ("field option number");
+    null;
+    --  T_IO.Put_Line ("field option number");
   end Process;
 
   -----------------------------------------------------------------------------
@@ -87,7 +92,7 @@ package body Options is
   is
     pragma Unreferenced (Self);
   begin
-    T_IO.Put_Line ("field option add");
+    --  T_IO.Put_Line ("field option add");
     Parsed_Data.Opt_Add := True;
   end Process;
 

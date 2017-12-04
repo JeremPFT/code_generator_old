@@ -20,13 +20,13 @@ package Model.Parameter is
   subtype Vector_T is Vectors.Vector;
 
   type Param_Mode_T is
-    (P_Mode_In,
-     P_Mode_Out,
-     P_Mode_In_Out,
-     P_Mode_Access,
-     P_Mode_Access_Constant,
-     P_Mode_Not_Null_Access,
-     P_Mode_Not_Null_Access_Constant);
+    (Mode_In,
+     Mode_Out,
+     Mode_In_Out,
+     Mode_Access,
+     Mode_Access_Constant,
+     Mode_Not_Null_Access,
+     Mode_Not_Null_Access_Constant);
 
   type Mode_Str_T is
     array (Param_Mode_T) of access String;
@@ -38,13 +38,13 @@ package Model.Parameter is
 
   Mode_Str : constant Mode_Str_T :=
     (
-     P_Mode_In                       => +"in",
-     P_Mode_Out                      => +"out",
-     P_Mode_In_Out                   => +"in out",
-     P_Mode_Access                   => +"access",
-     P_Mode_Access_Constant          => +"access constant",
-     P_Mode_Not_Null_Access          => +"not null access",
-     P_Mode_Not_Null_Access_Constant => +"not null access constant"
+     Mode_In                       => +"in",
+     Mode_Out                      => +"out",
+     Mode_In_Out                   => +"in out",
+     Mode_Access                   => +"access",
+     Mode_Access_Constant          => +"access constant",
+     Mode_Not_Null_Access          => +"not null access",
+     Mode_Not_Null_Access_Constant => +"not null access constant"
     );
 
   procedure Initialize
@@ -52,13 +52,13 @@ package Model.Parameter is
      Name          : in     String;
      Of_Type       : in     String;
      Default_Value : in     String       := "";
-     Mode          : in     Param_Mode_T := P_Mode_In);
+     Mode          : in     Param_Mode_T := Mode_In);
 
   function Create
     (Name          : in String;
      Of_Type       : in String;
      Default_Value : in String       := "";
-     Mode          : in Param_Mode_T := P_Mode_In)
+     Mode          : in Param_Mode_T := Mode_In)
     return not null access Object_T'Class;
 
   --  not overriding
@@ -103,7 +103,7 @@ private
     with record
       Of_Type       : access String := null;
       Default_Value : access String := null;
-      Mode          : Param_Mode_T  := P_Mode_In;
+      Mode          : Param_Mode_T  := Mode_In;
     end record;
 
   function Get_Type
