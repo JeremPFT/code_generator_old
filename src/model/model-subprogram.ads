@@ -50,7 +50,7 @@ package Model.Subprogram is
     return Boolean;
 
   not overriding
-  function Get_Number_Of_Parameters
+  function Number_Of_Parameters
     (Self : in Object_T)
     return Natural;
 
@@ -97,7 +97,7 @@ private
     is
     (Self.Of_Type.all /= "");
 
-  function Get_Number_Of_Parameters
+  function Number_Of_Parameters
     (Self : in Object_T)
     return Natural
     is
