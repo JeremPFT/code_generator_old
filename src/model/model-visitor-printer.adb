@@ -190,11 +190,17 @@ package body Model.Visitor.Printer is
   is
   begin
     Self.Indent;
-    Self.Add ("subprogram " & Object.Get_Name & EOL);
+    Self.Add ("subprogram " & Object.Get_Name);
+
+    if Object.Has_Return then
+      Self.Add (" return " & Object.Get_Type);
+    end if;
+
+    Self.Add (EOL);
 
     Self.Incr_Indent;
 
-    for I in 1 .. Object.Get_Number_Of_Parameters loop
+    for I in 1 .. Object.Number_Of_Parameters loop
       Self.Visit_Parameter (Object.Get_Parameter (I).all);
     end loop;
 
