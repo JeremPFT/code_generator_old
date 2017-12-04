@@ -25,7 +25,7 @@ package Tests_Impl is
   procedure Check_Field_With_Set;
   procedure Check_Field_With_Get_Set;
   procedure Check_Field_Unkown_Option;
-  procedure Check_Vector_Field_Same_Class;
-  procedure Check_Vector_Field_Other_Class;
+  procedure Check_Field_Vector_Same_Class;
+  procedure Check_Field_Vector_Other_Class;
 
 end Tests_Impl;

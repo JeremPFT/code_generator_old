@@ -34,7 +34,7 @@ package body Project_Loader.Test_Data.Tests is
   procedure Test_Project_24c5a2 (Gnattest_T : in out Test) renames Test_Project;
   --  id:2.2/24c5a2331ed9df43/Project/1/0/
   procedure Test_Project (Gnattest_T : in out Test) is
-    --  project_loader.ads:17:3:Project
+    --  project_loader.ads:20:3:Project
     --  end read only
     pragma Unreferenced (Gnattest_T);
     use Tests_Impl;
@@ -53,7 +53,7 @@ package body Project_Loader.Test_Data.Tests is
   procedure Test_Module_7826d3 (Gnattest_T : in out Test) renames Test_Module;
   --  id:2.2/7826d3573c230fb0/Module/1/0/
   procedure Test_Module (Gnattest_T : in out Test) is
-    --  project_loader.ads:26:3:Module
+    --  project_loader.ads:29:3:Module
     --  end read only
 
     pragma Unreferenced (Gnattest_T);
@@ -76,7 +76,7 @@ package body Project_Loader.Test_Data.Tests is
   procedure Test_Class_6fc34a (Gnattest_T : in out Test) renames Test_Class;
   --  id:2.2/6fc34a8d07757b20/Class/1/0/
   procedure Test_Class (Gnattest_T : in out Test) is
-    --  project_loader.ads:30:3:Class
+    --  project_loader.ads:33:3:Class
     --  end read only
     pragma Unreferenced (Gnattest_T);
     use Tests_Impl;
@@ -96,7 +96,7 @@ package body Project_Loader.Test_Data.Tests is
   procedure Test_Field_078360 (Gnattest_T : in out Test) renames Test_Field;
   --  id:2.2/07836088b982fa28/Field/1/0/
   procedure Test_Field (Gnattest_T : in out Test) is
-    --  project_loader.ads:50:3:Field
+    --  project_loader.ads:53:3:Field
     --  end read only
     pragma Unreferenced (Gnattest_T);
     use Tests_Impl;
@@ -109,8 +109,8 @@ package body Project_Loader.Test_Data.Tests is
     Check_Field_With_Set;
     Check_Field_With_Get_Set;
     Check_Field_Unkown_Option;
-    Check_Vector_Field_Same_Class;
-    Check_Vector_Field_Other_Class;
+    Check_Field_Vector_Same_Class;
+    Check_Field_Vector_Other_Class;
     --  begin read only
   end Test_Field;
   --  end read only
@@ -121,7 +121,7 @@ package body Project_Loader.Test_Data.Tests is
   procedure Test_Fields_186588 (Gnattest_T : in out Test) renames Test_Fields;
   --  id:2.2/18658831ffe611fd/Fields/1/0/
   procedure Test_Fields (Gnattest_T : in out Test) is
-    --  project_loader.ads:53:3:Fields
+    --  project_loader.ads:56:3:Fields
     --  end read only
 
     pragma Unreferenced (Gnattest_T);
@@ -142,7 +142,7 @@ package body Project_Loader.Test_Data.Tests is
   procedure Test_Method_C59f42 (Gnattest_T : in out Test) renames Test_Method;
   --  id:2.2/c59f42a955257ff1/Method/1/0/
   procedure Test_Method (Gnattest_T : in out Test) is
-    --  project_loader.ads:71:3:Method
+    --  project_loader.ads:74:3:Method
     --  end read only
 
     pragma Unreferenced (Gnattest_T);
@@ -163,7 +163,7 @@ package body Project_Loader.Test_Data.Tests is
   procedure Test_Methods_B20da5 (Gnattest_T : in out Test) renames Test_Methods;
   --  id:2.2/b20da5f6714fc70e/Methods/1/0/
   procedure Test_Methods (Gnattest_T : in out Test) is
-    --  project_loader.ads:74:3:Methods
+    --  project_loader.ads:77:3:Methods
     --  end read only
 
     pragma Unreferenced (Gnattest_T);
@@ -184,7 +184,7 @@ package body Project_Loader.Test_Data.Tests is
   procedure Test_Close_E0b8a0 (Gnattest_T : in out Test) renames Test_Close;
   --  id:2.2/e0b8a0a7e3fcad97/Close/1/0/
   procedure Test_Close (Gnattest_T : in out Test) is
-    --  project_loader.ads:77:3:Close
+    --  project_loader.ads:80:3:Close
     --  end read only
 
     pragma Unreferenced (Gnattest_T);
@@ -205,7 +205,7 @@ package body Project_Loader.Test_Data.Tests is
   procedure Test_Get_Data_4439c4 (Gnattest_T : in out Test) renames Test_Get_Data;
   --  id:2.2/4439c49f482e7eb1/Get_Data/1/0/
   procedure Test_Get_Data (Gnattest_T : in out Test) is
-    --  project_loader.ads:79:3:Get_Data
+    --  project_loader.ads:82:3:Get_Data
     --  end read only
 
     pragma Unreferenced (Gnattest_T);
@@ -226,7 +226,7 @@ package body Project_Loader.Test_Data.Tests is
   procedure Test_Constante_8b89d0 (Gnattest_T : in out Test) renames Test_Constante;
   --  id:2.2/8b89d0c17510f364/Constante/1/0/
   procedure Test_Constante (Gnattest_T : in out Test) is
-    --  project_loader.ads:82:3:Constante
+    --  project_loader.ads:85:3:Constante
     --  end read only
 
     pragma Unreferenced (Gnattest_T);
