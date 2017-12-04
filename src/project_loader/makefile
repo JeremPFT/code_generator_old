@@ -23,5 +23,5 @@ tests_init::
 tests_build:
 	gprbuild -P ../../obj/$(module)_harness/test_driver.gpr
 
-tests_run: tests_build
+tests_exec: tests_build
 	../../obj/$(module)_harness/test_runner

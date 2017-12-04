@@ -1,4 +1,4 @@
-with "../../../gpr/share.gpr";
+with "share";
 
 project String_Utils is
 
@@ -9,8 +9,8 @@ project String_Utils is
   Excl_Src_Lst := ();
   for Excluded_Source_Files use Excl_Src_Lst;
 
-  for Object_Dir use Share.Obj_Directory;
-  for Library_Dir use Share.Lib_Directory;
+  for Object_Dir use "../obj";
+  for Library_Dir use "../lib";
 
   for Library_Name use "strings_util";
   for Library_Kind use "static";

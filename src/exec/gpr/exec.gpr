@@ -1,10 +1,8 @@
 with "share";
-with "test_utils";
 with "string_utils";
 with "model";
 with "generator";
 with "file_io";
-with "ada_utils";
 with "project_loader";
 
 project Exec is

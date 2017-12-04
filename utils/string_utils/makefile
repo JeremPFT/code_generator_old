@@ -1,8 +1,10 @@
+export GPR_PROJECT_PATH_FILE=/home/jeremy/workspace/ada/code_generator/projects_list.txt
+
+project = $(shell basename $(shell pwd))
+gpr_file = gpr/$(project).gpr
+
 all::
-	cd ../../ && $(MAKE)
+	gprbuild -p $(gpr_file)
 
 clean::
-	cd ../../ && $(MAKE) clean
-
-clean_all::
-	cd ../../ && $(MAKE) clean_all
+	gprclean $(gpr_file)

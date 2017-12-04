@@ -1,6 +1,5 @@
 /home/jeremy/workspace/ada/code_generator/gpr
 
-/home/jeremy/workspace/ada/code_generator/utils/ada_utils/gpr
 /home/jeremy/workspace/ada/code_generator/utils/file_io/gpr
 /home/jeremy/workspace/ada/code_generator/utils/string_utils/gpr
 /home/jeremy/workspace/ada/code_generator/utils/template/gpr

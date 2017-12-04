@@ -1,6 +1,5 @@
 with "share";
 with "string_utils";
-with "model";
 
 library project Ada_Utils is
 
