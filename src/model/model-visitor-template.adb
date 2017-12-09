@@ -2,6 +2,7 @@ with Ada.Text_IO;
 with File_IO;
 
 with Model.Element;
+with Model.Interface_Def;
 with Model.Project;
 with Model.Package_Def;
 with Model.Class_Def;
@@ -81,6 +82,8 @@ package body Model.Visitor.Template is
     T_IO.Put_Line ("visit_package TODO");
   end Visit_Package;
 
+  -----------------------------------------------------------------------------
+
   overriding
   procedure Visit_Comment
     (Self   : in out Object_T;
@@ -90,6 +93,8 @@ package body Model.Visitor.Template is
   begin
     T_IO.Put_Line ("visit_comment");
   end Visit_Comment;
+
+  -----------------------------------------------------------------------------
 
   overriding
   procedure Visit_Class
@@ -101,6 +106,8 @@ package body Model.Visitor.Template is
     T_IO.Put_Line ("visit_class");
   end Visit_Class;
 
+  -----------------------------------------------------------------------------
+
   overriding
   procedure Visit_Interface
     (Self   : in out Object_T;
@@ -110,6 +117,8 @@ package body Model.Visitor.Template is
   begin
     T_IO.Put_Line ("visit_interface");
   end Visit_Interface;
+
+  -----------------------------------------------------------------------------
 
   overriding
   procedure Visit_Field
@@ -121,6 +130,8 @@ package body Model.Visitor.Template is
     T_IO.Put_Line ("visit_field");
   end Visit_Field;
 
+  -----------------------------------------------------------------------------
+
   overriding
   procedure Visit_Subprogram
     (Self   : in out Object_T;
@@ -130,6 +141,8 @@ package body Model.Visitor.Template is
   begin
     T_IO.Put_Line ("visit_subprogram");
   end Visit_Subprogram;
+
+  -----------------------------------------------------------------------------
 
   overriding
   procedure Visit_Parameter
@@ -141,9 +154,13 @@ package body Model.Visitor.Template is
     T_IO.Put_Line ("visit_parameter");
   end Visit_Parameter;
 
+  -----------------------------------------------------------------------------
+
   function To_String
     (Self : in Object_T)
     return String
     is ("");
+
+  -----------------------------------------------------------------------------
 
 end Model.Visitor.Template;

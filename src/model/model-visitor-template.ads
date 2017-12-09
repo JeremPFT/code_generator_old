@@ -25,7 +25,7 @@ package Model.Visitor.Template is
 
   subtype Vector_T is Vectors.Vector;
 
-  -----------------------------------------------------------------------------
+  ----------------------------------------------------------------------------
 
   procedure Set_Root_Directory
     (Self           : in out Object_T;
@@ -35,30 +35,7 @@ package Model.Visitor.Template is
     (Self : in Object_T)
     return String;
 
-  overriding
-  procedure Visit_Element
-    (Self   : in out Object_T;
-     Object : in     Model.Element.Object_T'Class);
-
-  overriding
-  procedure Visit_Project
-    (Self   : in out Object_T;
-     Object : in     Model.Project.Object_T'Class);
-
-  overriding
-  procedure Visit_Module
-    (Self   : in out Object_T;
-     Object : in     Model.Module.Object_T'Class);
-
-  overriding
-  procedure Visit_Package
-    (Self   : in out Object_T;
-     Object : in     Model.Package_Def.Object_T'Class);
-
-  overriding
-  procedure Visit_Comment
-    (Self   : in out Object_T;
-     Object : in     Model.Comment.Object_T'Class);
+  ----------------------------------------------------------------------------
 
   overriding
   procedure Visit_Class
@@ -66,9 +43,19 @@ package Model.Visitor.Template is
      Object : in     Model.Class_Def.Object_T'Class);
 
   overriding
-  procedure Visit_Interface
+  procedure Visit_Comment
     (Self   : in out Object_T;
-     Object : in     Model.Interface_Def.Object_T'Class);
+     Object : in     Model.Comment.Object_T'Class);
+
+  overriding
+  procedure Visit_Dependency
+    (Self   : in out Object_T;
+     Object : in     Model.Dependency.Object_T'Class);
+
+  overriding
+  procedure Visit_Element
+    (Self   : in out Object_T;
+     Object : in     Model.Element.Object_T'Class);
 
   overriding
   procedure Visit_Field
@@ -76,19 +63,48 @@ package Model.Visitor.Template is
      Object : in     Model.Field.Object_T'Class);
 
   overriding
-  procedure Visit_Subprogram
+  procedure Visit_Interface
     (Self   : in out Object_T;
-     Object : in     Model.Subprogram.Object_T'Class);
+     Object : in     Model.Interface_Def.Object_T'Class);
+
+  overriding
+  procedure Visit_Module
+    (Self   : in out Object_T;
+     Object : in     Model.Module.Object_T'Class);
+
+  overriding
+  procedure Visit_Namespace
+    (Self   : in out Object_T;
+     Object : in     Model.Namespace.Object_T'Class);
+
+  overriding
+  procedure Visit_Package
+    (Self   : in out Object_T;
+     Object : in     Model.Package_Def.Object_T'Class);
 
   overriding
   procedure Visit_Parameter
     (Self   : in out Object_T;
      Object : in     Model.Parameter.Object_T'Class);
 
+  overriding
+  procedure Visit_Project
+    (Self   : in out Object_T;
+     Object : in     Model.Project.Object_T'Class);
+
+  overriding
+  procedure Visit_Subprogram
+    (Self   : in out Object_T;
+     Object : in     Model.Subprogram.Object_T'Class);
+
+  ----------------------------------------------------------------------------
+
   not overriding
   function To_String
     (Self : in Object_T)
     return String;
+
+private
 
   function Get_Root_Directory
     (Self : in Object_T)
