@@ -4,10 +4,9 @@ with Model.Visitor;
 
 package Model.Module is
 
-  subtype Parent_T is Model.Project.Object_T;
+  package Parent_Pkg renames Model.Project;
 
-  type Object_T
-    is new Parent_T with private;
+  type Object_T is new Parent_Pkg.Object_T with private;
 
   type Access_T is access all Object_T;
 
@@ -48,11 +47,9 @@ package Model.Module is
 
 private
 
-  type Object_T
-    is new Parent_T
-    with record
-      Parent : access Project.Object_T'Class := null;
-    end record;
+  type Object_T is new Parent_Pkg.Object_T with record
+    Parent : access Project.Object_T'Class := null;
+  end record;
 
   function Has_Parent
     (Self : in Object_T)

@@ -22,13 +22,10 @@ package body Model.Element is
     (Self : in out Object_T;
      Text : in String)
   is
-
     Object : constant access Comment.Object_T :=
       Comment.Create (Text => Text);
-
   begin
-    Self.Owned_Comments.Append
-      (New_Item => Object);
+    Self.Owned_Comments.Append (New_Item => Object);
   end Add_Comment;
 
   -----------------------------------------------------------------------------

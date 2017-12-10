@@ -10,7 +10,9 @@ package body Model.Project is
      Kind : in     String)
   is
   begin
-    Parent_Pkg.Initialize (Self, Name);
+    Parent_Pkg.Initialize (Self            => Self,
+                           Name            => Name,
+                           Owner_Namespace => null);
 
     Self.Kind := new String'(Kind);
   end Initialize;
@@ -37,7 +39,7 @@ package body Model.Project is
 
   procedure Add_Element
     (Self   : in out          Object_T;
-     Object : not null access Named_Element.Object_T)
+     Object : not null access Named_Element.Object_T'Class)
   is
   begin
     Self.Elements.Append (Object);
@@ -45,7 +47,7 @@ package body Model.Project is
 
   procedure Add_Package
     (Self   : in out          Object_T;
-     Object : not null access Package_Def.Object_T)
+     Object : not null access Package_Def.Object_T'Class)
   is
   begin
     Self.Add_Element (Named_Element.Access_T (Object));
@@ -53,7 +55,7 @@ package body Model.Project is
 
   procedure Add_Class
     (Self   : in out          Object_T;
-     Object : not null access Class_Def.Object_T)
+     Object : not null access Class_Def.Object_T'Class)
   is
   begin
     Self.Add_Element (Named_Element.Access_T (Object));
@@ -61,7 +63,7 @@ package body Model.Project is
 
   procedure Add_Subprogram
     (Self   : in out          Object_T;
-     Object : not null access Subprogram.Object_T)
+     Object : not null access Subprogram.Object_T'Class)
   is
   begin
     Self.Add_Element (Named_Element.Access_T (Object));

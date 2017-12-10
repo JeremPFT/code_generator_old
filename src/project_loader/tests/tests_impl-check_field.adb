@@ -144,11 +144,51 @@ package body Check_Field is
 
   procedure With_Get_Set
   is
+    Index_Image : constant String   := "5";
+    Field_Index : constant Positive := Positive'Value (Index_Image);
+
+    Actual_Field : constant access Model.Field.Object_T'Class :=
+      Get_Class_1_Field (Field_Index);
+
+    Field_Name : constant String := Actual_Field.Get_Name;
+    Field_Type : constant String := Actual_Field.Get_Type;
+
+    Name_Found           : Boolean := False;
+    Has_Return           : Boolean := False;
+    Number_Of_Parameters : Natural := 0;
+
   begin
-    Assert (Get_Class_1_Field (5).Get_Name = "cls_1_fld_5",
-            "bad field name 5");
-    Assert (Get_Class_1_Field (5).Get_Type = "cls_1_fld_5_type",
-            "bad field type 5");
+    Assert (Field_Name = "cls_1_fld_" & Index_Image,
+            "bad field name " & Index_Image);
+    Assert (Field_Type = "cls_1_fld_" & Index_Image & "_type",
+            "field type " & Index_Image);
+
+    Method_Info (Name                 => "set_" & Field_Name,
+                 Name_Found           => Name_Found,
+                 Number_Of_Parameters => Number_Of_Parameters,
+                 Has_Return           => Has_Return);
+
+    Assert (Name_Found,
+            "method set for field " & Actual_Field.Get_Name &
+              " not found");
+    Assert (Number_Of_Parameters = 2,
+            "should have 2 parameters");
+    Assert (not Has_Return,
+            "shouldn't have a return");
+
+    Method_Info (Name                 => "get_" & Field_Name,
+                 Of_Type              => Field_Type,
+                 Name_Found           => Name_Found,
+                 Has_Return           => Has_Return,
+                 Number_Of_Parameters => Number_Of_Parameters);
+
+    Assert (Name_Found,
+            "method get for field " &
+              Actual_Field.Get_Name & " not found");
+    Assert (Number_Of_Parameters = 1,
+            "should have 1 parameter");
+    Assert (Has_Return,
+            "should have a return");
   exception
     when Assertion_Error => null;
   end With_Get_Set;

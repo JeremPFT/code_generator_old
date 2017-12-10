@@ -1,54 +1,48 @@
 with Ada.Text_IO;
 with Ada.Exceptions;
 
-with Model.Class_Def;
+with Model.Namespace;
 
 package body Model.Package_Def is
 
+  -----------------------------------------------------------------------------
+
   procedure Initialize
-    (Self   : in out Object_T'Class;
-     Name   : in     String;
-     Parent : access Object_T'Class := null)
+    (Self           : in out Object_T'Class;
+     Name           : in     String;
+     Parent_Package : access Object_T'Class := null)
   is
-    --  package U_Str renames Ada.Strings.Unbounded;
+    Owner_Namespace : constant access Namespace.Object_T'Class :=
+      (if Parent_Package = null
+       then null
+       else Parent_Package.Get_Defined_Namespace);
+
+    Defined_Namespace : constant access Namespace.Object_T :=
+      Namespace.Create (Name            => Name,
+                        Owner_Namespace => Owner_Namespace);
   begin
-    Named_Element.Initialize (Self, Name);
-    Self.Parent := Parent;
+    Parent_Pkg.Initialize
+      (Self            => Self,
+       Name            => Name,
+       Owner_Namespace => Owner_Namespace);
+
+    Self.Parent_Package    := Parent_Package;
+    Self.Defined_Namespace := Defined_Namespace;
   end Initialize;
 
+  -----------------------------------------------------------------------------
+
   function Create
-    (Name   : in     String;
-     Parent : access Object_T'Class := null)
+    (Name           : in     String;
+     Parent_Package : access Object_T'Class := null)
     return not null access Object_T'Class
   is
-    Object : constant access Object_T :=
-      new Object_T'(Named_Element.Object_T with
-                    others => <>);
+    Result : constant access Object_T := new Object_T;
 
   begin
-    Named_Element.Access_T (Object).Initialize (Name => Name);
+    Result.Initialize (Name, Parent_Package);
 
-    if Parent /= null then
-      Object.Parent := Parent;
-      Parent.Add_Child (Object);
-    end if;
-
-    --  (new Object_T'(Name           => new String'(Name),
-    --                 Parent         => Parent,
-    --                 Qualified_Name =>
-    --                   new String'((if Parent /= null then
-    --                                  Parent.Get_Qualified_Name & "::" & Name
-    --                                else Name)),
-    --                 Children         => <>,
-    --                 Public_Elements  => <>,
-    --                 Private_Elements => <>,
-    --                 Body_Local_Decl  => <>,
-    --                 Body_Public_Def  => <>,
-    --                 Body_Private_Def => <>,
-    --                 Body_Local_Def   => <>,
-    --                 Owned_Comments   => Owned_Comments));
-
-    return Object;
+    return Result;
 
   exception
     when Error : others =>
@@ -57,37 +51,31 @@ package body Model.Package_Def is
       raise;
   end Create;
 
-  procedure Add_Child
-    (Self   : in out          Object_T;
-     Object : not null access Object_T'Class)
-  is
-  begin
-    Self.Children.Append (Object);
-  end Add_Child;
+  -----------------------------------------------------------------------------
 
-  procedure Add_Public_Subprogram
+  not overriding
+  procedure Add_Specification_Dependency
     (Self   : in out          Object_T;
-     Object : not null access Subprogram.Object_T'Class)
+     Object : not null access Named_Element.Object_T'Class)
   is
+    Obj_Dependency : constant access Dependency.Object_T'Class :=
+      Dependency.Create (Client => Self'Access, Provider => Object);
   begin
-    Self.Public_Elements.Append (Object);
-  end Add_Public_Subprogram;
+    Self.Specification_Dependencies.Append (Obj_Dependency);
+  end Add_Specification_Dependency;
 
-  procedure Add_Private_Subprogram
+  not overriding
+  procedure Add_Implementation_Dependency
     (Self   : in out          Object_T;
-     Object : not null access Subprogram.Object_T'Class)
+     Object : not null access Named_Element.Object_T'Class)
   is
+    Obj_Dependency : constant access Dependency.Object_T'Class :=
+      Dependency.Create (Client => Self'Access, Provider => Object);
   begin
-    Self.Private_Elements.Append (Object);
-  end Add_Private_Subprogram;
+    Self.Implementation_Dependencies.Append (Obj_Dependency);
+  end Add_Implementation_Dependency;
 
-  procedure Add_Public_Class
-    (Self   : in out          Object_T;
-     Object : not null access Class_Def.Object_T'Class)
-  is
-  begin
-    Self.Public_Elements.Append (Object);
-  end Add_Public_Class;
+  -----------------------------------------------------------------------------
 
   overriding
   procedure Visit
@@ -97,5 +85,7 @@ package body Model.Package_Def is
   begin
     Object.Visit_Package (Self);
   end Visit;
+
+  -----------------------------------------------------------------------------
 
 end Model.Package_Def;

@@ -197,16 +197,18 @@ is
   begin
     Current_Package :=
       Model.Package_Def.Create
-        (Name   => Parsed_Data.Class_Name.all,
-         Parent => Model.Package_Def.Class_T
+        (Name           => Parsed_Data.Class_Name.all,
+         Parent_Package => Model.Package_Def.Class_T
            (Current_Module.Get_Elements.First_Element));
+
+    Current_Namespace := Current_Package.Get_Defined_Namespace;
 
     Current_Class := Model.Class_Def.Create
       (Owner_Package => Current_Package,
        Name          => "object_t",
        Is_Abstract   => Parsed_Data.Opt_Abstract);
 
-    Current_Package.Add_Public_Class (Current_Class);
+    Current_Namespace.Add_Member (Current_Class);
 
     Current_Module.Add_Package (Current_Package);
 

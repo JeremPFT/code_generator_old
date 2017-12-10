@@ -1,17 +1,14 @@
 with Ada.Containers.Vectors;
 
-limited with Model.Package_Def;
 with Model.Type_Def;
 with Model.Enum_Value;
+limited with Model.Namespace;
 
 package Model.Enum_Def is
 
   package Parent_Pkg renames Type_Def;
 
-  type Object_T
-    (Owner_Package : access Package_Def.Object_T'Class)
-    is
-    new Parent_Pkg.Object_T with private;
+  type Object_T is new Parent_Pkg.Object_T with private;
 
   type Reference_T is access all Object_T;
 
@@ -24,24 +21,22 @@ package Model.Enum_Def is
   subtype Vector_T is Vectors.Vector;
 
   procedure Initialize
-    (Self   : in out Object_T'Class;
-     Name   : in     String;
-     Values : in     Enum_Value.Vector_T :=
+    (Self            : in out Object_T'Class;
+     Name            : in     String;
+     Owner_Namespace : access Namespace.Object_T'Class;
+     Values          : in     Enum_Value.Vector_T :=
        Enum_Value.Vectors.Empty_Vector);
 
   function Create
-    (Owner_Package : access Package_Def.Object_T'Class;
-     Name          : in     String;
-     Values        : in     Enum_Value.Vector_T :=
+    (Name            : in     String;
+     Owner_Namespace : access Namespace.Object_T'Class;
+     Values          : in     Enum_Value.Vector_T :=
        Enum_Value.Vectors.Empty_Vector)
     return not null access Object_T'Class;
 
 private
 
-  type Object_T
-    (Owner_Package : access Package_Def.Object_T'Class)
-    is
-    new Type_Def.Object_T (Owner_Package => Owner_Package)
+  type Object_T is new Type_Def.Object_T
     with record
       Values : Enum_Value.Vector_T :=
         Enum_Value.Vectors.Empty_Vector;

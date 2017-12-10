@@ -1,16 +1,13 @@
 with Ada.Containers.Vectors;
 
-limited with Model.Package_Def;
 with Model.Named_Element;
+with Model.Namespace;
 
 package Model.Type_Def is
 
-  subtype Parent_T is Named_Element.Object_T;
+  package Parent_Pkg renames Model.Named_Element;
 
-  type Object_T
-    (Owner_Package : access Package_Def.Object_T'Class)
-    is
-    abstract new Parent_T with private;
+  type Object_T is abstract new Parent_Pkg.Object_T with private;
 
   type Reference_T is access all Object_T;
 
@@ -23,15 +20,13 @@ package Model.Type_Def is
   subtype Vector_T is Vectors.Vector;
 
   procedure Initialize
-    (Self : in out Object_T'Class;
-     Name : in     String);
+    (Self            : in out Object_T'Class;
+     Name            : in     String;
+     Owner_Namespace : access Namespace.Object_T'Class);
 
 private
 
-  type Object_T
-    (Owner_Package : access Package_Def.Object_T'Class)
-    is
-    abstract new Named_Element.Object_T
+  type Object_T is abstract new Parent_Pkg.Object_T
     with null record;
 
 end Model.Type_Def;

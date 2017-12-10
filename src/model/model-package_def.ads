@@ -1,16 +1,19 @@
 with Ada.Containers.Vectors;
 
-with Model.Visitor;
+limited with Model.Namespace;
 with Model.Named_Element;
-with Model.Subprogram;
-limited with Model.Class_Def;
-with Reflection;
+with Model.Dependency;
+with Model.Visitor;
 
 package Model.Package_Def is
 
-  subtype Parent_T is Named_Element.Object_T;
+  -----------------------------------------------------------------------------
+  --  types
+  -----------------------------------------------------------------------------
 
-  type Object_T is new Parent_T with private;
+  package Parent_Pkg renames Model.Named_Element;
+
+  type Object_T is new Parent_Pkg.Object_T with private;
 
   type Access_T is access all Object_T;
 
@@ -22,71 +25,42 @@ package Model.Package_Def is
 
   subtype Vector_T is Vectors.Vector;
 
+  -----------------------------------------------------------------------------
+  --  constructors
+  -----------------------------------------------------------------------------
+
   procedure Initialize
-    (Self   : in out Object_T'Class;
-     Name   : in     String;
-     Parent : access Object_T'Class := null);
+    (Self           : in out Object_T'Class;
+     Name           : in     String;
+     Parent_Package : access Object_T'Class := null);
 
   function Create
-    (Name   : in     String;
-     Parent : access Object_T'Class := null)
+    (Name           : in     String;
+     Parent_Package : access Object_T'Class := null)
     return not null access Object_T'Class;
 
+  -----------------------------------------------------------------------------
+  --  namespace
+  -----------------------------------------------------------------------------
+
   not overriding
-  function Has_Parent
+  function Get_Defined_Namespace
+    (Self : in Object_T)
+    return not null access Namespace.Object_T'Class;
+
+  -----------------------------------------------------------------------------
+  --  parent package
+  -----------------------------------------------------------------------------
+
+  not overriding
+  function Has_Parent_Package
     (Self : in Object_T)
     return Boolean;
 
   not overriding
-  function Get_Parent
+  function Get_Parent_Package
     (Self : in Object_T)
     return access Object_T'Class;
-
-  not overriding
-  procedure Add_Public_Class
-    (Self   : in out          Object_T;
-     Object : not null access Class_Def.Object_T'Class);
-
-  not overriding
-  procedure Add_Public_Subprogram
-    (Self   : in out          Object_T;
-     Object : not null access Subprogram.Object_T'Class);
-
-  not overriding
-  procedure Add_Private_Subprogram
-    (Self   : in out          Object_T;
-     Object : not null access Subprogram.Object_T'Class);
-
-  not overriding
-  procedure Add_Child
-    (Self   : in out          Object_T;
-     Object : not null access Object_T'Class);
-
-  not overriding
-  function Get_Children
-    (Self : in Object_T)
-    return Vector_T;
-
-  not overriding
-  function Get_Public_Elements
-    (Self : in Object_T)
-    return Named_Element.Vector_T;
-
-  not overriding
-  function Get_Number_Of_Public_Elements
-    (Self : in Object_T)
-    return Natural;
-
-  not overriding
-  function Get_Public_Element
-    (Self  : in Object_T;
-     Index : in Positive)
-    return not null access Named_Element.Object_T'Class;
-
-  not overriding
-  function Get_Private_Elements
-    (Self : in Object_T)
-    return Named_Element.Vector_T;
 
   overriding
   procedure Visit
@@ -94,86 +68,44 @@ package Model.Package_Def is
      Object : in out Visitor.Object_T'Class);
 
   not overriding
-  function To_Dbg_String
-    (Self : in Object_T)
-    return String;
+  procedure Add_Specification_Dependency
+    (Self   : in out          Object_T;
+     Object : not null access Named_Element.Object_T'Class);
+
+  not overriding
+  procedure Add_Implementation_Dependency
+    (Self   : in out          Object_T;
+     Object : not null access Named_Element.Object_T'Class);
 
 private
 
-  type Object_T is
-    new Named_Element.Object_T
+  type Object_T is new Parent_Pkg.Object_T
     with record
-      Parent : access Package_Def.Object_T'Class := null;
+      Defined_Namespace : access Namespace.Object_T'Class := null;
 
-      Children : Package_Def.Vector_T :=
-        Package_Def.Vectors.Empty_Vector;
+      Parent_Package : access Package_Def.Object_T'Class := null;
 
-      Public_Elements : Named_Element.Vector_T :=
-        Named_Element.Vectors.Empty_Vector;
+      Specification_Dependencies : Dependency.Vector_T :=
+        Dependency.Vectors.Empty_Vector;
 
-      Private_Elements : Named_Element.Vector_T :=
-        Named_Element.Vectors.Empty_Vector;
-
-      Body_Local_Decl : Named_Element.Vector_T :=
-        Named_Element.Vectors.Empty_Vector;
-
-      Body_Public_Def : Named_Element.Vector_T :=
-        Named_Element.Vectors.Empty_Vector;
-
-      Body_Private_Def : Named_Element.Vector_T :=
-        Named_Element.Vectors.Empty_Vector;
-
-      Body_Local_Def : Named_Element.Vector_T :=
-        Named_Element.Vectors.Empty_Vector;
+      Implementation_Dependencies : Dependency.Vector_T :=
+        Dependency.Vectors.Empty_Vector;
     end record;
 
-  function Has_Parent
+  not overriding
+  function Get_Defined_Namespace
+    (Self : in Object_T)
+    return not null access Namespace.Object_T'Class
+    is (Self.Defined_Namespace);
+
+  function Has_Parent_Package
     (Self : in Object_T)
     return Boolean
-    is (Self.Parent /= null);
+    is (Self.Parent_Package /= null);
 
-  function Get_Parent
+  function Get_Parent_Package
     (Self : in Object_T)
     return access Object_T'Class
-    is (Self.Parent);
-
-  function Get_Public_Elements
-    (Self : in Object_T)
-    return Named_Element.Vector_T
-    is (Self.Public_Elements);
-
-  not overriding
-  function Get_Number_Of_Public_Elements
-    (Self : in Object_T)
-    return Natural
-    is (Integer (Self.Public_Elements.Length));
-
-  not overriding
-  function Get_Public_Element
-    (Self  : in Object_T;
-     Index : in Positive)
-    return not null access Named_Element.Object_T'Class
-    is (Self.Public_Elements (Index));
-
-  function Get_Private_Elements
-    (Self : in Object_T)
-    return Named_Element.Vector_T
-    is (Self.Private_Elements);
-
-  function Get_Children
-    (Self : in Object_T)
-    return Vector_T
-    is (Self.Children);
-
-  package Unit is new Reflection;
-
-  function To_Dbg_String
-    (Self : in Object_T)
-    return String
-    is (Unit.Name & " """ &
-          (if Self.Has_Parent then
-             Self.Get_Parent.Get_Name & "."
-           else "") &
-          Self.Get_Name & """");
+    is (Self.Parent_Package);
 
 end Model.Package_Def;

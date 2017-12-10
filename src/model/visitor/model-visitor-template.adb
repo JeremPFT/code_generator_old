@@ -35,52 +35,14 @@ package body Model.Visitor.Template is
   -----------------------------------------------------------------------------
 
   overriding
-  procedure Visit_Element
+  procedure Visit_Class
     (Self   : in out Object_T;
-     Object : in     Model.Element.Object_T'Class)
+     Object : in     Model.Class_Def.Object_T'Class)
   is
     pragma Unreferenced (Self, Object);
   begin
-    T_IO.Put_Line ("visit_element");
-  end Visit_Element;
-
-  -----------------------------------------------------------------------------
-
-  overriding
-  procedure Visit_Project
-    (Self   : in out Object_T;
-     Object : in     Model.Project.Object_T'Class)
-    is separate;
-
-  -----------------------------------------------------------------------------
-
-  overriding
-  procedure Visit_Module
-    (Self   : in out Object_T;
-     Object : in     Model.Module.Object_T'Class)
-  is
-  begin
-    F_IO.Set_Working_Directory (F_IO.Compose (Self.Get_Root_Directory, "src"));
-    F_IO.Mkdir (Object.Get_Name);
-    F_IO.Set_Working_Directory (Object.Get_Name);
-    F_IO.Mkdir ("gpr");
-
-    for Element of Object.Get_Elements loop
-      Element.Visit (Self);
-    end loop;
-  end Visit_Module;
-
-  -----------------------------------------------------------------------------
-
-  overriding
-  procedure Visit_Package
-    (Self   : in out Object_T;
-     Object : in     Model.Package_Def.Object_T'Class)
-  is
-    pragma Unreferenced (Self, Object);
-  begin
-    T_IO.Put_Line ("visit_package TODO");
-  end Visit_Package;
+    T_IO.Put_Line ("visit_class");
+  end Visit_Class;
 
   -----------------------------------------------------------------------------
 
@@ -97,26 +59,26 @@ package body Model.Visitor.Template is
   -----------------------------------------------------------------------------
 
   overriding
-  procedure Visit_Class
+  procedure Visit_Dependency
     (Self   : in out Object_T;
-     Object : in     Model.Class_Def.Object_T'Class)
+     Object : in     Model.Dependency.Object_T'Class)
   is
     pragma Unreferenced (Self, Object);
   begin
-    T_IO.Put_Line ("visit_class");
-  end Visit_Class;
+    T_IO.Put_Line ("visit_dependency");
+  end Visit_Dependency;
 
   -----------------------------------------------------------------------------
 
   overriding
-  procedure Visit_Interface
+  procedure Visit_Element
     (Self   : in out Object_T;
-     Object : in     Model.Interface_Def.Object_T'Class)
+     Object : in     Model.Element.Object_T'Class)
   is
     pragma Unreferenced (Self, Object);
   begin
-    T_IO.Put_Line ("visit_interface");
-  end Visit_Interface;
+    T_IO.Put_Line ("visit_element");
+  end Visit_Element;
 
   -----------------------------------------------------------------------------
 
@@ -133,14 +95,58 @@ package body Model.Visitor.Template is
   -----------------------------------------------------------------------------
 
   overriding
-  procedure Visit_Subprogram
+  procedure Visit_Interface
     (Self   : in out Object_T;
-     Object : in     Model.Subprogram.Object_T'Class)
+     Object : in     Model.Interface_Def.Object_T'Class)
   is
     pragma Unreferenced (Self, Object);
   begin
-    T_IO.Put_Line ("visit_subprogram");
-  end Visit_Subprogram;
+    T_IO.Put_Line ("visit_interface");
+  end Visit_Interface;
+
+  -----------------------------------------------------------------------------
+
+  overriding
+  procedure Visit_Module
+    (Self   : in out Object_T;
+     Object : in     Model.Module.Object_T'Class)
+  is
+    Directory : constant String :=
+      F_IO.Compose (Self.Get_Root_Directory, "src");
+  begin
+    F_IO.Set_Working_Directory (Directory);
+    F_IO.Mkdir (Object.Get_Name);
+    F_IO.Set_Working_Directory (Object.Get_Name);
+    F_IO.Mkdir ("gpr");
+
+    for Element of Object.Get_Elements loop
+      Element.Visit (Self);
+    end loop;
+  end Visit_Module;
+
+  -----------------------------------------------------------------------------
+
+  overriding
+  procedure Visit_Namespace
+    (Self   : in out Object_T;
+     Object : in     Model.Namespace.Object_T'Class)
+  is
+    pragma Unreferenced (Self, Object);
+  begin
+    T_IO.Put_Line ("visit_namespace");
+  end Visit_Namespace;
+
+  -----------------------------------------------------------------------------
+
+  overriding
+  procedure Visit_Package
+    (Self   : in out Object_T;
+     Object : in     Model.Package_Def.Object_T'Class)
+  is
+    pragma Unreferenced (Self, Object);
+  begin
+    T_IO.Put_Line ("visit_package TODO");
+  end Visit_Package;
 
   -----------------------------------------------------------------------------
 
@@ -153,6 +159,26 @@ package body Model.Visitor.Template is
   begin
     T_IO.Put_Line ("visit_parameter");
   end Visit_Parameter;
+
+  -----------------------------------------------------------------------------
+
+  overriding
+  procedure Visit_Project
+    (Self   : in out Object_T;
+     Object : in     Model.Project.Object_T'Class)
+    is separate;
+
+  -----------------------------------------------------------------------------
+
+  overriding
+  procedure Visit_Subprogram
+    (Self   : in out Object_T;
+     Object : in     Model.Subprogram.Object_T'Class)
+  is
+    pragma Unreferenced (Self, Object);
+  begin
+    T_IO.Put_Line ("visit_subprogram");
+  end Visit_Subprogram;
 
   -----------------------------------------------------------------------------
 

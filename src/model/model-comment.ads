@@ -4,9 +4,9 @@ with Model.Element;
 
 package Model.Comment is
 
-  subtype Parent_T is Model.Element.Object_T;
+  package Parent_Pkg renames Model.Element;
 
-  type Object_T is new Parent_T with private;
+  type Object_T is new Parent_Pkg.Object_T with private;
 
   type Reference_T is access all Object_T;
 
@@ -35,7 +35,7 @@ package Model.Comment is
 
 private
 
-  type Object_T is new Parent_T
+  type Object_T is new Parent_Pkg.Object_T
     with record
       Comment_Body : access String := null;
     end record;

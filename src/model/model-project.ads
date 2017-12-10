@@ -5,7 +5,7 @@ with Model.Named_Element;
 with Model.Package_Def;
 with Model.Class_Def;
 with Model.Subprogram;
-with Reflection;
+--  with Reflection;
 
 package Model.Project is
 
@@ -80,27 +80,22 @@ package Model.Project is
   not overriding
   procedure Add_Package
     (Self   : in out          Object_T;
-     Object : not null access Package_Def.Object_T);
+     Object : not null access Package_Def.Object_T'Class);
 
   not overriding
   procedure Add_Class
     (Self   : in out          Object_T;
-     Object : not null access Class_Def.Object_T);
+     Object : not null access Class_Def.Object_T'Class);
 
   not overriding
   procedure Add_Subprogram
     (Self   : in out          Object_T;
-     Object : not null access Subprogram.Object_T);
+     Object : not null access Subprogram.Object_T'Class);
 
   overriding
   procedure Visit
     (Self   : in     Object_T;
      Object : in out Visitor.Object_T'Class);
-
-  not overriding
-  function To_Dbg_String
-    (Self : in Object_T)
-    return String;
 
 private
 
@@ -117,7 +112,7 @@ private
   not overriding
   procedure Add_Element
     (Self   : in out          Object_T;
-     Object : not null access Named_Element.Object_T);
+     Object : not null access Named_Element.Object_T'Class);
 
   not overriding
   function Get_Kind
@@ -138,28 +133,17 @@ private
     return Named_Element.Vector_T
     is (Self.Elements);
 
-  package Unit is new Reflection;
-
-  not overriding
-  function To_Dbg_String
-    (Self : in Object_T)
-    return String
-    is (Unit.Name & " """ & Self.Get_Name & """" &
-          " (" & Self.Get_Kind & ")");
-
   not overriding
   function Number_Of_Elements
     (Self : in Object_T)
     return Natural
-    is
-    (Natural (Self.Elements.Length));
+    is (Natural (Self.Elements.Length));
 
   not overriding
   function Get_Element
     (Self  : in Object_T;
      Index : in Natural)
     return not null access Named_Element.Object_T'Class
-    is
-    (Self.Elements (Index));
+    is (Self.Elements (Index));
 
 end Model.Project;

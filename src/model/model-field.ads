@@ -10,11 +10,7 @@ package Model.Field is
 
   package Parent_Pkg renames Model.Named_Element;
 
-  type Object_T
-    (Owner_Class : not null access Class_Def.Object_T'Class)
-    is
-    new Parent_Pkg.Object_T
-    with private;
+  type Object_T is new Parent_Pkg.Object_T with private;
 
   type Reference_T is access all Object_T;
 
@@ -29,15 +25,21 @@ package Model.Field is
   procedure Initialize
     (Self          : in out Object_T'Class;
      Name          : in     String;
+     Owner_Class   : not null access Class_Def.Object_T'Class;
      Of_Type       : in     String;
      Default_Value : in     String := "");
 
   function Create
-    (Owner_Class   : not null access Class_Def.Object_T'Class;
-     Name          : in              String;
+    (Name          : in              String;
+     Owner_Class   : not null access Class_Def.Object_T'Class;
      Of_Type       : in              String;
      Default_Value : in              String := "")
     return not null access Object_T'Class;
+
+  not overriding
+  function Get_Owner_Class
+    (Self : in Object_T)
+    return not null access Class_Def.Object_T'Class;
 
   not overriding
   function Get_Type
@@ -55,37 +57,36 @@ package Model.Field is
     return String;
 
   overriding
-  function To_String
-    (Self : in Object_T)
-    return String;
-
-  overriding
   procedure Visit
     (Self   : in     Object_T;
      Object : in out Visitor.Object_T'Class);
 
 private
 
-  type Object_T
-    (Owner_Class : not null access Class_Def.Object_T'Class)
-    is
-    new Named_Element.Object_T
+  type Object_T is new Named_Element.Object_T
     with record
-      Of_Type       : access String := null;
-      Default_Value : access String := null;
+      Owner_Class   : access Class_Def.Object_T'Class := null;
+      Of_Type       : access String                   := null;
+      Default_Value : access String                   := null;
     end record;
 
+  not overriding
+  function Get_Owner_Class
+    (Self : in Object_T)
+    return not null access Class_Def.Object_T'Class
+    is (Self.Owner_Class);
+
+  not overriding
   function Get_Type
     (Self : in Object_T)
     return String
-    is
-    (Self.Of_Type.all);
+    is (Self.Of_Type.all);
 
+  not overriding
   function Has_Default_Value
     (Self : in Object_T)
     return Boolean
-    is
-    (Self.Default_Value /= null and then
-       Self.Default_Value.all /= "");
+    is (Self.Default_Value /= null and then
+          Self.Default_Value.all /= "");
 
 end Model.Field;

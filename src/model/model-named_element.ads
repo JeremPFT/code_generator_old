@@ -1,12 +1,13 @@
 with Ada.Containers.Vectors;
 
+limited with Model.Namespace;
 with Model.Element;
 
 package Model.Named_Element is
 
-  subtype Parent_T is Element.Object_T;
+  package Parent_Pkg renames Model.Element;
 
-  type Object_T is abstract new Parent_T with private;
+  type Object_T is abstract new Parent_Pkg.Object_T with private;
 
   type Access_T is access all Object_T;
 
@@ -19,36 +20,37 @@ package Model.Named_Element is
   subtype Vector_T is Vectors.Vector;
 
   procedure Initialize
-    (Self : in out Object_T'Class;
-     Name : in     String);
+    (Self            : in out Object_T'Class;
+     Name            : in     String;
+     Owner_Namespace : access Namespace.Object_T'Class);
 
-  --  not overriding
-  --  procedure Set_Name
-  --    (Self  : in out Object_T;
-  --     Value : in String);
+  not overriding
+  function Get_Owner_Namespace
+    (Self : in Object_T)
+    return access Namespace.Object_T'Class;
 
   not overriding
   function Get_Name
-    (Self : in Object_T)
-    return String;
-
-  not overriding
-  function To_String
     (Self : in Object_T)
     return String;
 
 private
 
-  type Object_T is
-    abstract new Element.Object_T with
-    record
-      Name : access String := null;
-    end record;
+  type Object_T is abstract new Parent_Pkg.Object_T with record
+    Name            : access String                         := null;
+    Owner_Namespace : access Model.Namespace.Object_T'Class := null;
+  end record;
 
+  not overriding
+  function Get_Owner_Namespace
+    (Self : in Object_T)
+    return access Namespace.Object_T'Class
+    is (Self.Owner_Namespace);
+
+  not overriding
   function Get_Name
     (Self : in Object_T)
     return String
-    is
-    (Self.Name.all);
+    is (Self.Name.all);
 
 end Model.Named_Element;

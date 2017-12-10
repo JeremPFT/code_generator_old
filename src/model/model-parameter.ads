@@ -2,6 +2,7 @@ with Ada.Containers.Vectors;
 
 with Model.Visitor;
 with Model.Named_Element;
+limited with Model.Namespace;
 
 package Model.Parameter is
 
@@ -48,33 +49,25 @@ package Model.Parameter is
     );
 
   procedure Initialize
-    (Self          : in out Object_T'Class;
-     Name          : in     String;
-     Of_Type       : in     String;
-     Default_Value : in     String       := "";
-     Mode          : in     Param_Mode_T := Mode_In);
+    (Self            : in out Object_T'Class;
+     Name            : in     String;
+     Owner_Namespace : access Namespace.Object_T'Class;
+     Of_Type         : in     String;
+     Default_Value   : in     String       := "";
+     Mode            : in     Param_Mode_T := Mode_In);
 
   function Create
-    (Name          : in String;
-     Of_Type       : in String;
-     Default_Value : in String       := "";
-     Mode          : in Param_Mode_T := Mode_In)
+    (Name            : in     String;
+     Owner_Namespace : access Namespace.Object_T'Class;
+     Of_Type         : in     String;
+     Default_Value   : in     String       := "";
+     Mode            : in     Param_Mode_T := Mode_In)
     return not null access Object_T'Class;
-
-  --  not overriding
-  --  procedure Set_Type
-  --    (Self  : in out Object_T;
-  --     Value : in     String);
 
   not overriding
   function Get_Type
     (Self : in Object_T)
     return String;
-
-  --  not overriding
-  --  procedure Set_Default_Value
-  --    (Self  : in out Object_T;
-  --     Value : in     String);
 
   not overriding
   function Has_Default_Value

@@ -256,7 +256,7 @@ is
        Of_Type       => Parsed_Data.Field_Type.all,
        Default_Value => Default);
   begin
-    Current_Class.Add_Field (Field);
+    Current_Class.Get_Defined_Namespace.Add_Member (Field);
 
     if Parsed_Data.Opt_Add then
       Method_Factory.Add;

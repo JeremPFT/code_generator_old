@@ -27,7 +27,7 @@ package body Init is
     Load.Field ("cls_1_fld_3 : cls_1_fld_3_type := cls_1_fld_3_default; get");
     Load.Field ("cls_1_fld_4 : cls_1_fld_4_type; set");
     Load.Field ("cls_1_fld_5 : cls_1_fld_5_type; get, set");
-    Load.Field ("cls_1_fld_6 : vector");
-    Load.Field ("cls_1_fld_7 : class_2.vector");
+    Load.Field ("cls_1_fld_6 : vector; get");
+    Load.Field ("cls_1_fld_7 : class_2.vector; get, add");
   end;
 end Init;

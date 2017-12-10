@@ -7,10 +7,7 @@ package Model.Enum_Value is
 
   package Parent_Pkg renames Model.Named_Element;
 
-  type Object_T
-    (Owner_Enum : access Enum_Def.Object_T'Class)
-    is
-    new Parent_Pkg.Object_T with private;
+  type Object_T is new Parent_Pkg.Object_T with private;
 
   type Reference_T is access all Object_T;
 
@@ -23,9 +20,10 @@ package Model.Enum_Value is
   subtype Vector_T is Vectors.Vector;
 
   procedure Initialize
-    (Self  : in out Object_T'Class;
-     Name  : in     String;
-     Value : in     Integer);
+    (Self       : in out          Object_T'Class;
+     Name       : in              String;
+     Value      : in              Integer;
+     Owner_Enum : not null access Enum_Def.Object_T'Class);
 
   function Create
     (Owner_Enum : not null access Enum_Def.Object_T'Class;
@@ -40,12 +38,10 @@ package Model.Enum_Value is
 
 private
 
-  type Object_T
-    (Owner_Enum : access Enum_Def.Object_T'Class)
-    is
-    new Named_Element.Object_T
+  type Object_T is new Named_Element.Object_T
     with record
-      Value : Natural;
+      Owner_Enum : access Enum_Def.Object_T'Class;
+      Value      : Natural;
     end record;
 
   function Get_Value

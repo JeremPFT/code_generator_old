@@ -1,6 +1,15 @@
+
+--  with ada files
+
+--  with others libraries
+
+--  with project files
+
 separate (Tests_Impl)
 
 package body Check_Class is
+
+  ----------------------------------------------------------------------------
 
   procedure Is_Added
   is
@@ -14,6 +23,8 @@ package body Check_Class is
     when Assertion_Error => null;
   end Is_Added;
 
+  ----------------------------------------------------------------------------
+
   procedure Package_Is_Created
   is
   begin
@@ -24,6 +35,8 @@ package body Check_Class is
   exception
     when Assertion_Error => null;
   end Package_Is_Created;
+
+  ----------------------------------------------------------------------------
 
   procedure Has_Valid_Name
   is
@@ -43,5 +56,7 @@ package body Check_Class is
   exception
     when Assertion_Error => null;
   end Has_Valid_Name;
+
+  ----------------------------------------------------------------------------
 
 end Check_Class;

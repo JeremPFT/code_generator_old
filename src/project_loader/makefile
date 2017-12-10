@@ -2,18 +2,21 @@ include ../../makefile.config
 
 dir = $(shell pwd)
 module = $(shell basename $(shell pwd))
+project = gpr/$(module).gpr
 harness-dir=../src/$(module)/tests/harness
 
-all::
-	@echo "project_root $(project_root)"
-	@echo "project_name $(project_name)"
-	cd ../../ && $(MAKE)
+all: compil
+# @echo "project_root $(project_root)"
+# @echo "project_name $(project_name)"
+# cd ../../ && $(MAKE)
+
+compil::
+	gprbuild -p -P $(project)
 
 clean::
-	cd ../../ && $(MAKE) clean
+	gprclean -P $(project)
 
-clean_all::
-	cd ../../ && $(MAKE) clean_all
+recompil: clean compil
 
 tests_init::
 	gnattest -P gpr/$(module) \

@@ -5,7 +5,8 @@ package body Model.Comment is
      Text : in String)
   is
   begin
-    --  Parent_T (Self.Initialize);
+    Parent_Pkg.Initialize (Self);
+
     Self.Comment_Body := new String'(Text);
   end Initialize;
 

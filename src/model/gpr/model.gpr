@@ -7,6 +7,8 @@ library project Model is
 
   Src_Lst := ();
   Src_Lst := Src_Lst & "..";
+  Src_Lst := Src_Lst & "../visitor";
+  Src_Lst := Src_Lst & "../types";
   for Source_Dirs use Src_Lst;
 
   Exc_Src_Lst := ();

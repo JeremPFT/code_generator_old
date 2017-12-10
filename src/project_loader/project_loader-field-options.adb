@@ -135,7 +135,8 @@ package body Options is
       Result := new Add_Option_T;
     else
       raise Unknown_Field_Option with "option """ & Key &
-        """ inconnue (class """ & Current_Class.Owner_Package.Get_Name & """" &
+        """ inconnue (class """ & Current_Class.Get_Owner_Namespace.Get_Name
+        & """" &
         ", field """ & Parsed_Data.Field_Name.all & """)";
     end if;
 

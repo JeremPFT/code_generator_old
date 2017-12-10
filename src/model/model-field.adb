@@ -1,17 +1,22 @@
-with Ada.Strings.Unbounded;
-
 with Model.Class_Def;
+with Model.Namespace;
 
 package body Model.Field is
 
   procedure Initialize
-    (Self          : in out Object_T'Class;
-     Name          : in     String;
-     Of_Type       : in     String;
-     Default_Value : in     String := "")
+    (Self          : in out          Object_T'Class;
+     Name          : in              String;
+     Owner_Class   : not null access Class_Def.Object_T'Class;
+     Of_Type       : in              String;
+     Default_Value : in              String := "")
   is
+    Owner_Namespace : constant access Namespace.Object_T'Class :=
+      Owner_Class.Get_Defined_Namespace;
+
   begin
-    Parent_Pkg.Initialize (Self, Name);
+    Parent_Pkg.Initialize (Self            => Self,
+                           Name            => Name,
+                           Owner_Namespace => Owner_Namespace);
 
     if Of_Type /= "" then
       Self.Of_Type := new String'(Of_Type);
@@ -22,19 +27,23 @@ package body Model.Field is
     if Default_Value /= "" then
       Self.Default_Value := new String'(Default_Value);
     end if;
+
+    Self.Owner_Class := Owner_Class;
   end Initialize;
 
   function Create
-    (Owner_Class   : not null access Class_Def.Object_T'Class;
-     Name          : in              String;
+    (Name          : in              String;
+     Owner_Class   : not null access Class_Def.Object_T'Class;
      Of_Type       : in              String;
      Default_Value : in              String := "")
     return not null access Object_T'Class
   is
-    Object : constant access Object_T :=
-      new Object_T (Owner_Class => Owner_Class);
+    Object : constant access Object_T := new Object_T;
   begin
-    Object.Initialize (Name, Of_Type, Default_Value);
+    Object.Initialize (Name          => Name,
+                       Owner_Class   => Owner_Class,
+                       Of_Type       => Of_Type,
+                       Default_Value => Default_Value);
     return Object;
   end Create;
 
@@ -50,27 +59,6 @@ package body Model.Field is
       return Self.Default_Value.all;
     end if;
   end Get_Default_Value;
-
-  overriding
-  function To_String
-    (Self : in Object_T)
-    return String
-  is
-    package U_Str renames Ada.Strings.Unbounded;
-    use type U_Str.Unbounded_String;
-
-    U_Result : U_Str.Unbounded_String := U_Str.Null_Unbounded_String;
-  begin
-    U_Result := U_Result & U_Str.To_Unbounded_String
-      ("[Field.Object_T] " &
-         """" & Self.Get_Name & """" & " : " &
-         """" & Self.Get_Type & """" &
-         (if Self.Has_Default_Value then
-            " := " & """" & Self.Get_Default_Value & """"
-          else ""));
-
-    return U_Str.To_String (U_Result);
-  end To_String;
 
   overriding
   procedure Visit

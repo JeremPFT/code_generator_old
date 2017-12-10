@@ -1,16 +1,19 @@
-with Model.Module;
 with Model.Class_Def;
+with Model.Module;
+with Model.Namespace;
 with Model.Package_Def;
+
 with String_Vectors;
 
 package body Project_Loader is
 
   -----------------------------------------------------------------------------
 
-  Current_Project : access Model.Project.Object_T     := null;
-  Current_Package : access Model.Package_Def.Object_T := null;
-  Current_Module  : access Model.Module.Object_T      := null;
-  Current_Class   : access Model.Class_Def.Object_T   := null;
+  Current_Project   : access Model.Project.Object_T'Class     := null;
+  Current_Package   : access Model.Package_Def.Object_T'Class := null;
+  Current_Namespace : access Model.Namespace.Object_T'Class   := null;
+  Current_Module    : access Model.Module.Object_T'Class      := null;
+  Current_Class     : access Model.Class_Def.Object_T'Class   := null;
 
   -----------------------------------------------------------------------------
 
@@ -122,20 +125,7 @@ package body Project_Loader is
   procedure Close_Current_Class
   is
   begin
-    if Current_Class /= null then
-      Current_Package.Add_Public_Class (Current_Class);
-
-      for I in 1 .. Current_Class.Number_Of_Public_Subprograms loop
-        Current_Package.Add_Public_Subprogram
-          (Current_Class.Get_Public_Subprogram (I));
-      end loop;
-
-      for I in 1 .. Current_Class.Number_Of_Private_Subprograms loop
-        Current_Package.Add_Private_Subprogram
-          (Current_Class.Get_Private_Subprogram (I));
-      end loop;
-
-    end if;
+    null;
   end Close_Current_Class;
 
   -----------------------------------------------------------------------------
