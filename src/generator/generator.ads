@@ -8,7 +8,7 @@ with Model.Package_Def;
 with Model.Project;
 with Model.Module;
 with Model.Parameter;
-with Model.Subprogram;
+with Model.Operation;
 with Project_Loader;
 
 package Generator is
@@ -41,9 +41,9 @@ private
      Object : in     Model.Field.Object_T'Class);
 
   overriding
-  procedure Visit_Subprogram
+  procedure Visit_Operation
     (Self   : in out Object_T;
-     Object : in     Model.Subprogram.Object_T'Class);
+     Object : in     Model.Operation.Object_T'Class);
 
   overriding
   procedure Visit_Parameter

@@ -2,7 +2,7 @@ with Ada.Containers.Vectors;
 
 with Model.Visitor;
 with Model.Named_Element;
-limited with Model.Class_Def;
+limited with Model.Types.Class_Def;
 
 package Model.Field is
 

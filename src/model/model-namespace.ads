@@ -10,6 +10,8 @@ with Model.Visitor;
 
 package Model.Namespace is
 
+  Member_Index_Out_Of_Bounds : exception;
+
   package Parent_Pkg renames Named_Element;
 
   type Object_T (<>) is new Parent_Pkg.Object_T with private;
@@ -115,13 +117,6 @@ private
     (Self       : in Object_T;
      Visibility : in Visibility_Kind := Public_Visibility)
     return Natural
-    is (Natural (Self.Owned_Members'Length));
-
-  function Get_Member
-    (Self       : in Object_T;
-     Visibility : in Visibility_Kind := Public_Visibility;
-     Index      : in Positive)
-    return not null access Named_Element.Object_T'Class
-    is (Self.Owned_Members (Visibility) (Index));
+    is (Natural (Self.Owned_Members (Visibility).Length));
 
 end Model.Namespace;

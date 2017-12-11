@@ -71,10 +71,10 @@ package Project_Loader is
   --  any    => get
   --            set
 
-  procedure Method
+  procedure Operation
     (Input : in String);
 
-  procedure Methods
+  procedure Operations
     (Input : in String_Array);
 
   procedure Close;

@@ -3,8 +3,8 @@ with Ada.Containers.Vectors;
 limited with Model.Visitor;
 with Model.Named_Element;
 with Model.Package_Def;
-with Model.Class_Def;
-with Model.Subprogram;
+with Model.Types.Class_Def;
+with Model.Operation;
 --  with Reflection;
 
 package Model.Project is
@@ -85,12 +85,12 @@ package Model.Project is
   not overriding
   procedure Add_Class
     (Self   : in out          Object_T;
-     Object : not null access Class_Def.Object_T'Class);
+     Object : not null access Types.Class_Def.Object_T'Class);
 
   not overriding
-  procedure Add_Subprogram
+  procedure Add_Operation
     (Self   : in out          Object_T;
-     Object : not null access Subprogram.Object_T'Class);
+     Object : not null access Operation.Object_T'Class);
 
   overriding
   procedure Visit

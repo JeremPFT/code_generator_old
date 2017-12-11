@@ -4,13 +4,13 @@ with Ada.Tags;
 with AUnit.Assertions;
 use AUnit.Assertions;
 
-with Model.Named_Element;
 with Model.Field;
 with Model.Module;
-with Model.Class_Def;
+with Model.Named_Element;
 with Model.Package_Def;
 with Model.Project;
 with Model.Subprogram;
+with Model.Types.Class_Def;
 with Model.Visitor.Printer;
 with Expected;
 
@@ -36,10 +36,10 @@ package body Tests_Impl is
 
   package body Init is separate;
 
-  procedure Init_Check_Project renames Init.Check_Project;
-  procedure Init_Check_Module renames Init.Check_Module;
-  procedure Init_Check_Class renames Init.Check_Class;
-  procedure Init_Check_Field renames Init.Check_Field;
+  procedure Init_Check_Project renames Init.Set_Up_Project;
+  procedure Init_Check_Module renames Init.Set_Up_Module;
+  procedure Init_Check_Class renames Init.Set_Up_Class;
+  procedure Init_Check_Field renames Init.Set_Up_Field;
 
   Class_1_Number_Of_Fields : constant Positive := 7;
 
@@ -54,14 +54,17 @@ package body Tests_Impl is
     is (Model.Package_Def.Class_T (Get_Module_1.Get_Element (2)));
 
   function Get_Class_1
-    return not null access Model.Class_Def.Object_T
-    is (Model.Class_Def.Class_T
-          (Get_Class_1_Package.Get_Public_Elements.First_Element));
+    return not null access Model.Types.Class_Def.Object_T
+    is (Model.Types.Class_Def.Class_T
+          (Get_Class_1_Package.Get_Defined_Namespace.Get_Member (Index => 1)));
+  --  (Get_Class_1_Package.Get_Public_Elements.First_Element));
 
   function Get_Class_1_Field
     (Index : in Positive)
     return not null access Model.Field.Object_T
-    is (Get_Class_1.Get_Field (Index));
+    is (Model.Field.Class_T
+          (Get_Class_1.Get_Defined_Namespace.Get_Member (Index => Index)));
+  --  is (Get_Class_1.Get_Field (Index));
 
   -----------------------------------------------------------------------------
 

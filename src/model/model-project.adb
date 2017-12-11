@@ -55,19 +55,19 @@ package body Model.Project is
 
   procedure Add_Class
     (Self   : in out          Object_T;
-     Object : not null access Class_Def.Object_T'Class)
+     Object : not null access Types.Class_Def.Object_T'Class)
   is
   begin
     Self.Add_Element (Named_Element.Access_T (Object));
   end Add_Class;
 
-  procedure Add_Subprogram
+  procedure Add_Operation
     (Self   : in out          Object_T;
-     Object : not null access Subprogram.Object_T'Class)
+     Object : not null access Operation.Object_T'Class)
   is
   begin
     Self.Add_Element (Named_Element.Access_T (Object));
-  end Add_Subprogram;
+  end Add_Operation;
 
   function Get_Subproject
     (Self : in Object_T;

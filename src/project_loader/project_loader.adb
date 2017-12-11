@@ -1,7 +1,7 @@
-with Model.Class_Def;
 with Model.Module;
 with Model.Namespace;
 with Model.Package_Def;
+with Model.Types.Class_Def;
 
 with String_Vectors;
 
@@ -9,11 +9,11 @@ package body Project_Loader is
 
   -----------------------------------------------------------------------------
 
-  Current_Project   : access Model.Project.Object_T'Class     := null;
-  Current_Package   : access Model.Package_Def.Object_T'Class := null;
-  Current_Namespace : access Model.Namespace.Object_T'Class   := null;
-  Current_Module    : access Model.Module.Object_T'Class      := null;
-  Current_Class     : access Model.Class_Def.Object_T'Class   := null;
+  Current_Project   : access Model.Project.Object_T'Class         := null;
+  Current_Package   : access Model.Package_Def.Object_T'Class     := null;
+  Current_Namespace : access Model.Namespace.Object_T'Class       := null;
+  Current_Module    : access Model.Module.Object_T'Class          := null;
+  Current_Class     : access Model.Types.Class_Def.Object_T'Class := null;
 
   -----------------------------------------------------------------------------
 
@@ -69,21 +69,20 @@ package body Project_Loader is
 
   -----------------------------------------------------------------------------
 
-  procedure Method
+  procedure Operation
     (Input : in String)
-  is
-  begin
-    null;
-  end Method;
+    is separate;
 
   -----------------------------------------------------------------------------
 
-  procedure Methods
+  procedure Operations
     (Input : in String_Array)
   is
   begin
-    null;
-  end Methods;
+    for Input of Inputs loop
+      Operation (Input.all);
+    end loop;
+  end Operations;
 
   -----------------------------------------------------------------------------
 

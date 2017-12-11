@@ -1,10 +1,30 @@
-export GPR_PROJECT_PATH_FILE=/home/jeremy/workspace/ada/code_generator/projects_list.txt
+include ../../makefile.common
 
-project = $(shell basename $(shell pwd))
-gpr_file = gpr/$(project).gpr
+dir = $(shell pwd)
+module = $(shell basename $(shell pwd))
+project = $(module).gpr
 
-all::
-	gprbuild -p $(gpr_file)
+all: compil
+
+compil::
+	$(BUILD) -P $(project)
 
 clean::
-	gprclean $(gpr_file)
+	$(CLEAN) -P $(project)
+
+recompil: clean compil
+
+tests_generate::
+	$(TESTS_GENERATE) -P $(project)
+
+tests_build:
+	$(TESTS_BUILD)
+
+tests_run: tests_build
+	$(TESTS_RUN)
+
+install:compil
+	$(INSTALL) -P $(project)
+
+uninstall::
+	$(UNINSTALL) -P $(project)

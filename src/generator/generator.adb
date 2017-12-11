@@ -101,14 +101,14 @@ package body Generator is
   -----------------------------------------------------------------------------
 
   overriding
-  procedure Visit_Subprogram
+  procedure Visit_Operation
     (Self   : in out Object_T;
-     Object : in     Model.Subprogram.Object_T'Class)
+     Object : in     Model.Operation.Object_T'Class)
   is
     pragma Unreferenced (Self);
   begin
-    T_IO.Put_Line ("visiting subprogram " & Object.Get_Name);
-  end Visit_Subprogram;
+    T_IO.Put_Line ("visiting operation " & Object.Get_Name);
+  end Visit_Operation;
 
   -----------------------------------------------------------------------------
 

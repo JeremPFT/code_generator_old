@@ -1,0 +1,28 @@
+with "common_jpi";
+with "string_utils";
+with "template";
+with "file_io";
+
+library project Model is
+
+  Src_Lst := ();
+  Src_Lst := Src_Lst & ".";
+  for Source_Dirs use Src_Lst;
+
+  Exc_Src_Lst := ();
+  for Excluded_Source_Files use Exc_Src_Lst;
+
+  for Object_Dir use "./obj";
+  for Library_Dir use "./lib";
+
+  for Library_Name use "code_gen_model";
+  for Library_Kind use "static";
+
+  package Compiler renames Common_Jpi.Compiler;
+  package Binder renames Common_Jpi.Binder;
+
+  -- package Gnattest is
+  --   for Gnattest_Switches use ("test-duration");
+  -- end Gnattest;
+
+end Model;

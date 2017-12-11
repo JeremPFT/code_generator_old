@@ -6,9 +6,6 @@ project = gpr/$(module).gpr
 harness-dir=../src/$(module)/tests/harness
 
 all: compil
-# @echo "project_root $(project_root)"
-# @echo "project_name $(project_name)"
-# cd ../../ && $(MAKE)
 
 compil::
 	gprbuild -p -P $(project)

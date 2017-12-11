@@ -1,0 +1,22 @@
+with "common_jpi";
+
+project String_Utils is
+
+  Src_Dirs := ();
+  Src_Dirs := Src_Dirs & ".";
+  for Source_Dirs use Src_Dirs;
+
+  Excl_Src_Lst := ();
+  for Excluded_Source_Files use Excl_Src_Lst;
+
+  for Object_Dir use "./obj";
+  for Library_Dir use "./lib";
+
+  for Library_Name use "strings_util";
+  for Library_Kind use "static";
+
+  package Compiler renames Common_Jpi.Compiler;
+
+  package Binder renames Common_Jpi.Binder;
+
+end String_Utils;

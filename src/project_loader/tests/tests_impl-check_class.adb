@@ -1,5 +1,7 @@
 
 --  with ada files
+with Ada.Text_IO;
+with Ada.Exceptions;
 
 --  with others libraries
 
@@ -20,7 +22,9 @@ package body Check_Class is
             "subproject should have 2 elements : its root package and a class."
               & " It has " & Module.Number_Of_Elements'Img & " elements");
   exception
-    when Assertion_Error => null;
+    when E : others =>
+      Ada.Text_IO.Put_Line (Ada.Exceptions.Exception_Information (E));
+      --  when Assertion_Error => null;
   end Is_Added;
 
   ----------------------------------------------------------------------------
@@ -33,7 +37,9 @@ package body Check_Class is
     Assert (Get_Class_1.Get_Name = "object_t",
             "bad class name");
   exception
-    when Assertion_Error => null;
+    when E : others =>
+      Ada.Text_IO.Put_Line (Ada.Exceptions.Exception_Information (E));
+      --  when Assertion_Error => null;
   end Package_Is_Created;
 
   ----------------------------------------------------------------------------
@@ -46,15 +52,18 @@ package body Check_Class is
     Obj_Package : access Model.Package_Def.Object_T'Class :=
       Model.Package_Def.Class_T (Module.Get_Element (2));
 
-    Obj_Class : access Model.Class_Def.Object_T'Class :=
-      Model.Class_Def.Class_T (Obj_Package.Get_Public_Elements.First_Element);
+    Obj_Class : access Model.Types.Class_Def.Object_T'Class :=
+      Model.Types.Class_Def.Class_T
+        (Obj_Package.Get_Defined_Namespace.Get_Member (Index => 1));
   begin
     Assert (Obj_Package.Get_Name = "class_1",
             "bad package name");
     Assert (Obj_Class.Get_Name = "object_t",
             "bad class name");
   exception
-    when Assertion_Error => null;
+    when E : others =>
+      Ada.Text_IO.Put_Line (Ada.Exceptions.Exception_Information (E));
+      --  when Assertion_Error => null;
   end Has_Valid_Name;
 
   ----------------------------------------------------------------------------

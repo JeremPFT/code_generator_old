@@ -1,3 +1,6 @@
+with Ada.Exceptions;
+with Ada.Text_IO;
+
 separate (Tests_Impl)
 
 package body Check_Field is
@@ -6,7 +9,7 @@ package body Check_Field is
 
   -----------------------------------------------------------------------------
 
-  procedure Method_Info
+  procedure Method_Check_Data
     (Name                 : in     String;
      Of_Type              : in     String := "";
      Name_Found           :    out Boolean;
@@ -21,7 +24,9 @@ package body Check_Field is
     Assert (Get_Class_1.Number_Of_Fields = Class_1_Number_Of_Fields,
             "bad number of fields");
   exception
-    when Assertion_Error => null;
+    when E : others =>
+      Ada.Text_IO.Put_Line (Ada.Exceptions.Exception_Information (E));
+      --  when Assertion_Error => null;
   end Number;
 
   -----------------------------------------------------------------------------
@@ -47,7 +52,9 @@ package body Check_Field is
        "asking empty default value should raise");
 
   exception
-    when Assertion_Error => null;
+    when E : others =>
+      Ada.Text_IO.Put_Line (Ada.Exceptions.Exception_Information (E));
+      --  when Assertion_Error => null;
   end Add_2_Basic_Fields;
 
   procedure Try_When_No_Default
@@ -74,30 +81,34 @@ package body Check_Field is
     Name_Found           : Boolean := False;
     Has_Return           : Boolean := False;
     Number_Of_Parameters : Natural := 0;
+
+    Tmp : Boolean;
   begin
-    Assert (Field_Name = "cls_1_fld_" & Index_Image,
-            "bad field name " & Index_Image);
-    Assert (Field_Type = "cls_1_fld_" & Index_Image & "_type",
-            "bad field type " & Index_Image);
-    Assert (Field_Default = "cls_1_fld_" & Index_Image & "_default",
-            "bad default value " & Index_Image);
+    Tmp := Assert (Field_Name = "cls_1_fld_" & Index_Image,
+                   "bad field name " & Index_Image);
+    Tmp := Assert (Field_Type = "cls_1_fld_" & Index_Image & "_type",
+                   "bad field type " & Index_Image);
+    Tmp := Assert (Field_Default = "cls_1_fld_" & Index_Image & "_default",
+                   "bad default value " & Index_Image);
 
-    Method_Info (Name                 => "get_" & Field_Name,
-                 Of_Type              => Field_Type,
-                 Name_Found           => Name_Found,
-                 Has_Return           => Has_Return,
-                 Number_Of_Parameters => Number_Of_Parameters);
+    Method_Check_Data (Name                 => "get_" & Field_Name,
+                       Of_Type              => Field_Type,
+                       Name_Found           => Name_Found,
+                       Has_Return           => Has_Return,
+                       Number_Of_Parameters => Number_Of_Parameters);
 
-    Assert (Name_Found,
-            "method get for field " &
-              Actual_Field.Get_Name & " not found");
-    Assert (Number_Of_Parameters = 1,
-            "should have 1 parameter");
-    Assert (Has_Return,
-            "should have a return");
+    Tmp := Assert (Name_Found,
+                   "method get for field " &
+                     Actual_Field.Get_Name & " not found");
+    Tmp := Assert (Number_Of_Parameters = 1,
+                   "should have 1 parameter");
+    Tmp := Assert (Has_Return,
+                   "should have a return");
 
-  exception
-    when Assertion_Error => null;
+    --  exception
+    --    when E : others =>
+    --      Ada.Text_IO.Put_Line (Ada.Exceptions.Exception_Information (E));
+    --      --  when Assertion_Error => null;
   end With_Get;
 
   -----------------------------------------------------------------------------
@@ -124,10 +135,10 @@ package body Check_Field is
     Assert (Field_Type = "cls_1_fld_" & Index_Image & "_type",
             "field type " & Index_Image);
 
-    Method_Info (Name                 => "set_" & Field_Name,
-                 Name_Found           => Name_Found,
-                 Number_Of_Parameters => Number_Of_Parameters,
-                 Has_Return           => Has_Return);
+    Method_Check_Data (Name                 => "set_" & Field_Name,
+                       Name_Found           => Name_Found,
+                       Number_Of_Parameters => Number_Of_Parameters,
+                       Has_Return           => Has_Return);
 
     Assert (Name_Found,
             "method set for field " & Actual_Field.Get_Name &
@@ -137,7 +148,9 @@ package body Check_Field is
     Assert (not Has_Return,
             "shouldn't have a return");
   exception
-    when Assertion_Error => null;
+    when E : others =>
+      Ada.Text_IO.Put_Line (Ada.Exceptions.Exception_Information (E));
+      --  when Assertion_Error => null;
   end With_Set;
 
   -----------------------------------------------------------------------------
@@ -163,10 +176,10 @@ package body Check_Field is
     Assert (Field_Type = "cls_1_fld_" & Index_Image & "_type",
             "field type " & Index_Image);
 
-    Method_Info (Name                 => "set_" & Field_Name,
-                 Name_Found           => Name_Found,
-                 Number_Of_Parameters => Number_Of_Parameters,
-                 Has_Return           => Has_Return);
+    Method_Check_Data (Name                 => "set_" & Field_Name,
+                       Name_Found           => Name_Found,
+                       Number_Of_Parameters => Number_Of_Parameters,
+                       Has_Return           => Has_Return);
 
     Assert (Name_Found,
             "method set for field " & Actual_Field.Get_Name &
@@ -176,11 +189,11 @@ package body Check_Field is
     Assert (not Has_Return,
             "shouldn't have a return");
 
-    Method_Info (Name                 => "get_" & Field_Name,
-                 Of_Type              => Field_Type,
-                 Name_Found           => Name_Found,
-                 Has_Return           => Has_Return,
-                 Number_Of_Parameters => Number_Of_Parameters);
+    Method_Check_Data (Name                 => "get_" & Field_Name,
+                       Of_Type              => Field_Type,
+                       Name_Found           => Name_Found,
+                       Has_Return           => Has_Return,
+                       Number_Of_Parameters => Number_Of_Parameters);
 
     Assert (Name_Found,
             "method get for field " &
@@ -190,7 +203,9 @@ package body Check_Field is
     Assert (Has_Return,
             "should have a return");
   exception
-    when Assertion_Error => null;
+    when E : others =>
+      Ada.Text_IO.Put_Line (Ada.Exceptions.Exception_Information (E));
+      --  when Assertion_Error => null;
   end With_Get_Set;
 
   -----------------------------------------------------------------------------
@@ -203,7 +218,9 @@ package body Check_Field is
     Assert_Exception (Try_With_Unknown_Option'Access,
                       "unknown_option should raise an error");
   exception
-    when Assertion_Error => null;
+    when E : others =>
+      Ada.Text_IO.Put_Line (Ada.Exceptions.Exception_Information (E));
+      --  when Assertion_Error => null;
   end Unkown_Option;
 
   procedure Try_With_Unknown_Option
@@ -223,7 +240,9 @@ package body Check_Field is
             "bad field type 6");
     null;
   exception
-    when Assertion_Error => null;
+    when E : others =>
+      Ada.Text_IO.Put_Line (Ada.Exceptions.Exception_Information (E));
+      --  when Assertion_Error => null;
   end Vector_Same_Class;
 
   -----------------------------------------------------------------------------
@@ -237,12 +256,14 @@ package body Check_Field is
             "bad field type 7");
     null;
   exception
-    when Assertion_Error => null;
+    when E : others =>
+      Ada.Text_IO.Put_Line (Ada.Exceptions.Exception_Information (E));
+      --  when Assertion_Error => null;
   end Vector_Other_Class;
 
   -----------------------------------------------------------------------------
 
-  procedure Method_Info
+  procedure Method_Check_Data
     (Name                 : in     String;
      Of_Type              : in     String := "";
      Name_Found           :    out Boolean;
@@ -259,16 +280,9 @@ package body Check_Field is
     Number_Of_Parameters := 0;
     Has_Return           := False;
 
-    --  T_IO.Put_Line
-    --    ("public elements of """ & Pkg.Get_Name & """ (" &
-    --       Pkg.Get_Number_Of_Public_Elements'Image & ")""");
-
     On_All_Public_Elements :
-    for I in 1 .. Pkg.Get_Number_Of_Public_Elements loop
-      Element := Pkg.Get_Public_Element (I);
-
-      --  T_IO.Put (Element.Get_Name & " : ");
-      --  T_IO.Put_Line (Ada.Tags.Expanded_Name (Element'Tag));
+    for I in 1 .. Pkg.Get_Defined_Namespace.Number_Of_Members loop
+      Element := Pkg.Get_Defined_Namespace.Get_Member (Index => I);
 
       if Element.Get_Name = Name then
         Name_Found := True;
@@ -281,7 +295,7 @@ package body Check_Field is
       Number_Of_Parameters := Method.Number_Of_Parameters;
       Has_Return           := Method.Has_Return;
     end if;
-  end Method_Info;
+  end Method_Check_Data;
 
   -----------------------------------------------------------------------------
 

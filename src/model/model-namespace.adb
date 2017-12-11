@@ -1,31 +1,13 @@
 
 --  with ada files
+--  with Ada.Text_IO;
+--  with Ada.Exceptions;
 
 --  with others libraries
 
 --  with project files
 
 package body Model.Namespace is
-
-  -----------------------------------------------------------------------------
-
-  --
-  --  private data declarations
-  --
-
-  -----------------------------------------------------------------------------
-
-  --
-  --  private subprograms declarations
-  --
-
-  -----------------------------------------------------------------------------
-
-  --
-  --  public subprograms definitions
-  --
-
-  -----------------------------------------------------------------------------
 
   procedure Initialize
     (Self            : in out Object_T'Class;
@@ -60,6 +42,27 @@ package body Model.Namespace is
   begin
     Self.Owned_Members (Visibility).Append (Object);
   end Add_Member;
+
+  function Get_Member
+    (Self       : in Object_T;
+     Visibility : in Visibility_Kind := Public_Visibility;
+     Index      : in Positive)
+    return not null access Named_Element.Object_T'Class
+  is
+    Result     : access Named_Element.Object_T'Class := null;
+    Last_Index : Natural                             := 0;
+  begin
+    Last_Index := Self.Number_Of_Members (Visibility);
+
+    if Index > Last_Index then
+      raise Member_Index_Out_Of_Bounds with
+        "given index is" & Index'Image &
+          ", size is" & Last_Index'Image;
+    end if;
+
+    Result := Self.Owned_Members (Visibility) (Index);
+    return Result;
+  end Get_Member;
 
   -----------------------------------------------------------------------------
 

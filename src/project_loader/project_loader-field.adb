@@ -6,7 +6,7 @@ with Split;
 
 with Ada.Strings.Fixed;
 with Model.Field;
-with Model.Subprogram;
+with Model.Operation;
 with Model.Parameter;
 
 separate (Project_Loader)

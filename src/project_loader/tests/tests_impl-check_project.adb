@@ -1,3 +1,5 @@
+with Ada.Exceptions;
+
 separate (Tests_Impl)
 
 package body Check_Project is
@@ -8,7 +10,9 @@ package body Check_Project is
       (Data.Path.all = Expected.Path,
        "chemin du projet");
   exception
-    when Assertion_Error => null;
+    when E : others =>
+      Ada.Text_IO.Put_Line (Ada.Exceptions.Exception_Information (E));
+      --  when Assertion_Error => null;
   end Has_Valid_Path;
 
   procedure Has_Valid_Name
@@ -18,7 +22,9 @@ package body Check_Project is
       (Data.Project.Get_Name = Expected.Project.Get_Name,
        "nom du projet");
   exception
-    when Assertion_Error => null;
+    when E : others =>
+      Ada.Text_IO.Put_Line (Ada.Exceptions.Exception_Information (E));
+      --  when Assertion_Error => null;
   end Has_Valid_Name;
 
 end Check_Project;

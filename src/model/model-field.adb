@@ -1,4 +1,4 @@
-with Model.Class_Def;
+with Model.Types.Class_Def;
 with Model.Namespace;
 
 package body Model.Field is
@@ -6,7 +6,7 @@ package body Model.Field is
   procedure Initialize
     (Self          : in out          Object_T'Class;
      Name          : in              String;
-     Owner_Class   : not null access Class_Def.Object_T'Class;
+     Owner_Class   : not null access Types.Class_Def.Object_T'Class;
      Of_Type       : in              String;
      Default_Value : in              String := "")
   is
@@ -33,7 +33,7 @@ package body Model.Field is
 
   function Create
     (Name          : in              String;
-     Owner_Class   : not null access Class_Def.Object_T'Class;
+     Owner_Class   : not null access Types.Class_Def.Object_T'Class;
      Of_Type       : in              String;
      Default_Value : in              String := "")
     return not null access Object_T'Class

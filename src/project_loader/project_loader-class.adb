@@ -4,7 +4,7 @@ use type Ada.Containers.Count_Type;
 
 with Split;
 
-with Model.Class_Def;
+with Model.Types.Class_Def;
 with Model.Package_Def;
 
 separate (Project_Loader)
@@ -203,7 +203,7 @@ is
 
     Current_Namespace := Current_Package.Get_Defined_Namespace;
 
-    Current_Class := Model.Class_Def.Create
+    Current_Class := Model.Types.Class_Def.Create
       (Owner_Package => Current_Package,
        Name          => "object_t",
        Is_Abstract   => Parsed_Data.Opt_Abstract);
@@ -214,10 +214,10 @@ is
 
     --  if Parsed_Data.Has_Create then
     --    declare
-    --      Create_Function : access Model.Subprogram.Object_T := null;
+    --      Create_Function : access Model.Operation.Object_T := null;
     --    begin
     --      Create_Function :=
-    --        Model.Subprogram.Create
+    --        Model.Operation.Create
     --          (Name           => "create",
     --           Of_Type        => "not null access object_t",
     --           Parent_Package => Built_Pkg);
