@@ -3,7 +3,7 @@ with "common_jpi";
 project String_Utils is
 
   Src_Dirs := ();
-  Src_Dirs := Src_Dirs & ".";
+  Src_Dirs := Src_Dirs & "./src";
   for Source_Dirs use Src_Dirs;
 
   Excl_Src_Lst := ();

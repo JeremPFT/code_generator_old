@@ -1,0 +1,11 @@
+[LIBRARY PATH]
+/home/jeremy/workspace/ada/code_generator/src/project_output/lib/libcode_generator.a
+[OBJECT FILES]
+/home/jeremy/workspace/ada/code_generator/src/project_output/obj/generate.o
+20171219102831
+/home/jeremy/workspace/ada/code_generator/src/project_output/obj/model_visitor-visit_root_project_impl.o
+20171219133840
+/home/jeremy/workspace/ada/code_generator/src/project_output/obj/model_visitor.o
+20171219133841
+/home/jeremy/workspace/ada/code_generator/src/project_output/obj/model_visitor-visit_field_impl.o
+20171219133840

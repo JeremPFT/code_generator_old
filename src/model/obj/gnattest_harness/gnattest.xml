@@ -1,0 +1,71 @@
+<tests_mapping mode="monolith">
+   <unit source_file="model-comment.ads">
+      <test_unit target_file="model-comment-object_t_test_data-object_t_tests.ads">
+         <setup file="model-comment-object_t_test_data.adb" name="Set_Up" line="9"  column="4"/>
+         <teardown file="model-comment-object_t_test_data.adb" name="Tear_Down" line="15"  column="4"/>
+         <tested name="Get_Body" line="33" column="12">
+            <test file="model-comment-object_t_test_data-object_t_tests.adb" line="39" column="1" name="Test_Get_Body_c908af" timestamp="2017-12-19 14:34:52"/>
+         </tested>
+         <tested name="Is_Equivalent" line="38" column="12">
+            <test file="model-comment-object_t_test_data-object_t_tests.adb" line="60" column="1" name="Test_Is_Equivalent_eced7f" timestamp="2017-12-19 14:34:52"/>
+         </tested>
+         <dangling>
+         </dangling>
+      </test_unit>
+      <test_unit target_file="model-comment-test_data-tests.ads">
+         <setup file="model-comment-test_data.adb" name="Set_Up" line="8"  column="4"/>
+         <teardown file="model-comment-test_data.adb" name="Tear_Down" line="14"  column="4"/>
+         <tested name="Initialize" line="24" column="13">
+            <test file="model-comment-test_data-tests.adb" line="39" column="1" name="Test_Initialize_ca2c73" timestamp="2017-12-19 14:34:52"/>
+         </tested>
+         <tested name="Create" line="28" column="12">
+            <test file="model-comment-test_data-tests.adb" line="60" column="1" name="Test_Create_5e4166" timestamp="2017-12-19 14:34:52"/>
+         </tested>
+         <dangling>
+         </dangling>
+      </test_unit>
+      <test_unit target_file="model-comment-test_data-tests-vectors-test_data-tests.ads">
+         <setup file="model-comment-test_data-tests-vectors-test_data.adb" name="Set_Up" line="8"  column="4"/>
+         <teardown file="model-comment-test_data-tests-vectors-test_data.adb" name="Tear_Down" line="14"  column="4"/>
+         <dangling>
+         </dangling>
+      </test_unit>
+   </unit>
+   <unit source_file="model-element.ads">
+      <test_unit target_file="model-element-object_t_test_data-object_t_tests.ads">
+         <tested name="Add_Comment" line="30" column="13">
+            <test file="model-element-object_t_test_data-object_t_tests.adb" line="39" column="1" name="Test_Add_Comment_e58dfe" timestamp="2017-12-19 14:34:52"/>
+         </tested>
+         <tested name="Number_Of_Comments" line="37" column="12">
+            <test file="model-element-object_t_test_data-object_t_tests.adb" line="60" column="1" name="Test_Number_Of_Comments_e75ee0" timestamp="2017-12-19 14:34:52"/>
+         </tested>
+         <tested name="Get_Comment" line="44" column="12">
+            <test file="model-element-object_t_test_data-object_t_tests.adb" line="81" column="1" name="Test_Get_Comment_6d199b" timestamp="2017-12-19 14:34:52"/>
+         </tested>
+         <tested name="Is_Equivalent" line="52" column="12">
+            <test file="model-element-object_t_test_data-object_t_tests.adb" line="102" column="1" name="Test_Is_Equivalent_eced7f" timestamp="2017-12-19 14:34:52"/>
+         </tested>
+         <tested name="Visit" line="58" column="13">
+            <test file="model-element-object_t_test_data-object_t_tests.adb" line="123" column="1" name="Test_Visit_aa2478" timestamp="2017-12-19 14:34:52"/>
+         </tested>
+         <dangling>
+         </dangling>
+      </test_unit>
+      <test_unit target_file="model-element-test_data-tests.ads">
+         <setup file="model-element-test_data.adb" name="Set_Up" line="8"  column="4"/>
+         <teardown file="model-element-test_data.adb" name="Tear_Down" line="14"  column="4"/>
+         <tested name="Initialize" line="24" column="13">
+            <test file="model-element-test_data-tests.adb" line="39" column="1" name="Test_Initialize_4e32e9" timestamp="2017-12-19 14:34:52"/>
+         </tested>
+         <dangling>
+         </dangling>
+      </test_unit>
+      <test_unit target_file="model-element-test_data-tests-vectors-test_data-tests.ads">
+         <setup file="model-element-test_data-tests-vectors-test_data.adb" name="Set_Up" line="8"  column="4"/>
+         <teardown file="model-element-test_data-tests-vectors-test_data.adb" name="Tear_Down" line="14"  column="4"/>
+         <dangling>
+         </dangling>
+      </test_unit>
+   </unit>
+   <additional_tests/>
+</tests_mapping>

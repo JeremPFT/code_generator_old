@@ -9,7 +9,7 @@ with Model.Module;
 with Model.Named_Element;
 with Model.Package_Def;
 with Model.Project;
-with Model.Subprogram;
+with Model.Operation;
 with Model.Types.Class_Def;
 with Model.Visitor.Printer;
 with Expected;
@@ -22,24 +22,24 @@ package body Tests_Impl is
   package Load renames Project_Loader;
 
   --  function "="
-  --    (Left, Right : not null access Subprogram.Object_T)
+  --    (Left, Right : not null access Operation.Object_T)
   --    return Boolean;
 
   -----------------------------------------------------------------------------
 
   package Init is
-    procedure Check_Project;
-    procedure Check_Module;
-    procedure Check_Class;
-    procedure Check_Field;
+    procedure Setup_Project;
+    procedure Setup_Module;
+    procedure Setup_Class;
+    procedure Setup_Field;
   end Init;
 
   package body Init is separate;
 
-  procedure Init_Check_Project renames Init.Set_Up_Project;
-  procedure Init_Check_Module renames Init.Set_Up_Module;
-  procedure Init_Check_Class renames Init.Set_Up_Class;
-  procedure Init_Check_Field renames Init.Set_Up_Field;
+  procedure Init_Check_Project renames Init.Setup_Project;
+  procedure Init_Check_Module renames Init.Setup_Module;
+  procedure Init_Check_Class renames Init.Setup_Class;
+  procedure Init_Check_Field renames Init.Setup_Field;
 
   Class_1_Number_Of_Fields : constant Positive := 7;
 

@@ -1,0 +1,2 @@
+model-visitor-template-visit_field_impl-test_data.adb:12:47: "Named_Field" is undefined (more references follow)
+model-visitor-template-visit_field_impl-test_data.adb:15:28: "Create" not declared in "Class_Def"

@@ -4,7 +4,7 @@ with "string_utils";
 library project File_IO is
 
   Src_Lst := ();
-  Src_Lst := Src_Lst & ".";
+  Src_Lst := Src_Lst & "./src";
   for Source_Dirs use Src_Lst;
 
   Exc_Src_Lst := ();

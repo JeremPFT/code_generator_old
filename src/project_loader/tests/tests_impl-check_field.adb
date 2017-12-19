@@ -273,7 +273,7 @@ package body Check_Field is
     Pkg : access Model.Package_Def.Object_T renames
       Get_Class_1_Package;
 
-    Method  : access Model.Subprogram.Object_T'Class    := null;
+    Method  : access Model.Operation.Object_T'Class     := null;
     Element : access Model.Named_Element.Object_T'Class := null;
   begin
     Name_Found           := False;
@@ -286,7 +286,7 @@ package body Check_Field is
 
       if Element.Get_Name = Name then
         Name_Found := True;
-        Method     := Model.Subprogram.Class_T (Element);
+        Method     := Model.Operation.Class_T (Element);
       end if;
 
     end loop On_All_Public_Elements;

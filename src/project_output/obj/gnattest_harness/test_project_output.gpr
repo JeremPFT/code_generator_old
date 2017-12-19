@@ -1,0 +1,13 @@
+with "aunit";
+with "gnattest_common.gpr";
+with "../../project_output.gpr";
+project test_project_output is
+
+   for Source_Dirs use
+     ("../../tests",
+      "common");
+
+   for Languages use Gnattest_Common'Languages & ("Ada");
+   package Compiler renames Gnattest_Common.Compiler;
+
+end test_project_output;

@@ -1,0 +1,7 @@
+/home/jeremy/workspace/ada/code_generator/utils/string_utils/string_utils.gpr
+/home/jeremy/workspace/ada/code_generator/utils/templates/templates.gpr
+/home/jeremy/workspace/ada/code_generator/utils/file_io/file_io.gpr
+/home/jeremy/workspace/ada/code_generator/src/model/model.gpr
+/home/jeremy/workspace/ada/code_generator/src/project_loader/project_loader.gpr
+/home/jeremy/workspace/ada/code_generator/src/project_output/project_output.gpr
+/home/jeremy/workspace/ada/code_generator/src/run/run.gpr

@@ -1,0 +1,63 @@
+[GENERATED OBJECT FILE]
+b__run.o
+[PROJECT FILES]
+/home/jeremy/workspace/ada/code_generator/src/run/run.gpr
+20171215192835
+/home/jeremy/workspace/ada/code_generator/src/project_output/project_output.gpr
+20171215200759
+/usr/gnat/lib/gnat/opentoken.gpr
+20150510192240
+/home/jeremy/workspace/ada/code_generator/src/project_loader/project_loader.gpr
+20171215151539
+/usr/gnat/lib/gnat/xmlada_dom.gpr
+20170517152555
+/usr/gnat/lib/gnat/xmlada_input.gpr
+20170517152557
+/usr/gnat/lib/gnat/xmlada_unicode.gpr
+20170517152557
+/usr/gnat/lib/gnat/xmlada_sax.gpr
+20170517152555
+/usr/gnat/lib/gnat/xmlada_schema.gpr
+20170517152555
+/usr/gnat/share/gpr/aws.gpr
+20170517152352
+/home/jeremy/workspace/ada/code_generator/utils/templates/templates.gpr
+20171219021528
+/home/jeremy/workspace/ada/code_generator/src/model/model.gpr
+20171219021611
+/home/jeremy/workspace/ada/code_generator/utils/file_io/file_io.gpr
+20171217214432
+/home/jeremy/workspace/ada/code_generator/utils/string_utils/string_utils.gpr
+20171218095026
+/home/jeremy/workspace/ada/code_generator/common_jpi.gpr
+20171217210213
+[BOUND OBJECT FILES]
+/home/jeremy/workspace/ada/code_generator/src/run/obj/run.o
+[GENERATED SOURCE FILES]
+b__run.ads
+b__run.adb
+b__run.ali
+[RESULTING OPTIONS]
+-L/home/jeremy/workspace/ada/code_generator/src/run/obj/
+-L/home/jeremy/workspace/ada/code_generator/src/run/obj/
+-L/home/jeremy/workspace/ada/code_generator/utils/string_utils/lib/
+-L/home/jeremy/workspace/ada/code_generator/utils/file_io/lib/
+-L/home/jeremy/workspace/ada/code_generator/src/model/lib/
+-L/home/jeremy/workspace/ada/code_generator/utils/templates/lib/
+-L/usr/gnat/lib/aws/
+-L/usr/gnat/lib/xmlada/xmlada_schema.static/
+-L/usr/gnat/lib/xmlada/xmlada_sax.static/
+-L/usr/gnat/lib/xmlada/xmlada_unicode.static/
+-L/usr/gnat/lib/xmlada/xmlada_input.static/
+-L/usr/gnat/lib/xmlada/xmlada_dom.static/
+-L/home/jeremy/workspace/ada/code_generator/src/project_loader/lib/
+-L/usr/gnat/lib/opentoken/
+-L/home/jeremy/workspace/ada/code_generator/src/project_output/lib/
+-L/usr/gnat/lib/gcc/x86_64-pc-linux-gnu/6.3.1/adalib/
+-static
+-static-libgcc
+/usr/gnat/lib/gcc/x86_64-pc-linux-gnu/6.3.1/adalib/libgnarl.a
+/usr/gnat/lib/gcc/x86_64-pc-linux-gnu/6.3.1/adalib/libgnat.a
+-lpthread
+-lrt
+-ldl

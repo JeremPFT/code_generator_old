@@ -1,0 +1,11 @@
+[LIBRARY PATH]
+/home/jeremy/workspace/ada/code_generator/src/project_loader/lib/libprj_loader.a
+[OBJECT FILES]
+/home/jeremy/workspace/ada/code_generator/src/project_loader/obj/project_loader.o
+20171219102831
+/home/jeremy/workspace/ada/code_generator/src/project_loader/obj/project_loader-operation_factory.o
+20171219102831
+/home/jeremy/workspace/ada/code_generator/src/project_loader/obj/project_loader-class_impl.o
+20171219102831
+/home/jeremy/workspace/ada/code_generator/src/project_loader/obj/project_loader-class_impl-options.o
+20171219102831

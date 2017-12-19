@@ -1,0 +1,27 @@
+/home/jeremy/workspace/ada/code_generator/src/project_output/src/model-visitor-visit_root_project_impl.adb:11:28: target of assignment operation must not be abstract
+/home/jeremy/workspace/ada/code_generator/src/project_output/src/model-visitor-visit_root_project_impl.adb:40:15: no selector "Root_Directory" for type "Object_T" defined at model-visitor.ads:20
+/home/jeremy/workspace/ada/code_generator/src/project_output/src/model-visitor-visit_root_project_impl.adb:41:13: "Not_Initialized" is undefined
+/home/jeremy/workspace/ada/code_generator/src/project_output/src/model-visitor-visit_root_project_impl.adb:41:13: exception name expected in raise statement
+/home/jeremy/workspace/ada/code_generator/src/project_output/src/model-visitor-visit_root_project_impl.adb:44:05: "F_IO" is undefined
+/home/jeremy/workspace/ada/code_generator/src/project_output/src/model-visitor-visit_root_project_impl.adb:45:05: "F_IO" is undefined
+/home/jeremy/workspace/ada/code_generator/src/project_output/src/model-visitor-visit_root_project_impl.adb:46:05: "F_IO" is undefined
+/home/jeremy/workspace/ada/code_generator/src/project_output/src/model-visitor-visit_root_project_impl.adb:47:05: "F_IO" is undefined
+/home/jeremy/workspace/ada/code_generator/src/project_output/src/model-visitor-visit_root_project_impl.adb:48:05: "F_IO" is undefined
+/home/jeremy/workspace/ada/code_generator/src/project_output/src/model-visitor-visit_root_project_impl.adb:70:29: "Tmpl" is undefined
+/home/jeremy/workspace/ada/code_generator/src/project_output/src/model-visitor-visit_root_project_impl.adb:71:07: "Tmpl" is undefined
+/home/jeremy/workspace/ada/code_generator/src/project_output/src/model-visitor-visit_root_project_impl.adb:73:05: "F_IO" is undefined
+/home/jeremy/workspace/ada/code_generator/src/project_output/src/model-visitor-visit_root_project_impl.adb:83:15: "Tmpl" is undefined
+/home/jeremy/workspace/ada/code_generator/src/project_output/src/model-visitor-visit_root_project_impl.adb:85:34: "Tmpl" is undefined
+/home/jeremy/workspace/ada/code_generator/src/project_output/src/model-visitor-visit_root_project_impl.adb:86:07: incorrect constraint for this kind of type
+/home/jeremy/workspace/ada/code_generator/src/project_output/src/model-visitor-visit_root_project_impl.adb:94:29: "Tmpl" is undefined
+/home/jeremy/workspace/ada/code_generator/src/project_output/src/model-visitor-visit_root_project_impl.adb:94:46: "Tmpl" is undefined
+/home/jeremy/workspace/ada/code_generator/src/project_output/src/model-visitor-visit_root_project_impl.adb:99:19: "Object" is undefined
+/home/jeremy/workspace/ada/code_generator/src/project_output/src/model-visitor-visit_root_project_impl.adb:100:07: invalid prefix in selected component "Image"
+/home/jeremy/workspace/ada/code_generator/src/project_output/src/model-visitor-visit_root_project_impl.adb:104:05: invalid prefix in selected component "Image"
+/home/jeremy/workspace/ada/code_generator/src/project_output/src/model-visitor-visit_root_project_impl.adb:107:05: "F_IO" is undefined
+/home/jeremy/workspace/ada/code_generator/src/project_output/src/model-visitor-visit_root_project_impl.adb:116:29: "Tmpl" is undefined
+/home/jeremy/workspace/ada/code_generator/src/project_output/src/model-visitor-visit_root_project_impl.adb:117:07: "Tmpl" is undefined
+/home/jeremy/workspace/ada/code_generator/src/project_output/src/model-visitor-visit_root_project_impl.adb:119:05: "F_IO" is undefined
+/home/jeremy/workspace/ada/code_generator/src/project_output/src/model-visitor-visit_root_project_impl.adb:126:19: "Object" is undefined
+/home/jeremy/workspace/ada/code_generator/src/project_output/src/model-visitor-visit_root_project_impl.adb:127:07: "Module" is undefined
+/home/jeremy/workspace/ada/code_generator/src/project_output/src/model-visitor-visit_root_project_impl.ads:13:13: type of object cannot be abstract

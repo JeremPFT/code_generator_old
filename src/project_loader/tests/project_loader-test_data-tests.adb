@@ -30,11 +30,32 @@ package body Project_Loader.Test_Data.Tests is
 --  end read only
 
 --  begin read only
+   procedure Test_Root_Project (Gnattest_T : in out Test);
+   procedure Test_Root_Project_e22c5f (Gnattest_T : in out Test) renames Test_Root_Project;
+--  id:2.2/e22c5f9e4255ae28/Root_Project/1/0/
+   procedure Test_Root_Project (Gnattest_T : in out Test) is
+   --  project_loader.ads:18:3:Root_Project
+--  end read only
+
+      pragma Unreferenced (Gnattest_T);
+
+   begin
+
+      AUnit.Assertions.Assert
+        (Gnattest_Generated.Default_Assert_Value,
+         "Test not implemented.");
+
+--  begin read only
+   end Test_Root_Project;
+--  end read only
+
+
+--  begin read only
    procedure Test_Project (Gnattest_T : in out Test);
-   procedure Test_Project_24c5a2 (Gnattest_T : in out Test) renames Test_Project;
---  id:2.2/24c5a2331ed9df43/Project/1/0/
+   procedure Test_Project_fc3287 (Gnattest_T : in out Test) renames Test_Project;
+--  id:2.2/fc3287b889d579e8/Project/1/0/
    procedure Test_Project (Gnattest_T : in out Test) is
-   --  project_loader.ads:20:3:Project
+   --  project_loader.ads:27:3:Project
 --  end read only
     pragma Unreferenced (Gnattest_T);
     use Tests_Impl;
@@ -49,34 +70,11 @@ package body Project_Loader.Test_Data.Tests is
 
 
 --  begin read only
-   procedure Test_Module (Gnattest_T : in out Test);
-   procedure Test_Module_7826d3 (Gnattest_T : in out Test) renames Test_Module;
---  id:2.2/7826d3573c230fb0/Module/1/0/
-   procedure Test_Module (Gnattest_T : in out Test) is
-   --  project_loader.ads:29:3:Module
---  end read only
-
-    pragma Unreferenced (Gnattest_T);
-    use Tests_Impl;
-
-  begin
-    Init_Check_Module;
-
-    Check_Module_Only_Its_Root_Package;
-    Check_Module_Has_Valid_Module_Number;
-    Check_Module_Has_Valid_Module_Name;
-    Check_Module_Error_If_Unknown_Module_Name;
---  begin read only
-   end Test_Module;
---  end read only
-
-
---  begin read only
    procedure Test_Class (Gnattest_T : in out Test);
    procedure Test_Class_6fc34a (Gnattest_T : in out Test) renames Test_Class;
 --  id:2.2/6fc34a8d07757b20/Class/1/0/
    procedure Test_Class (Gnattest_T : in out Test) is
-   --  project_loader.ads:33:3:Class
+   --  project_loader.ads:31:3:Class
 --  end read only
     pragma Unreferenced (Gnattest_T);
     use Tests_Impl;
@@ -96,7 +94,7 @@ package body Project_Loader.Test_Data.Tests is
    procedure Test_Field_078360 (Gnattest_T : in out Test) renames Test_Field;
 --  id:2.2/07836088b982fa28/Field/1/0/
    procedure Test_Field (Gnattest_T : in out Test) is
-   --  project_loader.ads:53:3:Field
+   --  project_loader.ads:51:3:Field
 --  end read only
     pragma Unreferenced (Gnattest_T);
     use Tests_Impl;
@@ -121,7 +119,7 @@ package body Project_Loader.Test_Data.Tests is
    procedure Test_Fields_186588 (Gnattest_T : in out Test) renames Test_Fields;
 --  id:2.2/18658831ffe611fd/Fields/1/0/
    procedure Test_Fields (Gnattest_T : in out Test) is
-   --  project_loader.ads:56:3:Fields
+   --  project_loader.ads:54:3:Fields
 --  end read only
 
     pragma Unreferenced (Gnattest_T);
@@ -138,44 +136,44 @@ package body Project_Loader.Test_Data.Tests is
 
 
 --  begin read only
-   procedure Test_Method (Gnattest_T : in out Test);
-   procedure Test_Method_c59f42 (Gnattest_T : in out Test) renames Test_Method;
---  id:2.2/c59f42a955257ff1/Method/1/0/
-   procedure Test_Method (Gnattest_T : in out Test) is
-   --  project_loader.ads:74:3:Method
+   procedure Test_Operation (Gnattest_T : in out Test);
+   procedure Test_Operation_c64c68 (Gnattest_T : in out Test) renames Test_Operation;
+--  id:2.2/c64c6871f14057af/Operation/1/0/
+   procedure Test_Operation (Gnattest_T : in out Test) is
+   --  project_loader.ads:72:3:Operation
 --  end read only
 
-    pragma Unreferenced (Gnattest_T);
+      pragma Unreferenced (Gnattest_T);
 
-  begin
+   begin
 
-    AUnit.Assertions.Assert
-      (Gnattest_Generated.Default_Assert_Value,
-       "Test not implemented.");
+      AUnit.Assertions.Assert
+        (Gnattest_Generated.Default_Assert_Value,
+         "Test not implemented.");
 
 --  begin read only
-   end Test_Method;
+   end Test_Operation;
 --  end read only
 
 
 --  begin read only
-   procedure Test_Methods (Gnattest_T : in out Test);
-   procedure Test_Methods_b20da5 (Gnattest_T : in out Test) renames Test_Methods;
---  id:2.2/b20da5f6714fc70e/Methods/1/0/
-   procedure Test_Methods (Gnattest_T : in out Test) is
-   --  project_loader.ads:77:3:Methods
+   procedure Test_Operations (Gnattest_T : in out Test);
+   procedure Test_Operations_e79d44 (Gnattest_T : in out Test) renames Test_Operations;
+--  id:2.2/e79d444f2de8354d/Operations/1/0/
+   procedure Test_Operations (Gnattest_T : in out Test) is
+   --  project_loader.ads:75:3:Operations
 --  end read only
 
-    pragma Unreferenced (Gnattest_T);
+      pragma Unreferenced (Gnattest_T);
 
-  begin
+   begin
 
-    AUnit.Assertions.Assert
-      (Gnattest_Generated.Default_Assert_Value,
-       "Test not implemented.");
+      AUnit.Assertions.Assert
+        (Gnattest_Generated.Default_Assert_Value,
+         "Test not implemented.");
 
 --  begin read only
-   end Test_Methods;
+   end Test_Operations;
 --  end read only
 
 
@@ -184,7 +182,7 @@ package body Project_Loader.Test_Data.Tests is
    procedure Test_Close_e0b8a0 (Gnattest_T : in out Test) renames Test_Close;
 --  id:2.2/e0b8a0a7e3fcad97/Close/1/0/
    procedure Test_Close (Gnattest_T : in out Test) is
-   --  project_loader.ads:80:3:Close
+   --  project_loader.ads:78:3:Close
 --  end read only
 
     pragma Unreferenced (Gnattest_T);
@@ -201,32 +199,11 @@ package body Project_Loader.Test_Data.Tests is
 
 
 --  begin read only
-   procedure Test_Get_Data (Gnattest_T : in out Test);
-   procedure Test_Get_Data_4439c4 (Gnattest_T : in out Test) renames Test_Get_Data;
---  id:2.2/4439c49f482e7eb1/Get_Data/1/0/
-   procedure Test_Get_Data (Gnattest_T : in out Test) is
-   --  project_loader.ads:82:3:Get_Data
---  end read only
-
-    pragma Unreferenced (Gnattest_T);
-
-  begin
-
-    AUnit.Assertions.Assert
-      (Gnattest_Generated.Default_Assert_Value,
-       "Test not implemented.");
-
---  begin read only
-   end Test_Get_Data;
---  end read only
-
-
---  begin read only
    procedure Test_Constante (Gnattest_T : in out Test);
    procedure Test_Constante_8b89d0 (Gnattest_T : in out Test) renames Test_Constante;
 --  id:2.2/8b89d0c17510f364/Constante/1/0/
    procedure Test_Constante (Gnattest_T : in out Test) is
-   --  project_loader.ads:85:3:Constante
+   --  project_loader.ads:80:3:Constante
 --  end read only
 
     pragma Unreferenced (Gnattest_T);
@@ -239,6 +216,47 @@ package body Project_Loader.Test_Data.Tests is
 
 --  begin read only
    end Test_Constante;
+--  end read only
+
+
+--  begin read only
+   procedure Test_Get_Root_Project (Gnattest_T : in out Test);
+   procedure Test_Get_Root_Project_8f996e (Gnattest_T : in out Test) renames Test_Get_Root_Project;
+--  id:2.2/8f996e185fda539a/Get_Root_Project/1/0/
+   procedure Test_Get_Root_Project (Gnattest_T : in out Test) is
+   --  project_loader.ads:82:3:Get_Root_Project
+--  end read only
+
+      pragma Unreferenced (Gnattest_T);
+
+   begin
+
+      AUnit.Assertions.Assert
+        (Gnattest_Generated.Default_Assert_Value,
+         "Test not implemented.");
+
+--  begin read only
+   end Test_Get_Root_Project;
+--  end read only
+
+
+--  begin read only
+   --  procedure Test_Get_Data (Gnattest_T : in out Test);
+   --  procedure Test_Get_Data_4439c4 (Gnattest_T : in out Test) renames Test_Get_Data;
+--  id:2.2/4439c49f482e7eb1/Get_Data/1/1/
+   --  procedure Test_Get_Data (Gnattest_T : in out Test) is
+--  end read only
+--  
+--      pragma Unreferenced (Gnattest_T);
+--  
+--    begin
+--  
+--      AUnit.Assertions.Assert
+--        (Gnattest_Generated.Default_Assert_Value,
+--         "Test not implemented.");
+--  
+--  begin read only
+   --  end Test_Get_Data;
 --  end read only
 
 
@@ -257,6 +275,68 @@ package body Project_Loader.Test_Data.Tests is
   --      Check_Project_Has_Valid_Path;
 --  begin read only
    --  end Test_Console_Project;
+--  end read only
+
+
+--  begin read only
+   --  procedure Test_Module (Gnattest_T : in out Test);
+   --  procedure Test_Module_7826d3 (Gnattest_T : in out Test) renames Test_Module;
+--  id:2.2/7826d3573c230fb0/Module/1/1/
+   --  procedure Test_Module (Gnattest_T : in out Test) is
+--  end read only
+--  
+--      pragma Unreferenced (Gnattest_T);
+--      use Tests_Impl;
+--  
+--    begin
+--      Init_Check_Module;
+--  
+--      Check_Module_Only_Its_Root_Package;
+--      Check_Module_Has_Valid_Module_Number;
+--      Check_Module_Has_Valid_Module_Name;
+--      Check_Module_Error_If_Unknown_Module_Name;
+--  begin read only
+   --  end Test_Module;
+--  end read only
+
+
+--  begin read only
+   --  procedure Test_Methods (Gnattest_T : in out Test);
+   --  procedure Test_Methods_b20da5 (Gnattest_T : in out Test) renames Test_Methods;
+--  id:2.2/b20da5f6714fc70e/Methods/1/1/
+   --  procedure Test_Methods (Gnattest_T : in out Test) is
+--  end read only
+--  
+--      pragma Unreferenced (Gnattest_T);
+--  
+--    begin
+--  
+--      AUnit.Assertions.Assert
+--        (Gnattest_Generated.Default_Assert_Value,
+--         "Test not implemented.");
+--  
+--  begin read only
+   --  end Test_Methods;
+--  end read only
+
+
+--  begin read only
+   --  procedure Test_Method (Gnattest_T : in out Test);
+   --  procedure Test_Method_c59f42 (Gnattest_T : in out Test) renames Test_Method;
+--  id:2.2/c59f42a955257ff1/Method/1/1/
+   --  procedure Test_Method (Gnattest_T : in out Test) is
+--  end read only
+--  
+--      pragma Unreferenced (Gnattest_T);
+--  
+--    begin
+--  
+--      AUnit.Assertions.Assert
+--        (Gnattest_Generated.Default_Assert_Value,
+--         "Test not implemented.");
+--  
+--  begin read only
+   --  end Test_Method;
 --  end read only
 
 

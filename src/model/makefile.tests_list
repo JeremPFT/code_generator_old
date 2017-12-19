@@ -1,0 +1,7 @@
+list +=
+list += model-element.ads
+list += model-comment.ads
+
+# Local Variables:
+# mode: makefile
+# End:

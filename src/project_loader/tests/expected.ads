@@ -3,7 +3,7 @@ with Model.Module;
 with Model.Package_Def;
 with Model.Parameter;
 with Model.Project;
-with Model.Subprogram;
+with Model.Operation;
 with Model.Types.Class_Def;
 with Model.Types.Interface_Def;
 

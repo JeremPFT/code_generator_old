@@ -1,30 +1,33 @@
-with "share";
-with "string_utils";
-with "model";
-with "generator";
-with "file_io";
-with "project_loader";
+with "common_jpi";
 
-project Exec is
+with "string_utils";
+with "file_io";
+
+with "model";
+with "project_loader";
+with "project_output";
+
+project Run is
 
   Src_Dirs := ();
-  Src_Dirs := Src_Dirs & "..";
+  Src_Dirs := Src_Dirs & "./src";
   for Source_Dirs use Src_Dirs;
 
   Excl_Src_Lst := ();
   for Excluded_Source_Files use Excl_Src_Lst;
 
-  for Object_Dir use Share.Obj_Directory;
-  for Exec_Dir use Share.Exe_Directory;
+  for Object_Dir use "obj";
+  for Exec_Dir use "bin";
 
-  for Main use ("exec.adb");
+  for Main use ("run.adb");
 
-  package Compiler renames Share.Compiler;
-
-  package Binder renames Share.Binder;
+  package Compiler renames Common_Jpi.Compiler;
+  package Binder renames Common_Jpi.Binder;
+  package Gnattest renames Common_Jpi.Gnattest;
 
   package Builder is
-    for Executable ("exec.adb") use external ("exec_name");
+    for Executable ("run.adb") use "output_project";
+    -- for Executable ("run.adb") use external ("exec_name");
   end Builder;
 
-end Exec;
+end Run;

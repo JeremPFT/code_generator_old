@@ -1,0 +1,71 @@
+dir = $(shell pwd)
+module = $(shell basename $(shell pwd))
+project = $(module).gpr
+
+include ../../makefile.common
+
+all::
+	make -C ../..
+
+# @echo
+# @echo "=================================================="
+# @echo "==           COMPILING: $(module)"
+# @echo "=================================================="
+# @echo
+
+compil: compil_tag
+	$(BUILD) -P $(project)
+	@echo
+
+gnatinspect::
+	@echo updating xref...
+	@$(XREF)
+
+clean: clean_tag
+	$(CLEAN) -P $(project)
+
+recompil: clean compil
+
+tests::
+	@echo
+	@echo tests_generate
+	@echo tests_build
+	@echo tests_run
+
+include makefile.tests_list
+
+tests_generate: all
+	@echo
+	@echo "=================================================="
+	@echo "==          TESTS GENERATION: $(module)"
+	@echo "=================================================="
+	$(TESTS_GENERATE) -P $(project) $(list)
+
+tests_build:
+	@echo
+	@echo "=================================================="
+	@echo "==          TESTS COMPILATION: $(module)"
+	@echo "=================================================="
+	$(TESTS_BUILD)
+
+tests_run: all tests_build
+	@echo
+	@echo "=================================================="
+	@echo "==          RUNINNG TESTS: $(module)"
+	@echo "=================================================="
+	$(TESTS_RUN)
+
+install:all uninstall
+	@echo
+	@echo "=================================================="
+	@echo "==           INSTALLATION: $(module)"
+	@echo "=================================================="
+	@echo
+	$(INSTALL) -P $(project)
+
+uninstall::
+	-$(UNINSTALL) -P $(project)
+
+# Local Variables:
+# mode: makefile
+# End:

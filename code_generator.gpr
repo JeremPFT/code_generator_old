@@ -1,0 +1,57 @@
+aggregate project Code_Generator is
+
+  Project_Path_List := (".");
+  Project_Files_List := ();
+
+  Module := "run";
+  Added := "src/" & Module;
+  Project_Path_List := Project_Path_List & Added;
+  Added := "src/" & Module & "/" & Module & ".gpr";
+  Project_Files_List := Project_Files_List & Added;
+
+  Module := "model";
+  Added := "src/" & Module;
+  Project_Path_List := Project_Path_List & Added;
+  Added := "src/" & Module & "/" & Module & ".gpr";
+  Project_Files_List := Project_Files_List & Added;
+
+  Module := "project_loader";
+  Added := "src/" & Module;
+  Project_Path_List := Project_Path_List & Added;
+  Added := "src/" & Module & "/" & Module & ".gpr";
+  Project_Files_List := Project_Files_List & Added;
+
+  Module := "project_output";
+  Added := "src/" & Module;
+  Project_Path_List := Project_Path_List & Added;
+  Added := "src/" & Module & "/" & Module & ".gpr";
+  Project_Files_List := Project_Files_List & Added;
+
+  Module := "templates";
+  Added := "utils/" & Module;
+  Project_Path_List := Project_Path_List & Added;
+  Added := "utils/" & Module & "/" & Module & ".gpr";
+  Project_Files_List := Project_Files_List & Added;
+
+  Module := "file_io";
+  Added := "utils/" & Module;
+  Project_Path_List := Project_Path_List & Added;
+  Added := "utils/" & Module & "/" & Module & ".gpr";
+  Project_Files_List := Project_Files_List & Added;
+
+  Module := "string_utils";
+  Added := "utils/" & Module;
+  Project_Path_List := Project_Path_List & Added;
+  Added := "utils/" & Module & "/" & Module & ".gpr";
+  Project_Files_List := Project_Files_List & Added;
+
+  -- Module := "ada_utils";
+  -- Added := "utils/" & Module;
+  -- Project_Path_List := Project_Path_List & Added;
+  -- Added := "utils/" & Module & "/" & Module & ".gpr";
+  -- Project_Files_List := Project_Files_List & Added;
+
+  for Project_Path use Project_Path_List;
+  for Project_Files use Project_Files_List;
+
+end Code_Generator;
