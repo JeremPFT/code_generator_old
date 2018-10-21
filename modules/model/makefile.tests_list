@@ -1,0 +1,10 @@
+list +=
+list += model-element.ads
+list += model-comment.ads
+
+
+## emacs parameters
+#
+# Local Variables:
+# mode: makefile
+# End:

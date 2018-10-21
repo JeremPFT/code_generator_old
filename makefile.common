@@ -27,56 +27,56 @@ XREF = export LD_LIBRARY_PATH=/usr/gnat/lib/gps:$LD_LIBRARY_PATH && \
 # compil_project_output::
 # 	make -C ../project_output all
 
-compil_tag::
+echo_compil::
 	@echo
 	@echo "=================================================="
 	@echo "==           COMPILLING: $(module)"
 	@echo "=================================================="
 	@echo
 
-run_tag::
+echo_run::
 	@echo
 	@echo "=================================================="
 	@echo "==           RUNNING: $(module)"
 	@echo "=================================================="
 	@echo
 
-clean_tag::
+echo_clean::
 	@echo
 	@echo "=================================================="
 	@echo "==           CLEANING: $(module)"
 	@echo "=================================================="
 	@echo
 
-install_tag::
+echo_install::
 	@echo
 	@echo "=================================================="
 	@echo "==           INSTALLING: $(module)"
 	@echo "=================================================="
 	@echo
 
-uninstall_tag::
+echo_uninstall::
 	@echo
 	@echo "=================================================="
 	@echo "==           UNINSTALLING: $(module)"
 	@echo "=================================================="
 	@echo
 
-tests_generate_tag::
+echo_tests_generate::
 	@echo
 	@echo "=================================================="
 	@echo "==           TESTS GENERATION: $(module)"
 	@echo "=================================================="
 	@echo
 
-tests_build_tag::
+echo_tests_build::
 	@echo
 	@echo "=================================================="
 	@echo "==           TESTS COMPILATION: $(module)"
 	@echo "=================================================="
 	@echo
 
-tests_run_tag::
+echo_tests_run::
 	@echo
 	@echo "=================================================="
 	@echo "==           RUNINNG TESTS: $(module)"

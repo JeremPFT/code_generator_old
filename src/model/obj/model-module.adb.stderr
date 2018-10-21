@@ -1,1 +1,0 @@
-model-module.adb:10:12: missing argument for parameter "In_Directory" in call to "Initialize" declared at model-project.ads:26
