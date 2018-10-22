@@ -1,0 +1,33 @@
+-- with "common_jpi";
+
+-- with "string_utils";
+-- with "file_io";
+
+with "model";
+with "../project_loader";
+-- with "project_output";
+
+project Tests is
+
+  Src_Dirs := ();
+  Src_Dirs := Src_Dirs & "./src";
+  for Source_Dirs use Src_Dirs;
+
+  Excl_Src_Lst := ();
+  for Excluded_Source_Files use Excl_Src_Lst;
+
+  for Object_Dir use "obj";
+  for Exec_Dir use "bin";
+
+  for Main use ("run.adb");
+
+  -- package Compiler renames Common_Jpi.Compiler;
+  -- package Binder renames Common_Jpi.Binder;
+  -- package Gnattest renames Common_Jpi.Gnattest;
+
+  -- package Builder is
+  --   for Executable ("run.adb") use "output_project";
+  --   -- for Executable ("run.adb") use external ("exec_name");
+  -- end Builder;
+
+end Tests;

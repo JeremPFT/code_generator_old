@@ -1,1 +1,0 @@
-/home/jeremy/workspace/ada/code_generator/makefile.lib
