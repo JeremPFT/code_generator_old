@@ -47,14 +47,14 @@ package body Model.Root_Project is
   begin
     for Object of Self.Subprojects loop
       if Object.Get_Name = Name then
-        Result := Object;
+         Result := Object;
       end if;
     end loop;
 
     return Result;
-  exception
-    when Constraint_Error =>
-      raise Constraint_Error with "no subproject with name """ & Name & """";
+  --  exception
+  --    when Constraint_Error =>
+  --      raise Constraint_Error with "no subproject with name """ & Name & """";
   end Get_Subproject;
 
   not overriding

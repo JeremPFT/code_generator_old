@@ -39,8 +39,11 @@ package Templates is
       (Name   => "nominal",
        Mode   => Nominal),
     Test_Case =>
-      (Name   => "not_existing_file",
+      (Name   => "not_existing_template_file",
        Mode   => Robustness);
+
+   pragma Test_Case ( Name => "tag_name_not_used", Mode => Robustness );
+   pragma Test_Case ( Name => "missing_tag_name", Mode => Robustness );
 
   procedure Free (Object : in out Reference_T);
 
