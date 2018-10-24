@@ -182,19 +182,19 @@ class Checker():
 
                         if"is ahead:\n" in text:
                             if modulePath == "your project":
-                                Checker.__push()
+                                Checker.__push( None )
                             else:
                                 project_directory = os.getcwd()
                                 os.chdir ( modulePath )
-                                Checker.__push()
+                                Checker.__push( None )
                                 os.chdir ( project_directory )
                         if"is behind:\n" in text:
                             if modulePath == "your project":
-                                Checker.__pull()
+                                Checker.__pull( None )
                             else:
                                 project_directory = os.getcwd()
                                 os.chdir ( modulePath )
-                                Checker.__pull()
+                                Checker.__pull( None )
                                 os.chdir ( project_directory )
                                 
                                 
