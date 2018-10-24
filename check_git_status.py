@@ -18,6 +18,8 @@ class Checker():
     __endMessages = []
     __moduleMessages = []
     
+    __project_label = "in your project:"
+
     def __init__():
         pass
     
@@ -44,7 +46,7 @@ class Checker():
         if module != None: 
             path      = os.path.normpath ( f"{module}/build" ).replace ( "\\", "/" )
             changeDir = f"cd {path} && "
-            text      = "your project"
+            text      = Checker.__project_label
             end       = " && cd - && "
         else:
             changeDir = ""
@@ -80,8 +82,20 @@ class Checker():
         call = subprocess.run ( [ "git", "status" ], capture_output = True )
         if call.returncode != 0: print ( "an error has occured" )
         if call.stdout != b"": 
-            print ( Checker.__string ( call.stdout ) )
+
+            synch = """On branch master
+Your branch is up to date with 'origin/master'.
+
+nothing to commit, working tree clean
+"""
+
+            if Checker.__string ( call.stdout ) == synch :
+                print ( "synchronized" )
+            else:
+                print ( Checker.__string ( call.stdout ) )
+
             Checker.__parseStdout ( module, Checker.__string ( call.stdout ) )
+
         if call.stderr != b"": print ( Checker.__string ( call.stderr ) )
     
     def __push( module ):
@@ -154,7 +168,7 @@ class Checker():
         subdirectories = [ x for x in pathlib.Path ( "./modules" ).iterdir ( ) if x.is_dir ( ) ]
     
         print ( "project status:" )
-        Checker.__moduleMessages.append ( "your project" )
+        Checker.__moduleMessages.append ( Checker.__project_label )
         Checker.__fetch( None )
         Checker.__status( None )
         Checker.__updateMessages()
@@ -173,6 +187,16 @@ class Checker():
                 
         print ( f"==============================" )
     
+        # each msg has at least the module name. Others elements are git commands.
+        total = 0
+        for msg in Checker.__endMessages:
+            total = total + len ( msg )
+
+        if total == len ( Checker.__endMessages ):
+            print ( "nothing to do" )
+
+        print ( "some git to do" )
+
         for messageData in Checker.__endMessages:
             if len ( messageData ) > 1:
                 for text in messageData:
@@ -181,20 +205,20 @@ class Checker():
                         modulePath = messageData [ 0 ]
 
                         if"is ahead:\n" in text:
-                            if modulePath == "your project":
-                                Checker.__push()
+                            if modulePath == Checker.__project_label:
+                                Checker.__push( None )
                             else:
                                 project_directory = os.getcwd()
                                 os.chdir ( modulePath )
-                                Checker.__push()
+                                Checker.__push( None )
                                 os.chdir ( project_directory )
                         if"is behind:\n" in text:
-                            if modulePath == "your project":
-                                Checker.__pull()
+                            if modulePath == Checker.__project_label:
+                                Checker.__pull( None )
                             else:
                                 project_directory = os.getcwd()
                                 os.chdir ( modulePath )
-                                Checker.__pull()
+                                Checker.__pull( None )
                                 os.chdir ( project_directory )
                                 
                                 
