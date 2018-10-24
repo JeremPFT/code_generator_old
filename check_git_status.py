@@ -42,10 +42,10 @@ class Checker():
         """        
 
         if module != None: 
-            path      = os.path.normpath ( f"{module}/build" )
-            changeDir = f"cd {path} &&"
+            path      = os.path.normpath ( f"{module}/build" ).replace ( "\\", "/" )
+            changeDir = f"cd {path} && "
             text      = "your project"
-            end       = " && cd -"
+            end       = " && cd - && "
         else:
             changeDir = ""
             text      = "your branche"
@@ -54,13 +54,13 @@ class Checker():
         if "Your branch is up to date with" in stdout:
             pass
         if "Your branch is ahead" in stdout:
-            Checker.__moduleMessages.append ( f"\t{text} is ahead:\t{changeDir} git push {end}" )
+            Checker.__moduleMessages.append ( f"{text} is ahead:\n  {changeDir}git push {end}" )
         if "Your branch is behind" in stdout:
-            Checker.__moduleMessages.append ( f"\t{text} is behind:\t{changeDir} git pull {end}" )
+            Checker.__moduleMessages.append ( f"{text} is behind:\n  {changeDir}git pull {end}" )
         if "Changes not staged for commit" in stdout:
-            Checker.__moduleMessages.append ( f"\tchanges not staged:\t{changeDir} git add / checkout needed" )
+            Checker.__moduleMessages.append ( f"changes not staged:\n  {changeDir}git add / checkout needed" )
         if "Untracked files:" in stdout:
-            Checker.__moduleMessages.append ( f"\tuntracked files:\t{changeDir} git add needed" )
+            Checker.__moduleMessages.append ( f"untracked files:\n  {changeDir}git add needed" )
     
     def __fetch( module ):
         """
@@ -84,17 +84,38 @@ class Checker():
             Checker.__parseStdout ( module, Checker.__string ( call.stdout ) )
         if call.stderr != b"": print ( Checker.__string ( call.stderr ) )
     
+    def __push( module ):
+        """
+        call push, print output is it exists
+        """
+
+        call = subprocess.run ( [ "git", "push" ], capture_output = True )
+        if call.returncode != 0: print ( "an error has occured" )
+        if call.stdout != b"": print ( Checker.__string ( call.stdout ) )
+        if call.stderr != b"": print ( Checker.__string ( call.stderr ) )
+    
+    def __pull( module ):
+        """
+        call pull, print output is it exists
+        """
+
+        call = subprocess.run ( [ "git", "pull" ], capture_output = True )
+        if call.returncode != 0: print ( "an error has occured" )
+        if call.stdout != b"": print ( Checker.__string ( call.stdout ) )
+        if call.stderr != b"": print ( Checker.__string ( call.stderr ) )
+    
     def __processBuildProject ( module ):
         """
         process the build git project inside current module
         """
 
         print ( f"------------------------------" )
-        print ( f"checking build status in {str ( module )}" )
+        module_dir = str ( module ).replace ( "\\", "/" )
+        print ( f"checking build status in {module_dir}" )
 
         build_dir = module / "build"
     
-        Checker.__moduleMessages.append ( module.name + "/build" )
+        Checker.__moduleMessages.append ( f"{module_dir}/build" )
     
         if not build_dir.exists ( ) :
             print ( "no build directory\n" )
@@ -156,5 +177,28 @@ class Checker():
             if len ( messageData ) > 1:
                 for text in messageData:
                     print ( text )
+                    if len ( messageData ) == 2:
+                        modulePath = messageData [ 0 ]
+
+                        if"is ahead:\n" in text:
+                            if modulePath == "your project":
+                                __push()
+                            else:
+                                project_directory = os.getcwd()
+                                os.chdir ( modulePath )
+                                __push()
+                                os.chdir ( project_directory )
+                        if"is behind:\n" in text:
+                            if modulePath == "your project":
+                                __pull()
+                            else:
+                                project_directory = os.getcwd()
+                                os.chdir ( modulePath )
+                                __pull()
+                                os.chdir ( project_directory )
+                                
+                                
+                                
+                print
 
 Checker.refresh()
