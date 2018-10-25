@@ -1,6 +1,3 @@
 [submodule "modules/project_loader/tests/build"]
 	path = modules/project_loader/tests/build
 	url = https://github.com/JeremPFT/build.git
-[submodule "modules/templates/build"]
-	path = modules/templates/build
-	url = https://github.com/JeremPFT/build.git
