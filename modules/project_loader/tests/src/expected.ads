@@ -10,10 +10,14 @@ with Model.Types.Interface_Def;
 
 package Expected is
 
+  Default_Project_Name : constant String := "a default name for a project";
+
+  Default_Module_Name : constant String := "a default name for a module";
+
   Root_Project : constant access Model.Root_Project.Object_T :=
     Model.Root_Project.Create
-      (Name => "project",
-       Kind => "test_root_project",
+      (Name         => "project",
+       Kind         => "test_root_project",
        In_Directory => "path" );
 
   Project : constant access Model.Project.Object_T :=

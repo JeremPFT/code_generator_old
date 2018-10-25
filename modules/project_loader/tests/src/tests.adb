@@ -1,17 +1,16 @@
-with Tests_Impl;
-with Tests_Impl.Root_project;
-with Tests_Impl.project;
+with AUnit.Run;
+with AUnit.Reporter.Text;
 
+with Test_Suites;
 
 procedure Tests is
 
-   package Test renames Tests_Impl;
-
+  procedure Run is new AUnit.Run.Test_Runner (Test_suites.Suite);
+  Reporter : AUnit.Reporter.Text.Text_Reporter;
+  
 begin
-   --  Tests_Impl.Init_Check_Project;
-   --  Tests_Impl.Check_Project_Has_Valid_Path;
-   --  Tests_Impl.Check_Project_Has_Valid_Name;
-   Test.Root_Project;
-   --  Test.Project;
+
+  Run (Reporter);
+  
 end Tests;
 
