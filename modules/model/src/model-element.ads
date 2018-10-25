@@ -13,7 +13,7 @@ package Model.Element is
 
   type Object_T is abstract tagged private;
 
-  type Reference_T is access all Object_T;
+  type Access_T is access all Object_T;
 
   type Class_T is access all Object_T'Class;
 
