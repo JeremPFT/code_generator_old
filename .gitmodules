@@ -1,0 +1,21 @@
+[submodule "modules/project_loader/build"]
+	path = modules/project_loader/build
+	url = https://github.com/JeremPFT/build.git
+[submodule "modules/model/build"]
+	path = modules/model/build
+	url = https://github.com/JeremPFT/build.git
+[submodule "modules/project_output/build"]
+	path = modules/project_output/build
+	url = https://github.com/JeremPFT/build.git
+[submodule "modules/run/build"]
+	path = modules/run/build
+	url = https://github.com/JeremPFT/build.git
+[submodule "modules/string_utils/build"]
+	path = modules/string_utils/build
+	url = https://github.com/JeremPFT/build.git
+[submodule "modules/templates/build"]
+	path = modules/templates/build
+	url = https://github.com/JeremPFT/build.git
+[submodule "modules/project_loader/tests/build"]
+	path = modules/project_loader/tests/build
+	url = https://github.com/JeremPFT/build.git
