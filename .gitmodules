@@ -19,3 +19,9 @@
 [submodule "modules/project_loader/tests/build"]
 	path = modules/project_loader/tests/build
 	url = https://github.com/JeremPFT/build.git
+[submodule "modules/project_output/tests/build"]
+	path = modules/project_output/tests/build
+	url = https://github.com/JeremPFT/build.git
+[submodule "modules/model/tests/build"]
+	path = modules/model/tests/build
+	url = https://github.com/JeremPFT/build.git

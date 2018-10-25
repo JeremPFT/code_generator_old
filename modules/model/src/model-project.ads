@@ -8,6 +8,8 @@ limited with Model.Root_Project;
 
 package Model.Project is
 
+  pragma Assertion_Policy ( Check );
+
   package Parent_Pkg renames Model.Named_Element;
 
   type Object_T is new Parent_Pkg.Object_T with private;
@@ -27,6 +29,11 @@ package Model.Project is
      Kind   : in     String;
      Parent : access Root_Project.Object_T'Class := null)
     return not null access Object_T'Class;
+  pragma Post ( Create'Result.Get_Name = Name and then
+                 Create'Result.Get_Kind = Kind and then
+                 ( if Parent = null then not Create'Result.Has_Parent else
+                    Create'Result.Has_Parent and then Create'Result.Get_Parent = Parent ) and then
+                 Create'Result.Number_Of_Elements = 0 );
 
   not overriding
   function Has_Parent
@@ -58,21 +65,25 @@ package Model.Project is
     (Self  : in Object_T;
      Index : in Natural)
     return not null access Named_Element.Object_T'Class;
+  pragma Pre ( Self.Number_Of_Elements = 0 );
 
   not overriding
   procedure Add_Package
     (Self   : in out          Object_T;
      Object : not null access Package_Def.Object_T'Class);
+  pragma Post ( Self.Number_Of_Elements = Self.Number_Of_Elements'Old + 1 );
 
   not overriding
   procedure Add_Class
     (Self   : in out          Object_T;
      Object : not null access Types.Class_Def.Object_T'Class);
+  pragma Post ( Self.Number_Of_Elements = Self.Number_Of_Elements'Old + 1 );
 
   not overriding
   procedure Add_Operation
     (Self   : in out          Object_T;
      Object : not null access Operation.Object_T'Class);
+  pragma Post ( Self.Number_Of_Elements = Self.Number_Of_Elements'Old + 1 );
 
   overriding
   procedure Visit
@@ -84,6 +95,15 @@ package Model.Project is
      Name   : in     String;
      Kind   : in     String;
      Parent : access Root_Project.Object_T'Class := null);
+  pragma Pre ( Self.Get_Name = "" and then
+                Self.Get_Kind = "" and then
+                not Self.Has_Parent and then
+                Self.Number_Of_Elements = 0 );
+  pragma Post ( Self.Get_Name = Name and then
+                 Self.Get_Kind = Kind and then
+                 ( if Parent = null then not Self.Has_Parent else
+                    Self.Has_Parent and then Self.Get_Parent = Parent ) and then
+                 Self.Number_Of_Elements = 0 );
 
 private
 
