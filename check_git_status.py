@@ -18,7 +18,7 @@ class Checker():
     __endMessages = []
     __moduleMessages = []
     
-    __project_label = "in your project:"
+    __project_label = "your project"
 
     def __init__():
         pass
@@ -195,12 +195,15 @@ nothing to commit, working tree clean
         if total == len ( Checker.__endMessages ):
             print ( "nothing to do" )
 
-        print ( "some git to do" )
+        print ( "some git to do\n" )
 
         for messageData in Checker.__endMessages:
             if len ( messageData ) > 1:
                 for text in messageData:
-                    print ( text )
+                    if text == messageData [ 0 ]:
+                        print ( f"in {text}:" )
+                    else:
+                        print ( text )
                     if len ( messageData ) == 2:
                         modulePath = messageData [ 0 ]
 
@@ -221,8 +224,6 @@ nothing to commit, working tree clean
                                 Checker.__pull( None )
                                 os.chdir ( project_directory )
                                 
-                                
-                                
-                print
+                print( "" )
 
 Checker.refresh()
