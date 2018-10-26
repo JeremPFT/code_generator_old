@@ -25,6 +25,3 @@
 [submodule "modules/model/model_test/build"]
 	path = modules/model/model_test/build
 	url = https://github.com/JeremPFT/build.git
-[submodule "modules/model/tests/build"]
-	path = modules/model/tests/build
-	url = https://github.com/JeremPFT/build.git
