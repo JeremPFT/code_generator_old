@@ -2,9 +2,6 @@ MAKE=python.exe ../build/make.py
 
 all: compil run
 
-check::
-	@$(MAKE) $@
-
 compil::
 	@$(MAKE) $@
 
