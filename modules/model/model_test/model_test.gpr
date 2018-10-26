@@ -4,7 +4,7 @@
 -- with "file_io";
 
 with "aunit";
-with "model";
+with "../model.gpr";
 
 project Model_Test is
 

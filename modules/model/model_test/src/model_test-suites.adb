@@ -1,12 +1,12 @@
-with Test_Cases.Project;
---  with Test_Cases.Root_Project;
+with Model_Test.Cases.Project;
+--  with model_Test.Cases.Root_Project;
 
-package body Test_Suites is
+package body Model_Test.Suites is
 
   Result : aliased AUnit.Test_Suites.Test_Suite;
 
-  --  Test_Root_Project : aliased Test_Cases.Root_Project.Test_Case;
-  Test_Project : aliased Test_Cases.Project.Test_Case;
+  --  Test_Root_Project : aliased Model_Test.Cases.Root_Project.Test_Case;
+  Test_Project : aliased Model_Test.Cases.Project.Test_Case;
 
 
   function Suite
@@ -19,4 +19,4 @@ package body Test_Suites is
       return Result'Access;
   end Suite;
 
-end Test_Suites;
+end Model_Test.Suites;

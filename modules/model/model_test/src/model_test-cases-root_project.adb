@@ -4,7 +4,7 @@ with Project_Loader;
 with Model.Project;
 with Expected;
 
-package body Test_Cases.Root_Project
+package body Model_Test.Cases.Root_Project
 is
   package Load renames Project_Loader;
 
@@ -99,7 +99,7 @@ is
     null;
   end test_invalid_name_impl;
 
-  procedure Test_Invalid_Name 
+  procedure Test_Invalid_Name
     ( T : in out aunit.Test_Cases.Test_Case'Class )
   is
   begin
@@ -107,4 +107,4 @@ is
                       "exception expected when unknown module name" );
   end Test_Invalid_Name;
 
-end Test_Cases.Root_Project;
+end Model_Test.Cases.Root_Project;

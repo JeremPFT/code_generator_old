@@ -1,10 +1,10 @@
 with AUnit.Test_Suites;
 
 --  with Test_Cases.Root_Project;
-with Test_Cases.Project;
+with Model_Test.Cases.Project;
 
-package Test_Suites is
+package Model_Test.Suites is
 
    function Suite return AUnit.Test_Suites.Access_Test_Suite;
 
-end Test_Suites;
+end Model_Test.Suites;
