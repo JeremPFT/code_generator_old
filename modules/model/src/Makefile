@@ -1,7 +1,21 @@
-all:
-	python.exe ../build/make.py
+MAKE=python.exe ../build/make.py
 
+all: compil run
 
+check::
+	@$(MAKE) $@
 
+compil::
+	@$(MAKE) $@
 
-# /home/jeremy/workspace/ada/code_generator/makefile_module
+run::
+	@$(MAKE) $@
+
+clean::
+	@$(MAKE) $@
+
+install::
+	@$(MAKE) $@
+
+uninstall::
+	@$(MAKE) $@
