@@ -1,6 +1,6 @@
 --  Abstract :
 --
---  root package for Model tests
+--  parent package for Model tests
 --
 --  Copyright (C) 2018  All Rights Reserved.
 --

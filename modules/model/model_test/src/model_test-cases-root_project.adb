@@ -4,7 +4,7 @@ with Project_Loader;
 with Model.Project;
 with Expected;
 
-package body Model_Test.Cases.Root_Project
+package body Model_Test.Cases.Parent_Project
 is
   package Load renames Project_Loader;
 
@@ -12,7 +12,7 @@ is
     ( Test : in out Test_Case )
   is
   begin
-    Load.Root_Project ( Path => "path", Project_Name => Expected.Default_Project_Name );
+    Load.Parent_Project ( Path => "path", Project_Name => Expected.Default_Project_Name );
     Load.Project ( Expected.Default_Module_Name );
   end Set_Up;
 
@@ -48,14 +48,14 @@ is
     Name : constant String := "Has_Valid_Path";
   begin
     Assert
-      ( Root_Project.all.Get_Directory = Expected.Root_Project.Get_Directory,
+      ( Parent_Project.all.Get_Directory = Expected.Parent_Project.Get_Directory,
        "chemin du projet" );
   end Test_Has_Valid_Path;
 
   procedure Test_Has_Valid_Name
     ( T : in out aunit.Test_Cases.Test_Case'Class )
   is
-    Got     : constant String := Root_Project.all.Get_Name;
+    Got     : constant String := Parent_Project.all.Get_Name;
     Expect  : constant String := Expected.Default_Project_Name;
     Message : constant String := "unexpected module name: " &
       "expected '" & Expect & "', got '" & Got & "'";
@@ -69,7 +69,7 @@ is
   is
   begin
     Assert
-      ( Integer ( Root_Project.all.Get_Subprojects.Length ) = 1,
+      ( Integer ( Parent_Project.all.Get_Subprojects.Length ) = 1,
        "test nombre de sous projets" );
   end Test_Subprojects_Length_Incremented;
 
@@ -77,7 +77,7 @@ is
     ( T : in out aunit.Test_Cases.Test_Case'Class )
   is
   begin
-    Assert ( Root_Project.all.Get_Subproject( Expected.Default_Module_Name ) /= null,
+    Assert ( Parent_Project.all.Get_Subproject( Expected.Default_Module_Name ) /= null,
             "test get subproject by name" );
   end Test_Subproject_By_Name;
 
@@ -85,16 +85,16 @@ is
     ( T : in out aunit.Test_Cases.Test_Case'Class )
   is
   begin
-    Assert ( Root_Project.all.Get_Subproject( 1 ) /= null,
+    Assert ( Parent_Project.all.Get_Subproject( 1 ) /= null,
             "test get subproject by index" );
   end Test_Subproject_By_Index;
 
   procedure Test_Invalid_Name_Impl
   is
     Project : access Model.Project.Object_T'Class :=
-      Root_Project.all.Get_Subproject( Expected.Default_Module_Name );
+      Parent_Project.all.Get_Subproject( Expected.Default_Module_Name );
     --  Project : access Model.Project.Object_T'Class :=
-    --  Root_Project.all.Get_Subproject( "$^%*" );
+    --  Parent_Project.all.Get_Subproject( "$^%*" );
   begin
     null;
   end test_invalid_name_impl;
@@ -107,4 +107,4 @@ is
                       "exception expected when unknown module name" );
   end Test_Invalid_Name;
 
-end Model_Test.Cases.Root_Project;
+end Model_Test.Cases.Parent_Project;

@@ -1,10 +1,9 @@
 with AUnit;
 with AUnit.Test_Cases;
 
-with Model.Parent_Project;
-with Model.Project;
+with Model.Comment;
 
-package Model_Test.Cases.Project
+package Model_Test.Cases.Comment
 is
 
   type Test_Case is new AUnit.Test_Cases.Test_Case with private;
@@ -13,7 +12,7 @@ is
   function Name
     (Test : Test_Case)
     return AUnit.Message_String
-    is ( AUnit.Format ( "Project" ) ) ;
+    is ( AUnit.Format ( "Comment" ) ) ;
 
   overriding
   procedure Register_Tests
@@ -31,4 +30,4 @@ private
   type Test_Case is new AUnit.Test_Cases.Test_Case with
     null record;
 
-end Model_Test.Cases.Project;
+end Model_Test.Cases.Comment;

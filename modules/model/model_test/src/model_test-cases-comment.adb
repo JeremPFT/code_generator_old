@@ -1,30 +1,18 @@
 with AUnit.Assertions;
 
-with Model.Project;
-with Model.Parent_Project;
+with Model.Comment;
 with Expected;
 
-package body Model_Test.Cases.Project
+package body Model_Test.Cases.Comment
 is
 
-  Parent : access Model.Parent_Project.Object_T;
-  Child : access Model.Project.Object_T;
-  Alone : access Model.Project.Object_T;
+  Comment : access Model.Comment.Object_T;
 
   procedure Set_Up
     ( Test : in out Test_Case )
   is
   begin
-    Parent := Model.Parent_Project.Create ( Name => Expected.Parent_Project_Name,
-                                           Kind => Expected.Project_Kind_1,
-                                           In_Directory => " " );
-
-    Child := Model.Project.Create ( Name  => Expected.Child_Project_Name,
-                                   Kind   => Expected.Project_Kind_2,
-                                   Parent => parent);
-
-    Alone := Model.Project.Create ( Name  => Expected.Child_Project_Name,
-                                   Kind   => Expected.Project_Kind_1);
+    Comment := Model.Comment.Create ( Text => Expected.Comment_1 );
   end Set_Up;
 
   procedure Register_Tests ( T: in out Test_Case ) is
@@ -59,10 +47,11 @@ is
   end Assert_Expected;
 
   procedure Test_Create
-    ( T : in out aunit.Test_Cases.Test_Case'Class )
+    ( T : in out AUnit.Test_Cases.Test_Case'Class )
   is
   begin
+    -- tests are done with pre and post conditions in Model.Comment
     Assert ( True, "" );
   end Test_Create;
 
-end Model_Test.Cases.Project;
+end Model_Test.Cases.Comment;

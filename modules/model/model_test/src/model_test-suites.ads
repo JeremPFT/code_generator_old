@@ -1,7 +1,7 @@
 with AUnit.Test_Suites;
 
---  with Test_Cases.Root_Project;
 with Model_Test.Cases.Project;
+with Model_Test.Cases.Comment;
 
 package Model_Test.Suites is
 

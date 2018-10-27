@@ -3,7 +3,7 @@ with Model.Field;
 with Model.Package_Def;
 with Model.Parameter;
 with Model.Project;
-with Model.Root_Project;
+with Model.Parent_Project;
 with Model.Operation;
 with Model.Types.Class_Def;
 with Model.Types.Interface_Def;
@@ -19,8 +19,10 @@ package Expected is
   Project_Kind_2      : constant String := "a kind 2 for a project";
   Project_Kind_3      : constant String := "a kind 3 for a project";
 
-  Root_Project : constant access Model.Root_Project.Object_T :=
-    Model.Root_Project.Create
+  Comment_1 : constant String := "a comment";
+
+  Parent_Project : constant access Model.Parent_Project.Object_T :=
+    Model.Parent_Project.Create
       (Name         => "project",
        Kind         => "test_root_project",
        In_Directory => "path" );
