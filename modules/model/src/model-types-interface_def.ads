@@ -15,7 +15,7 @@ package Model.Types.Interface_Def is
 
   type Object_T is new Parent_Pkg.Object_T with private;
 
-  type Reference_T is access all Object_T;
+  type Access_T is access all Object_T;
 
   type Class_T is access all Object_T'Class;
 
@@ -34,7 +34,7 @@ package Model.Types.Interface_Def is
      Owner_Package     : not null access Package_Def.Object_T'Class;
      Parent_Interfaces : in              Vector_T :=
        Vectors.Empty_Vector;
-     Visibility        : in              Named_Element.Visibility_T)
+     Visibility        : in              Named_Element.Element_Visibility_T)
     return not null access Object_T'Class;
 
   procedure Initialize
@@ -43,7 +43,7 @@ package Model.Types.Interface_Def is
      Owner_Package     : not null access Package_Def.Object_T'Class;
      Parent_Interfaces : in              Model.Types.Interface_Def.Vector_T :=
        Model.Types.Interface_Def.Vectors.Empty_Vector;
-     Visibility        : in              Named_Element.Visibility_T);
+     Visibility        : in              Named_Element.Element_Visibility_T);
 
   ----------------------------------------------------------------------------
   --  parent interfaces

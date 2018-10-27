@@ -9,7 +9,7 @@ package body Model.Field is
      Owner_Class   : not null access Types.Class_Def.Object_T'Class;
      Of_Type       : in              String;
      Default_Value : in              String := "";
-     Visibility    : in              Named_Element.Visibility_T)
+     Visibility    : in              Named_Element.Element_Visibility_T)
   is
     Owner_Namespace : constant access Namespace.Object_T'Class :=
       Owner_Class.Get_Defined_Namespace;
@@ -38,7 +38,7 @@ package body Model.Field is
      Owner_Class   : not null access Types.Class_Def.Object_T'Class;
      Of_Type       : in              String;
      Default_Value : in              String := "";
-     Visibility    : in              Named_Element.Visibility_T)
+     Visibility    : in              Named_Element.Element_Visibility_T)
     return not null access Object_T'Class
   is
     Object : constant access Object_T := new Object_T;

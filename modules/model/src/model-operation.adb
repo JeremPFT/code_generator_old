@@ -14,7 +14,7 @@ package body Model.Operation is
      In_Package     : access Package_Def.Object_T'Class := null;
      In_Class       : access Class_Def.Object_T'Class   := null;
      Properties     : in     Property_T                 := None;
-     Visibility     : in     Named_Element.Visibility_T)
+     Visibility     : in     Named_Element.Element_Visibility_T)
   is
     Owner_Namespace : constant access Namespace.Object_T'Class :=
       (if Parent_Package /= null
@@ -47,7 +47,7 @@ package body Model.Operation is
      In_Package     : access Package_Def.Object_T'Class := null;
      In_Class       : access Class_Def.Object_T'Class   := null;
      Properties     : in     Property_T                 := None;
-     Visibility     : in     Named_Element.Visibility_T)
+     Visibility     : in     Named_Element.Element_Visibility_T)
     return not null access Object_T'Class
   is
     Object : constant access Object_T := new Object_T;
@@ -69,7 +69,7 @@ package body Model.Operation is
      Parent_Package : access Package_Def.Object_T'Class := null;
      Of_Type        : in     String                     := "";
      Properties     : in     Property_T                 := None;
-     Visibility     : in     Named_Element.Visibility_T)
+     Visibility     : in     Named_Element.Element_Visibility_T)
     return not null access Object_T'Class
   is
   begin
@@ -87,7 +87,7 @@ package body Model.Operation is
      In_Package : access Package_Def.Object_T'Class := null;
      Of_Type    : in     String                     := "";
      Properties : in     Property_T                 := None;
-     Visibility : in     Named_Element.Visibility_T)
+     Visibility : in     Named_Element.Element_Visibility_T)
     return not null access Object_T'Class
   is
   begin
@@ -105,7 +105,7 @@ package body Model.Operation is
      In_Class   : access Class_Def.Object_T'Class := null;
      Of_Type    : in     String                   := "";
      Properties : in     Property_T               := None;
-     Visibility : in     Named_Element.Visibility_T)
+     Visibility : in     Named_Element.Element_Visibility_T)
     return not null access Object_T'Class
   is
   begin

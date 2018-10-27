@@ -12,7 +12,7 @@ package Model.Field is
 
   type Object_T is new Parent_Pkg.Object_T with private;
 
-  type Reference_T is access all Object_T;
+  type Access_T is access all Object_T;
 
   type Class_T is access all Object_T'Class;
 
@@ -27,16 +27,18 @@ package Model.Field is
      Owner_Class   : not null access Class_Def.Object_T'Class;
      Of_Type       : in              String;
      Default_Value : in              String := "";
-     Visibility    : in              Named_Element.Visibility_T)
+     Visibility    : in              Named_Element.Element_Visibility_T)
     return not null access Object_T'Class;
 
-  procedure Initialize
-    (Self          : in out          Object_T'Class;
-     Name          : in              String;
-     Owner_Class   : not null access Class_Def.Object_T'Class;
-     Of_Type       : in              String;
-     Default_Value : in              String := "";
-     Visibility    : in              Named_Element.Visibility_T);
+  not overriding
+  function Has_Owner_Class
+    (Self : in Object_T)
+    return Boolean;
+
+  not overriding
+  function Has_Type
+    (Self : in Object_T)
+    return Boolean;
 
   not overriding
   function Get_Owner_Class
@@ -72,11 +74,37 @@ private
       Default_Value : access String                   := null;
     end record;
 
+  procedure Initialize
+    (Self          : in out          Object_T'Class;
+     Name          : in              String;
+     Owner_Class   : not null access Class_Def.Object_T'Class;
+     Of_Type       : in              String;
+     Default_Value : in              String := "";
+     Visibility    : in              Named_Element.Element_Visibility_T);
+  pragma Pre ( Self.Owner_Class = null and then
+                Self.Of_Type = null and then
+                Self.default_value = null);
+  pragma post ( Self.Get_Owner_Class = owner_class and then
+                Self.get_Type = Of_type and then
+                Self.Get_default_value = Default_Value );
+
   not overriding
   function Get_Owner_Class
     (Self : in Object_T)
     return not null access Class_Def.Object_T'Class
     is (Self.Owner_Class);
+
+  not overriding
+  function Has_Owner_Class
+    (Self : in Object_T)
+    return Boolean
+    is (Self.Owner_Class /= null);
+
+  not overriding
+  function Has_Type
+    (Self : in Object_T)
+    return Boolean
+    is (Self.Of_Type /= null);
 
   not overriding
   function Get_Type

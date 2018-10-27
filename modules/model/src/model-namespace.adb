@@ -13,7 +13,7 @@ package body Model.Namespace is
     (Self            : in out Object_T'Class;
      Name            : in     String;
      Owner_Namespace : access Namespace.Object_T'Class;
-     Visibility      : in     Named_Element.Visibility_T)
+     Visibility      : in     Named_Element.Element_Visibility_T)
   is
   begin
     Parent_Pkg.Initialize (Self            => Self,
@@ -25,7 +25,7 @@ package body Model.Namespace is
   function Create
     (Name            : in     String;
      Owner_Namespace : access Namespace.Object_T'Class;
-     Visibility      : in     Named_Element.Visibility_T)
+     Visibility      : in     Named_Element.Element_Visibility_T)
     return not null access Object_T'Class
   is
     Result : constant access Object_T'Class := new Object_T;

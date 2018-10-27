@@ -6,7 +6,7 @@ package body Model.Types.Enum_Def is
      Owner_Namespace : access Namespace.Object_T'Class;
      Values          : in     Enum_Value.Vector_T :=
        Enum_Value.Vectors.Empty_Vector;
-     Visibility      : in     Named_Element.Visibility_T)
+     Visibility      : in     Named_Element.Element_Visibility_T)
   is
   begin
     Parent_Pkg.Initialize (Self            => Self,
@@ -24,7 +24,7 @@ package body Model.Types.Enum_Def is
      Owner_Namespace : access Namespace.Object_T'Class;
      Values          : in     Enum_Value.Vector_T :=
        Enum_Value.Vectors.Empty_Vector;
-     Visibility      : in     Named_Element.Visibility_T)
+     Visibility      : in     Named_Element.Element_Visibility_T)
     return not null access Object_T'Class
   is
     Result : constant access Object_T := new Object_T;

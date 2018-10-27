@@ -1,6 +1,6 @@
 MAKE=python.exe ../build/make.py
 
-all: compil run
+all: compil
 
 check::
 	echo make file="filename" check

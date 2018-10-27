@@ -16,7 +16,7 @@ package Model.Namespace is
 
   type Object_T (<>) is new Parent_Pkg.Object_T with private;
 
-  type Reference_T is access all Object_T;
+  type Access_T is access all Object_T;
 
   type Class_T is access all Object_T'Class;
 
@@ -29,7 +29,7 @@ package Model.Namespace is
   function Create
     (Name            : in     String;
      Owner_Namespace : access Namespace.Object_T'Class;
-     Visibility      : in     Named_Element.Visibility_T)
+     Visibility      : in     Named_Element.Element_Visibility_T)
     return not null access Object_T'Class;
 
   not overriding
@@ -76,7 +76,7 @@ package Model.Namespace is
     (Self            : in out Object_T'Class;
      Name            : in     String;
      Owner_Namespace : access Namespace.Object_T'Class;
-     Visibility      : in     Named_Element.Visibility_T);
+     Visibility      : in     Named_Element.Element_Visibility_T);
 
 private
 

@@ -13,7 +13,7 @@ package body Model.Types.Class_Def is
      Parent_Interfaces : in     Model.Types.Interface_Def.Vector_T :=
        Model.Types.Interface_Def.Vectors.Empty_Vector;
      Properties        : in     Property_T                         := None;
-     Visibility        : in     Named_Element.Visibility_T)
+     Visibility        : in     Named_Element.Element_Visibility_T)
   is
     Owner_Namespace : constant access Namespace.Object_T :=
       (if Owner_Package = null
@@ -48,7 +48,7 @@ package body Model.Types.Class_Def is
      Parent_Interfaces : in     Model.Types.Interface_Def.Vector_T :=
        Model.Types.Interface_Def.Vectors.Empty_Vector;
      Properties        : in     Property_T                         := None;
-     Visibility        : in     Named_Element.Visibility_T)
+     Visibility        : in     Named_Element.Element_Visibility_T)
     return not null access Object_T'Class
   is
     Object : constant access Object_T := new Object_T;

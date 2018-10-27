@@ -19,7 +19,7 @@ package Model.Visitor is
 
   type Object_T is abstract tagged null record;
 
-  type Reference_T is access all Object_T;
+  type Access_T is access all Object_T;
 
   type Class_T is access all Object_T'Class;
 

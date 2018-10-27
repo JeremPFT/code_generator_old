@@ -10,7 +10,7 @@ package Model.Parameter is
 
   type Object_T is abstract new Parent_Pkg.Object_T with private;
 
-  type Reference_T is access all Object_T;
+  type Access_T is access all Object_T;
 
   type Class_T is access all Object_T'Class;
 

@@ -223,9 +223,14 @@ package body Model.Visitor.Printer is
     Self.Add
       ("project " & Object.Get_Name & EOL);
 
-    for Obj of Object.Get_Elements loop
-      Obj.Visit (Self);
-    end loop;
+    declare
+      Elm : access Model.Named_Element.Object_T'Class := null;
+    begin
+      for I in 1 .. Object.Number_Of_Elements loop
+        Elm := Object.Get_Element ( I );
+        Elm.Visit (Self);
+      end loop;
+    end;
   end Visit_Project;
 
   -----------------------------------------------------------------------------
@@ -243,9 +248,14 @@ package body Model.Visitor.Printer is
     Self.Add
       ("root_project " & Object.Get_Name & EOL);
 
-    for Obj of Object.Get_Elements loop
-      Obj.Visit (Self);
-    end loop;
+    declare
+      Elm : access Named_Element.Object_T'Class;
+    begin
+      for I in 1 .. Object.Number_Of_Elements loop
+        Elm := Object.Get_Element ( I );
+        elm.Visit (Self);
+      end loop;
+    end;
 
     for Obj of Object.Get_Subprojects loop
       Obj.Visit (Self);

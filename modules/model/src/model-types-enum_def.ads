@@ -11,7 +11,7 @@ package Model.Types.Enum_Def is
 
   type Object_T is new Parent_Pkg.Object_T with private;
 
-  type Reference_T is access all Object_T;
+  type Access_T is access all Object_T;
 
   type Class_T is access all Object_T'Class;
 
@@ -26,7 +26,7 @@ package Model.Types.Enum_Def is
      Owner_Namespace : access Namespace.Object_T'Class;
      Values          : in     Enum_Value.Vector_T :=
        Enum_Value.Vectors.Empty_Vector;
-     Visibility      : in     Named_Element.Visibility_T)
+     Visibility      : in     Named_Element.Element_Visibility_T)
     return not null access Object_T'Class;
 
   procedure Initialize
@@ -35,7 +35,7 @@ package Model.Types.Enum_Def is
      Owner_Namespace : access Namespace.Object_T'Class;
      Values          : in     Enum_Value.Vector_T :=
        Enum_Value.Vectors.Empty_Vector;
-     Visibility      : in     Named_Element.Visibility_T);
+     Visibility      : in     Named_Element.Element_Visibility_T);
 
 private
 

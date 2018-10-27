@@ -18,7 +18,7 @@ package Model.Types.Class_Def is
 
   type Object_T is new Parent_Pkg.Object_T with private;
 
-  type Reference_T is access all Object_T;
+  type Access_T is access all Object_T;
 
   type Class_T is access all Object_T'Class;
 
@@ -52,7 +52,7 @@ package Model.Types.Class_Def is
      Parent_Interfaces : in     Interface_Def.Vector_T :=
        Interface_Def.Vectors.Empty_Vector;
      Properties        : in     Property_T             := None;
-     Visibility        : in     Named_Element.Visibility_T)
+     Visibility        : in     Named_Element.Element_Visibility_T)
     return not null access Object_T'Class;
 
   not overriding
@@ -107,7 +107,7 @@ package Model.Types.Class_Def is
      Parent_Interfaces : in     Interface_Def.Vector_T :=
        Interface_Def.Vectors.Empty_Vector;
      Properties        : in     Property_T             := None;
-     Visibility        : in     Named_Element.Visibility_T);
+     Visibility        : in     Named_Element.Element_Visibility_T);
 
 private
 

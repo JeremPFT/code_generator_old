@@ -16,7 +16,7 @@ package Model.Operation is
 
   type Object_T is new Parent_Pkg.Object_T with private;
 
-  type Reference_T is access all Object_T;
+  type Access_T is access all Object_T;
 
   type Class_T is access all Object_T'Class;
 
@@ -51,7 +51,7 @@ package Model.Operation is
      In_Package     : access Package_Def.Object_T'Class := null;
      In_Class       : access Class_Def.Object_T'Class   := null;
      Properties     : in     Property_T                 := None;
-     Visibility     : in     Named_Element.Visibility_T)
+     Visibility     : in     Named_Element.Element_Visibility_T)
     return not null access Object_T'Class
   with
     Pre =>
@@ -65,7 +65,7 @@ package Model.Operation is
      Parent_Package : access Package_Def.Object_T'Class := null;
      Of_Type        : in     String                     := "";
      Properties     : in     Property_T                 := None;
-     Visibility     : in     Named_Element.Visibility_T)
+     Visibility     : in     Named_Element.Element_Visibility_T)
     return not null access Object_T'Class;
 
   function Create_In_Package
@@ -73,7 +73,7 @@ package Model.Operation is
      In_Package : access Package_Def.Object_T'Class := null;
      Of_Type    : in     String                     := "";
      Properties : in     Property_T                 := None;
-     Visibility : in     Named_Element.Visibility_T)
+     Visibility : in     Named_Element.Element_Visibility_T)
     return not null access Object_T'Class;
 
   function Create_In_Class
@@ -81,7 +81,7 @@ package Model.Operation is
      In_Class   : access Class_Def.Object_T'Class := null;
      Of_Type    : in     String                   := "";
      Properties : in     Property_T               := None;
-     Visibility : in     Named_Element.Visibility_T)
+     Visibility : in     Named_Element.Element_Visibility_T)
     return not null access Object_T'Class;
 
   -----------------------------------------------------------------------------
@@ -168,7 +168,7 @@ package Model.Operation is
      In_Package     : access Package_Def.Object_T'Class := null;
      In_Class       : access Class_Def.Object_T'Class   := null;
      Properties     : in     Property_T                 := None;
-     Visibility     : in     Named_Element.Visibility_T)
+     Visibility     : in     Named_Element.Element_Visibility_T)
   with
     Pre => Only_One_Namespace (Parent_Package, In_Package, In_Class);
 

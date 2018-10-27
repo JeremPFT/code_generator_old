@@ -11,7 +11,7 @@ package body Model.Types.Array_Def is
      Contained_Type  : in     String;
      Index_Type      : in     String;
      Defined_Range   : in     String;
-     Visibility      : in     Named_Element.Visibility_T)
+     Visibility      : in     Named_Element.Element_Visibility_T)
   is
   begin
     Parent_Pkg.Initialize (Self            => Self,
@@ -32,7 +32,7 @@ package body Model.Types.Array_Def is
      Contained_Type  : in     String;
      Index_Type      : in     String;
      Defined_Range   : in     String;
-     Visibility      : in     Named_Element.Visibility_T)
+     Visibility      : in     Named_Element.Element_Visibility_T)
     return not null access Object_T'Class
   is
     Obj_Array : constant access Object_T := new Object_T;

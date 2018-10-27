@@ -8,7 +8,7 @@ package body Model.Types.Interface_Def is
      Owner_Package     : not null access Package_Def.Object_T'Class;
      Parent_Interfaces : in              Model.Types.Interface_Def.Vector_T :=
        Model.Types.Interface_Def.Vectors.Empty_Vector;
-     Visibility        : in              Named_Element.Visibility_T)
+     Visibility        : in              Named_Element.Element_Visibility_T)
   is
   begin
     Parent_Pkg.Initialize
@@ -28,7 +28,7 @@ package body Model.Types.Interface_Def is
     (Name              : in              String;
      Owner_Package     : not null access Package_Def.Object_T'Class;
      Parent_Interfaces : in              Vector_T := Vectors.Empty_Vector;
-     Visibility        : in              Named_Element.Visibility_T)
+     Visibility        : in              Named_Element.Element_Visibility_T)
     return not null access Object_T'Class
   is
     Object : constant access Object_T := new Object_T;

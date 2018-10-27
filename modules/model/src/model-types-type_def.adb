@@ -4,7 +4,7 @@ package body Model.Types.Type_Def is
     (Self            : in out Object_T'Class;
      Name            : in     String;
      Owner_Namespace : access Namespace.Object_T'Class;
-     Visibility      : in     Named_Element.Visibility_T)
+     Visibility      : in     Named_Element.Element_Visibility_T)
   is
   begin
     Parent_Pkg.Initialize (Self            => Self,
