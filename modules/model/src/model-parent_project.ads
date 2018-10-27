@@ -3,7 +3,7 @@ with Ada.Containers.Vectors;
 limited with Model.Visitor;
 with Model.Project;
 
-package Model.Root_Project is
+package Model.Parent_Project is
 
   package Parent_Pkg renames Model.Project;
 
@@ -82,4 +82,4 @@ private
     return Project.Vector_T
     is (Self.Subprojects);
 
-end Model.Root_Project;
+end Model.Parent_Project;

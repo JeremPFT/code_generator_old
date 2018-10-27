@@ -2,7 +2,7 @@
 --  with Ada.Text_IO;
 with Model.Visitor;
 
-package body Model.Root_Project is
+package body Model.Parent_Project is
 
   procedure Initialize
     (Self         : in out Object_T'Class;
@@ -47,14 +47,14 @@ package body Model.Root_Project is
   begin
     for Object of Self.Subprojects loop
       if Object.Get_Name = Name then
-         Result := Object;
+        Result := Object;
       end if;
     end loop;
 
     return Result;
-  --  exception
-  --    when Constraint_Error =>
-  --      raise Constraint_Error with "no subproject with name """ & Name & """";
+    --  exception
+    --    when Constraint_Error =>
+    --      raise Constraint_Error with "no subproject with name """ & Name & """";
   end Get_Subproject;
 
   not overriding
@@ -73,7 +73,7 @@ package body Model.Root_Project is
      Object : in out Visitor.Object_T'Class)
   is
   begin
-    Object.Visit_Root_Project (Self);
+    Object.Visit_Parent_Project (Self);
   end Visit;
 
-end Model.Root_Project;
+end Model.Parent_Project;
