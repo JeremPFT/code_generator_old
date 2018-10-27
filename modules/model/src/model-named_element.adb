@@ -13,4 +13,12 @@ package body Model.Named_Element is
     Self.Visibility      := Visibility;
   end Initialize;
 
+  function Has_Name
+    ( Self : in out Object_T )
+    return Boolean
+  is
+  begin
+    return Self.Name /= null;
+  end Has_Name;
+
 end Model.Named_Element;

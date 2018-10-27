@@ -81,9 +81,9 @@ package Model.Visitor.Printer is
      Object : in out Model.Project.Object_T'Class);
 
   overriding
-  procedure Visit_Root_Project
+  procedure Visit_Parent_Project
     (Self   : in out Object_T;
-     Object : in out Model.Root_Project.Object_T'Class);
+     Object : in out Model.Parent_Project.Object_T'Class);
 
   not overriding
   function To_String

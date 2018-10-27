@@ -5,6 +5,9 @@ with Model.Element;
 
 package Model.Named_Element is
 
+  --  pragma Assertion_Policy ( Check );
+  pragma Assertion_Policy ( Ignore );
+
   -----------------------------------------------------------------------------
   --  types
   -----------------------------------------------------------------------------
@@ -51,6 +54,13 @@ package Model.Named_Element is
      Name            : in     String;
      Owner_Namespace : access Namespace.Object_T'Class;
      Visibility      : in     Visibility_T);
+  pragma Pre ( not Self.Has_Name );
+  pragma Post ( Self.Get_Name = Name );
+
+  not overriding
+  function Has_Name
+    ( Self : in out Object_T )
+    return Boolean;
 
 private
 

@@ -4,7 +4,7 @@ package body Model.Project is
     (Self   : in out Object_T'Class;
      Name   : in     String;
      Kind   : in     String;
-     Parent : access Root_Project.Object_T'Class := null)
+     Parent : access Parent_Project.Object_T'Class := null)
   is
   begin
     Parent_Pkg.Initialize (Self,
@@ -18,7 +18,7 @@ package body Model.Project is
   function Create
     (Name   : in     String;
      Kind   : in     String;
-     Parent : access Root_Project.Object_T'Class := null)
+     Parent : access Parent_Project.Object_T'Class := null)
     return not null access Object_T'Class
   is
     Object : constant access Object_T := new Object_T;

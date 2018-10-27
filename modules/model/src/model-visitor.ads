@@ -9,7 +9,7 @@ limited with Model.Operation;
 limited with Model.Package_Def;
 limited with Model.Parameter;
 limited with Model.Project;
-limited with Model.Root_Project;
+limited with Model.Parent_Project;
 limited with Model.Types.Class_Def;
 limited with Model.Types.Interface_Def;
 
@@ -88,9 +88,9 @@ package Model.Visitor is
      Object : in out Model.Project.Object_T'Class)
     is abstract;
 
-  procedure Visit_Root_Project
+  procedure Visit_Parent_Project
     (Self   : in out Object_T;
-     Object : in out Model.Root_Project.Object_T'Class)
+     Object : in out Model.Parent_Project.Object_T'Class)
     is abstract;
 
 end Model.Visitor;

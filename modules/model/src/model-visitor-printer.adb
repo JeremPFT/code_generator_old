@@ -13,7 +13,7 @@ with Model.Parameter;
 with Model.Project;
 with Model.Types.Class_Def;
 with Model.Types.Interface_Def;
-with Model.Root_Project;
+with Model.Parent_Project;
 
 package body Model.Visitor.Printer is
 
@@ -231,9 +231,9 @@ package body Model.Visitor.Printer is
   -----------------------------------------------------------------------------
 
   overriding
-  procedure Visit_Root_Project
+  procedure Visit_Parent_Project
     (Self   : in out Object_T;
-     Object : in out Model.Root_Project.Object_T'Class)
+     Object : in out Model.Parent_Project.Object_T'Class)
   is
   begin
     Self.Add
@@ -254,7 +254,7 @@ package body Model.Visitor.Printer is
     Self.Add
       ("------------------- VISITOR PRINTER END ------------------" &
          EOL);
-  end Visit_Root_Project;
+  end Visit_Parent_Project;
 
   -----------------------------------------------------------------------------
 
