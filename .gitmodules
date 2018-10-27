@@ -10,9 +10,6 @@
 [submodule "modules/run/build"]
 	path = modules/run/build
 	url = https://github.com/JeremPFT/build.git
-[submodule "modules/string_utils/build"]
-	path = modules/string_utils/build
-	url = https://github.com/JeremPFT/build.git
 [submodule "modules/templates/build"]
 	path = modules/templates/build
 	url = https://github.com/JeremPFT/build.git
