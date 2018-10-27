@@ -3,7 +3,8 @@ MAKE=python.exe ../build/make.py
 all: compil run
 
 check::
-	@$(MAKE) $@
+	echo make file="filename" check
+	@$(MAKE) $@ $(file)
 
 compil::
 	@$(MAKE) $@
